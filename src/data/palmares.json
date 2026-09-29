@@ -1,0 +1,10 @@
+[
+  {
+    "annee": "À compléter",
+    "competition": "Nom de la compétition (ex. championnat de France, open, coupe régionale)",
+    "categorie": "Double, simple, mixte, équipe…",
+    "resultat": "Place obtenue",
+    "joueurs": "Joueuses et joueurs",
+    "aCompleter": true
+  }
+]

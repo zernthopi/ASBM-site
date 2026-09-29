@@ -1,0 +1,1023 @@
+{
+ "maj": "2026-09-29T09:42:01.033Z",
+ "source": "https://coral.ffbabyfoot.fr/tournaments/",
+ "tournois": [
+  {
+   "code": "692NJ7",
+   "nom": "6e Open National du Grand Lyon (ITSF 500)",
+   "debut": "2026-09-26",
+   "fin": "2026-09-27",
+   "ville": "Chasse-sur-Rhône",
+   "pays": "FR",
+   "region": "Auvergne-Rhône-Alpes",
+   "codeRegion": "FRARA",
+   "categorie": "Open National",
+   "groupe": "national",
+   "table": "Bonzini",
+   "lien": "https://app.tablesoccer.org/p/692NJ7",
+   "info": "https://s3.tablesoccer.org/tournament/RSFT/692NJ7/info_package_fr.pdf",
+   "organisateur": {
+    "sigle": "RSFT",
+    "nom": "Rhône Sportif Football de Table"
+   },
+   "statut": "finished",
+   "epreuves": [
+    {
+     "nom": "Open Mixed",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Adam",
+         "Tourmente",
+         "FR",
+         "7D38Y6"
+        ],
+        [
+         "Malika",
+         "Senouci",
+         "FR",
+         "ZYQ8A7"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Kaithline",
+         "Larmigny",
+         "FR",
+         "7KA8W4"
+        ],
+        [
+         "Maxime",
+         "Blin",
+         "FR",
+         "ZX44QZ"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Tom",
+         "Droit",
+         "FR",
+         "6P5JW6"
+        ],
+        [
+         "Clara",
+         "Barbey",
+         "FR",
+         "7KAQGP"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Open Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Tom",
+         "Droit",
+         "FR",
+         "6P5JW6"
+        ],
+        [
+         "Adam",
+         "Tourmente",
+         "FR",
+         "7D38Y6"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "François",
+         "Cheuret",
+         "FR",
+         "625WB6"
+        ],
+        [
+         "Aurélien",
+         "Le Godec",
+         "FR",
+         "ZV2NJZ"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Yoann",
+         "Sicot",
+         "FR",
+         "ZVM2PZ"
+        ],
+        [
+         "Damien",
+         "Willemet",
+         "FR",
+         "Z43NK6"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Women Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Clara",
+         "Barbey",
+         "FR",
+         "7KAQGP"
+        ],
+        [
+         "Ilana",
+         "Robin",
+         "FR",
+         "ZQDKY9"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Caroline",
+         "Osmont",
+         "FR",
+         "7G9G3G"
+        ],
+        [
+         "Clémentine",
+         "Thomar",
+         "FR",
+         "69JEK7"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Anastasia",
+         "Sheykina",
+         "RU",
+         "6P3VM9"
+        ],
+        [
+         "Malika",
+         "Senouci",
+         "FR",
+         "ZYQ8A7"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Senior Over 50 Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Sebastien",
+         "Friedrichs",
+         "FR",
+         "7GPMO7"
+        ],
+        [
+         "Yannick",
+         "Fontaine",
+         "FR",
+         "ZYP4VZ"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Cyril",
+         "Jegu",
+         "FR",
+         "7KY34Z"
+        ],
+        [
+         "Lionel",
+         "Martinez",
+         "FR",
+         "ZV5335"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Cyrille",
+         "Marceau",
+         "FR",
+         "6J8XQ6"
+        ],
+        [
+         "Raphaël",
+         "Poiraud",
+         "FR",
+         "7GPQ97"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Open Singles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Adam",
+         "Tourmente",
+         "FR",
+         "7D38Y6"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Miguel",
+         "Dos Santos Lote",
+         "FR",
+         "ZQ5PV6"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Julien",
+         "Pierron",
+         "FR",
+         "7DEPP6"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Women Singles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Clémentine",
+         "Thomar",
+         "FR",
+         "69JEK7"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Clara",
+         "Barbey",
+         "FR",
+         "7KAQGP"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Anastasia",
+         "Sheykina",
+         "RU",
+         "6P3VM9"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Senior Over 50 Singles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Sebastien",
+         "Friedrichs",
+         "FR",
+         "7GPMO7"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Raphaël",
+         "Poiraud",
+         "FR",
+         "7GPQ97"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Frédéric",
+         "Fleurot",
+         "FR",
+         "6PB35Z"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Junior Under 19 Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Matheo",
+         "Moizan",
+         "FR",
+         "6RELDM"
+        ],
+        [
+         "Augustin",
+         "Le Dantec",
+         "FR",
+         "6P2JWO"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Jean",
+         "Mallet",
+         "FR",
+         "63JEKR"
+        ],
+        [
+         "Valentin",
+         "Grandys",
+         "FR",
+         "ZOEQJD"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Junior Under 19 Singles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Matheo",
+         "Moizan",
+         "FR",
+         "6RELDM"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Jean",
+         "Mallet",
+         "FR",
+         "63JEKR"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Valentin",
+         "Grandys",
+         "FR",
+         "ZOEQJD"
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "code": "7NPA8Z",
+   "nom": "Open Loisir de Nantes",
+   "debut": "2026-09-26",
+   "fin": "2026-09-26",
+   "ville": "Nantes",
+   "pays": "FR",
+   "region": "Pays de la Loire",
+   "codeRegion": "FRPDL",
+   "categorie": "Open Loisir",
+   "groupe": "loisir",
+   "table": "Bonzini",
+   "lien": "https://app.tablesoccer.org/p/7NPA8Z",
+   "info": "https://s3.tablesoccer.org/tournament/NFT/7NPA8Z/info_package_fr.pdf",
+   "organisateur": {
+    "sigle": "NFT",
+    "nom": "Nantes Baby-Foot"
+   },
+   "statut": "finished",
+   "epreuves": [
+    {
+     "nom": "Open Simple",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Antoine",
+         "Bouchaud",
+         "FR",
+         "7GY3OG"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Jérome",
+         "Lecornu",
+         "FR",
+         "Z8N545"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Farid",
+         "Lounas",
+         "FR",
+         "ZBNJPZ"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Open Double",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Vincent",
+         "Lefebvre",
+         "FR",
+         "62D2EB"
+        ],
+        [
+         "Antoine",
+         "Bouchaud",
+         "FR",
+         "7GY3OG"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Brice",
+         "Loarec",
+         "FR",
+         "7DY4J9"
+        ],
+        [
+         "Nicolas",
+         "Fiolleau",
+         "FR",
+         "7GGRDG"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "François",
+         "Mesili",
+         "FR",
+         "7NB4LP"
+        ],
+        [
+         "Farid",
+         "Lounas",
+         "FR",
+         "ZBNJPZ"
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "code": "7DODYZ",
+   "nom": "Open Loisir de Parthenay",
+   "debut": "2026-09-19",
+   "fin": "2026-09-19",
+   "ville": "Parthenay",
+   "pays": "FR",
+   "region": "Nouvelle-Aquitaine",
+   "codeRegion": "FRNAQ",
+   "categorie": "Open Loisir",
+   "groupe": "loisir",
+   "table": "Bonzini",
+   "lien": "https://app.tablesoccer.org/p/7DODYZ",
+   "info": "https://s3.tablesoccer.org/tournament/BFCP79/7DODYZ/info_package_fr.pdf",
+   "organisateur": {
+    "sigle": "BFCP79",
+    "nom": "Baby-foot club de Parthenay"
+   },
+   "statut": "finished",
+   "epreuves": [
+    {
+     "nom": "Open Simple",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Lucas",
+         "Lupi",
+         "FR",
+         "Z8RBAG"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Sylvain",
+         "Neveu",
+         "FR",
+         "7L3RRZ"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Sébastien",
+         "Cailleaudeaux",
+         "FR",
+         "ZV5G8J"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Open Double",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Marie",
+         "Chatillon",
+         "FR",
+         "ZBWYDP"
+        ],
+        [
+         "Lucas",
+         "Lupi",
+         "FR",
+         "Z8RBAG"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Mathieu",
+         "Hudry",
+         "FR",
+         "7L5G5R"
+        ],
+        [
+         "Sylvain",
+         "Neveu",
+         "FR",
+         "7L3RRZ"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Cedric",
+         "Airault",
+         "FR",
+         "ZVO2J6"
+        ],
+        [
+         "Cyril",
+         "Rondeau",
+         "FR",
+         "69PNOD"
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "code": "6EODWZ",
+   "nom": "Open Loisir de Châteaubriant",
+   "debut": "2026-09-19",
+   "fin": "2026-09-19",
+   "ville": "Châteaubriant",
+   "pays": "FR",
+   "region": "Pays de la Loire",
+   "codeRegion": "FRPDL",
+   "categorie": "Open Loisir",
+   "groupe": "loisir",
+   "table": "Bonzini",
+   "lien": "https://app.tablesoccer.org/p/6EODWZ",
+   "info": "https://s3.tablesoccer.org/tournament/CFT44/6EODWZ/info_package_fr.pdf",
+   "organisateur": {
+    "sigle": "CFT44",
+    "nom": "Châteaubriant Football De Table"
+   },
+   "statut": "finished",
+   "epreuves": [
+    {
+     "nom": "Open Simple",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Ewen",
+         "Huchet",
+         "FR",
+         "ZV53JJ"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Jean-Baptiste",
+         "Prystajko",
+         "FR",
+         "6EOWMG"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Thomas",
+         "Delacourt",
+         "FR",
+         "ZMADXZ"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Open Double",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Julien",
+         "Mornet",
+         "FR",
+         "62GPM5"
+        ],
+        [
+         "Jonathan",
+         "Teixeira",
+         "PT",
+         "7LVB4K"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Ronan",
+         "Le Magueresse",
+         "FR",
+         "6RANPA"
+        ],
+        [
+         "Gaetan",
+         "Mathe",
+         "FR",
+         "69BWD6"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Jean-Baptiste",
+         "Prystajko",
+         "FR",
+         "6EOWMG"
+        ],
+        [
+         "Thomas",
+         "Delacourt",
+         "FR",
+         "ZMADXZ"
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "code": "6JGKD6",
+   "nom": "Open Loisir de Parisot",
+   "debut": "2026-09-19",
+   "fin": "2026-09-19",
+   "ville": "Parisot",
+   "pays": "FR",
+   "region": "Occitanie",
+   "codeRegion": "FROCT",
+   "categorie": "Open Loisir",
+   "groupe": "loisir",
+   "table": "Bonzini",
+   "lien": "https://app.tablesoccer.org/p/6JGKD6",
+   "info": "https://s3.tablesoccer.org/tournament/GFBF/6JGKD6/info_package_fr.pdf",
+   "organisateur": {
+    "sigle": "GFBF",
+    "nom": "Guépin Family"
+   },
+   "statut": "finished",
+   "epreuves": [
+    {
+     "nom": "Open Simple",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Steve",
+         "Guepin",
+         "FR",
+         "7L8RR6"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Romain",
+         "Rodiac",
+         "FR",
+         "7L2AR9"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Lameck",
+         "Kanwagi",
+         "UG",
+         "62D2RO"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Open Double",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Bertrand",
+         "Chapot",
+         "FR",
+         "7G9Q94"
+        ],
+        [
+         "Laurent",
+         "Fargues",
+         "FR",
+         "ZVKOKD"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Steve",
+         "Guepin",
+         "FR",
+         "7L8RR6"
+        ],
+        [
+         "Lorenzo",
+         "Guepin",
+         "FR",
+         "6A8PXA"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Thibault",
+         "Ermel",
+         "FR",
+         "7K2KVP"
+        ],
+        [
+         "Romain",
+         "Rodiac",
+         "FR",
+         "7L2AR9"
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "code": "6P3K5Z",
+   "nom": "Open Régional de Saleilles",
+   "debut": "2026-09-12",
+   "fin": "2026-09-12",
+   "ville": "Saleilles",
+   "pays": "FR",
+   "region": "Occitanie",
+   "codeRegion": "FROCT",
+   "categorie": "Open Régional",
+   "groupe": "regional",
+   "table": "Bonzini",
+   "lien": "https://app.tablesoccer.org/p/6P3K5Z",
+   "info": "https://s3.tablesoccer.org/tournament/CFTS/6P3K5Z/info_package_fr.pdf",
+   "organisateur": {
+    "sigle": "CFTS",
+    "nom": "Club de Football de Table Saleillenc"
+   },
+   "statut": "finished",
+   "epreuves": [
+    {
+     "nom": "Open Simple",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "François",
+         "Cheuret",
+         "FR",
+         "625WB6"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Matteo",
+         "Dolci",
+         "FR",
+         "62NLMK"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Joaquim",
+         "Pinheiro",
+         "FR",
+         "ZV82PZ"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Open Double",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Stephane",
+         "Merceron",
+         "FR",
+         "6EOAGL"
+        ],
+        [
+         "Kevin",
+         "Schiffler",
+         "FR",
+         "6R48M6"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Karim",
+         "El Hamdioui",
+         "FR",
+         "6EMLW7"
+        ],
+        [
+         "Jean-Marie",
+         "Blanchard",
+         "FR",
+         "7LRR97"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Frédéric",
+         "Travers",
+         "FR",
+         "ZW8JE6"
+        ],
+        [
+         "Matteo",
+         "Dolci",
+         "FR",
+         "62NLMK"
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

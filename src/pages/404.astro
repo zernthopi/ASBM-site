@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base titre="Page introuvable" description="Cette page n’existe pas ou a été déplacée.">
+  <div class="conteneur introuvable">
+    <p class="introuvable__score nums" aria-hidden="true">404</p>
+    <h1>Cette page est sortie du terrain</h1>
+    <p>L’adresse est peut-être mal saisie, ou la page a été déplacée.</p>
+    <p class="actions">
+      <a class="bouton" href="/">Revenir à l’accueil</a>
+      <a class="bouton bouton--contour" href="/actualites">Voir les actualités</a>
+    </p>
+  </div>
+</Base>
+
+<style>
+  .introuvable { padding-block: var(--e-9); display: grid; gap: var(--e-4); justify-items: start; }
+  .introuvable__score { font-family: var(--f-display); font-weight: 800; font-size: 5rem; line-height: 1; color: var(--bleu); }
+  .introuvable h1 { font-size: var(--t-4); }
+  .actions { display: flex; flex-wrap: wrap; gap: var(--e-3); margin-top: var(--e-3); }
+</style>

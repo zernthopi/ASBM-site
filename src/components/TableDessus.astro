@@ -1,0 +1,110 @@
+---
+// Table de baby-foot vue de dessus, géométrie réelle :
+// 8 barres, 11 joueurs par équipe répartis 1-2-5-3,
+// chaque équipe tient ses barres de son côté (poignées en haut ou en bas).
+const X = [119, 256, 394, 531, 669, 806, 944, 1081];
+const Y: Record<number, number[]> = {
+  1: [350],
+  2: [230, 470],
+  3: [160, 350, 540],
+  5: [126, 238, 350, 462, 574],
+};
+// Ordre des barres depuis le but de gauche
+const barres = [
+  { equipe: 'a', joueurs: 1, role: 'gardien' },
+  { equipe: 'a', joueurs: 2, role: 'défense' },
+  { equipe: 'b', joueurs: 3, role: 'attaque' },
+  { equipe: 'a', joueurs: 5, role: 'milieu' },
+  { equipe: 'b', joueurs: 5, role: 'milieu' },
+  { equipe: 'a', joueurs: 3, role: 'attaque' },
+  { equipe: 'b', joueurs: 2, role: 'défense' },
+  { equipe: 'b', joueurs: 1, role: 'gardien' },
+].map((b, i) => ({ ...b, x: X[i] }));
+---
+<svg
+  class="table-dessus"
+  viewBox="0 -110 1200 920"
+  role="img"
+  aria-labelledby="table-titre"
+>
+  <title id="table-titre">
+    Table de baby-foot vue de dessus : huit barres et onze joueurs par équipe, bleus contre rouges.
+  </title>
+
+  <!-- Caisson -->
+  <rect x="0" y="0" width="1200" height="700" rx="26" class="t-caisson" />
+  <!-- Buts -->
+  <rect x="14" y="275" width="40" height="150" rx="6" class="t-but" />
+  <rect x="1146" y="275" width="40" height="150" rx="6" class="t-but" />
+  <!-- Terrain -->
+  <rect x="50" y="50" width="1100" height="600" rx="6" class="t-tapis" />
+  <g class="t-lignes">
+    <rect x="64" y="64" width="1072" height="572" rx="2" />
+    <line x1="600" y1="64" x2="600" y2="636" />
+    <circle cx="600" cy="350" r="82" />
+    <circle cx="600" cy="350" r="5" class="t-point" />
+    <rect x="64" y="165" width="160" height="370" />
+    <rect x="64" y="250" width="62" height="200" />
+    <rect x="976" y="165" width="160" height="370" />
+    <rect x="1074" y="250" width="62" height="200" />
+  </g>
+
+  <!-- Barres et joueurs -->
+  {barres.map((b) => (
+    <g class={`t-barre t-equipe-${b.equipe}`} data-role={b.role}>
+      {b.equipe === 'a' ? (
+        <>
+          <line x1={b.x} y1="-12" x2={b.x} y2="738" class="t-tige" />
+          <rect x={b.x - 15} y="735" width="30" height="68" rx="12" class="t-poignee" />
+        </>
+      ) : (
+        <>
+          <line x1={b.x} y1="-38" x2={b.x} y2="712" class="t-tige" />
+          <rect x={b.x - 15} y="-103" width="30" height="68" rx="12" class="t-poignee" />
+        </>
+      )}
+      {Y[b.joueurs].map((y) => (
+        <g class="t-joueur">
+          <rect x={b.x - 19} y={y - 29} width="38" height="58" rx="14" />
+          <circle cx={b.x} cy={y} r="12" class="t-tete" />
+        </g>
+      ))}
+    </g>
+  ))}
+
+  <!-- Balle : entre par le côté, s'arrête au centre -->
+  <g class="t-balle">
+    <circle r="13" cx="0" cy="0" />
+  </g>
+</svg>
+
+<style>
+  .table-dessus {
+    width: 100%;
+    height: auto;
+    --fig-a: #2f5be6;
+    --fig-b: #de3b33;
+  }
+  .t-caisson { fill: var(--caisson); }
+  .t-but { fill: #02060e; }
+  .t-tapis { fill: var(--tapis); }
+  .t-lignes { fill: none; stroke: var(--tapis-ligne); stroke-width: 3; opacity: 0.85; }
+  .t-point { fill: var(--tapis-ligne); }
+  .t-tige { stroke: #c3cad6; stroke-width: 10; stroke-linecap: round; }
+  .t-poignee { fill: #1b1f27; stroke: #c3cad6; stroke-width: 2; }
+  .t-equipe-a .t-joueur rect { fill: var(--fig-a); }
+  .t-equipe-b .t-joueur rect { fill: var(--fig-b); }
+  .t-tete { fill: rgb(0 0 0 / 0.28); }
+
+  .t-balle circle { fill: #ffffff; stroke: rgb(0 0 0 / 0.25); stroke-width: 2; }
+  .t-balle { transform: translate(566px, 350px); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .t-balle { animation: entree-balle 1500ms cubic-bezier(0.16, 1, 0.3, 1) 300ms both; }
+  }
+  @keyframes entree-balle {
+    0% { transform: translate(600px, -30px); }
+    55% { transform: translate(585px, 470px); }
+    100% { transform: translate(566px, 350px); }
+  }
+</style>

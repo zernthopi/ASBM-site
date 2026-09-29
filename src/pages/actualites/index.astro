@@ -1,0 +1,71 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import ListeActus from '../../components/ListeActus.astro';
+import { aujourdhui, FORMATS } from '../../lib/format';
+
+const toutes = await getCollection('actualites', ({ data }) => !data.brouillon);
+const auj = aujourdhui();
+const aVenir = toutes
+  .filter((a) => a.data.date >= auj)
+  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
+const passees = toutes
+  .filter((a) => a.data.date < auj)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const formatsTournoi = (['open', 'dyp', 'championnat'] as const).map((f) => ({ id: f, ...FORMATS[f] }));
+---
+<Base
+  titre="Actualités et tournois"
+  description="Tournois à venir (open, DYP), résultats et vie du club de baby-foot ASBM à Marseille."
+>
+  <div class="conteneur">
+    <header class="entete-page">
+      <h1>Actualités et tournois</h1>
+      <p>Les tournois organisés au club, les résultats et les nouvelles de la saison.</p>
+    </header>
+
+    <section aria-labelledby="titre-avenir" class="bloc">
+      <h2 id="titre-avenir">À venir</h2>
+      {aVenir.length > 0 ? (
+        <ListeActus actus={aVenir} />
+      ) : (
+        <p class="doux">Aucun événement annoncé pour le moment.</p>
+      )}
+    </section>
+
+    <section aria-labelledby="titre-formats" class="bloc formats">
+      <h2 id="titre-formats">Les formats de tournoi</h2>
+      <dl>
+        <div>
+          <dt><span class="etiquette etiquette--open">{formatsTournoi[0].court}</span></dt>
+          <dd>Tournoi ouvert à tous. On s’inscrit en équipe constituée (double) ou seul (simple), selon l’annonce.</dd>
+        </div>
+        <div>
+          <dt><span class="etiquette etiquette--dyp">{formatsTournoi[1].court}</span></dt>
+          <dd><em>Draw Your Partner</em> : chacun s’inscrit seul et son partenaire est tiré au sort. La formule idéale pour une première compétition.</dd>
+        </div>
+        <div>
+          <dt><span class="etiquette etiquette--championnat">{formatsTournoi[2].court}</span></dt>
+          <dd>Compétitions officielles organisées par les fédérations (FFBF en France, ITSF à l’international).</dd>
+        </div>
+      </dl>
+    </section>
+
+    {passees.length > 0 && (
+      <section aria-labelledby="titre-passees" class="bloc">
+        <h2 id="titre-passees">Actualités passées</h2>
+        <ListeActus actus={passees} afficherAnnee />
+      </section>
+    )}
+  </div>
+</Base>
+
+<style>
+  .bloc { padding-block: var(--e-6) var(--e-7); }
+  .bloc h2 { font-size: var(--t-3); margin-bottom: var(--e-4); }
+  .formats dl { display: grid; gap: var(--e-4); max-width: var(--mesure); }
+  .formats dl div { display: grid; grid-template-columns: 8.5rem 1fr; gap: var(--e-4); align-items: baseline; }
+  @media (max-width: 30rem) {
+    .formats dl div { grid-template-columns: 1fr; gap: var(--e-1); }
+  }
+</style>

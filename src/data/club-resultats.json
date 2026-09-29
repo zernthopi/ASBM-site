@@ -1,0 +1,1092 @@
+{
+ "maj": "2026-09-29T09:42:01.033Z",
+ "source": "https://coral.ffbabyfoot.fr/tournaments/",
+ "sigle": "ASBM",
+ "joueurs": [
+  {
+   "code": "63D4JK",
+   "prenom": "Jonathan",
+   "nom": "Bonet",
+   "pays": "FR"
+  },
+  {
+   "code": "ZB4BME",
+   "prenom": "Stevens",
+   "nom": "Charabie",
+   "pays": "FR"
+  },
+  {
+   "code": "7LV3WK",
+   "prenom": "Anne",
+   "nom": "Humbert",
+   "pays": "FR"
+  },
+  {
+   "code": "63X25Z",
+   "prenom": "Franck",
+   "nom": "Mahy",
+   "pays": "FR"
+  },
+  {
+   "code": "6RG5MZ",
+   "prenom": "Fao",
+   "nom": "Merene",
+   "pays": "FR"
+  },
+  {
+   "code": "ZQJEE8",
+   "prenom": "Thomas",
+   "nom": "Pichon",
+   "pays": "FR"
+  },
+  {
+   "code": "7DY94B",
+   "prenom": "Nicolas",
+   "nom": "Robert",
+   "pays": "FR"
+  }
+ ],
+ "tournois": [
+  {
+   "code": "692NJ7",
+   "nom": "6e Open National du Grand Lyon (ITSF 500)",
+   "debut": "2026-09-26",
+   "fin": "2026-09-27",
+   "ville": "Chasse-sur-Rhône",
+   "pays": "FR",
+   "categorie": "ITSF 500",
+   "table": "Bonzini",
+   "lien": "https://app.tablesoccer.org/p/692NJ7",
+   "epreuves": [
+    {
+     "nom": "Open Mixed",
+     "equipes": 25,
+     "classements": [
+      {
+       "rang": 16,
+       "joueurs": [
+        [
+         "Anne",
+         "Humbert",
+         "FR",
+         "7LV3WK"
+        ],
+        [
+         "Thierry",
+         "Cazenave",
+         "FR",
+         "ZOJ387"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Open Doubles",
+     "equipes": 118,
+     "classements": [
+      {
+       "rang": 16,
+       "joueurs": [
+        [
+         "Fao",
+         "Merene",
+         "FR",
+         "6RG5MZ"
+        ],
+        [
+         "Kacem",
+         "Bessam",
+         "FR",
+         "7L83R6"
+        ]
+       ]
+      },
+      {
+       "rang": 19,
+       "joueurs": [
+        [
+         "Franck",
+         "Mahy",
+         "FR",
+         "63X25Z"
+        ],
+        [
+         "Jean-Paul",
+         "Maniquaire",
+         "FR",
+         "ZBND3Z"
+        ]
+       ]
+      },
+      {
+       "rang": 48,
+       "joueurs": [
+        [
+         "Nicolas",
+         "Robert",
+         "FR",
+         "7DY94B"
+        ],
+        [
+         "Thomas",
+         "Pichon",
+         "FR",
+         "ZQJEE8"
+        ]
+       ]
+      },
+      {
+       "rang": 58,
+       "joueurs": [
+        [
+         "Jonathan",
+         "Bonet",
+         "FR",
+         "63D4JK"
+        ],
+        [
+         "Marc",
+         "Franchi",
+         "FR",
+         "Z8QN47"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Women Doubles",
+     "equipes": 12,
+     "classements": [
+      {
+       "rang": 10,
+       "joueurs": [
+        [
+         "Anne",
+         "Humbert",
+         "FR",
+         "7LV3WK"
+        ],
+        [
+         "Angélique",
+         "Lecourtois",
+         "FR",
+         "7KYMNZ"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Open Singles",
+     "equipes": 194,
+     "classements": [
+      {
+       "rang": 64,
+       "joueurs": [
+        [
+         "Jonathan",
+         "Bonet",
+         "FR",
+         "63D4JK"
+        ]
+       ]
+      },
+      {
+       "rang": 164,
+       "joueurs": [
+        [
+         "Thomas",
+         "Pichon",
+         "FR",
+         "ZQJEE8"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Women Singles",
+     "equipes": 23,
+     "classements": [
+      {
+       "rang": 13,
+       "joueurs": [
+        [
+         "Anne",
+         "Humbert",
+         "FR",
+         "7LV3WK"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Senior Over 50 Singles",
+     "equipes": 49,
+     "classements": [
+      {
+       "rang": 23,
+       "joueurs": [
+        [
+         "Nicolas",
+         "Robert",
+         "FR",
+         "7DY94B"
+        ]
+       ]
+      },
+      {
+       "rang": 24,
+       "joueurs": [
+        [
+         "Franck",
+         "Mahy",
+         "FR",
+         "63X25Z"
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "code": "63PVK7",
+   "nom": "Open Loisir de Bordeaux",
+   "debut": "2026-06-20",
+   "fin": "2026-06-20",
+   "ville": "Mérignac",
+   "pays": "FR",
+   "categorie": "Open Loisir",
+   "table": "Bonzini",
+   "lien": "https://app.tablesoccer.org/p/63PVK7",
+   "epreuves": [
+    {
+     "nom": "Open Simple",
+     "equipes": 37,
+     "classements": [
+      {
+       "rang": 27,
+       "joueurs": [
+        [
+         "Thomas",
+         "Pichon",
+         "FR",
+         "ZQJEE8"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Open Double",
+     "equipes": 20,
+     "classements": [
+      {
+       "rang": 12,
+       "joueurs": [
+        [
+         "Thomas",
+         "Pichon",
+         "FR",
+         "ZQJEE8"
+        ],
+        [
+         "Xavier",
+         "Claverie",
+         "FR",
+         "6JNORV"
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "code": "ZMGRXZ",
+   "nom": "Open Régional de Sauveterre",
+   "debut": "2026-06-13",
+   "fin": "2026-06-13",
+   "ville": "Sauveterre",
+   "pays": "FR",
+   "categorie": "Open Régional",
+   "table": "Bonzini",
+   "lien": "https://app.tablesoccer.org/p/ZMGRXZ",
+   "epreuves": [
+    {
+     "nom": "Open Simple",
+     "equipes": 30,
+     "classements": [
+      {
+       "rang": 18,
+       "joueurs": [
+        [
+         "Thomas",
+         "Pichon",
+         "FR",
+         "ZQJEE8"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Open Double",
+     "equipes": 16,
+     "classements": [
+      {
+       "rang": 13,
+       "joueurs": [
+        [
+         "Thomas",
+         "Pichon",
+         "FR",
+         "ZQJEE8"
+        ],
+        [
+         "Fao",
+         "Merene",
+         "FR",
+         "6RG5MZ"
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "code": "7L5JM6",
+   "nom": "World Series Bonzini 2026",
+   "debut": "2026-06-04",
+   "fin": "2026-06-07",
+   "ville": "Orléans",
+   "pays": "FR",
+   "categorie": "World Series",
+   "table": "Bonzini",
+   "lien": "https://app.tablesoccer.org/p/ws-bonzini-2026",
+   "epreuves": [
+    {
+     "nom": "Open Mixed",
+     "equipes": 75,
+     "classements": [
+      {
+       "rang": 13,
+       "joueurs": [
+        [
+         "Franck",
+         "Mahy",
+         "FR",
+         "63X25Z"
+        ],
+        [
+         "Sandrine",
+         "Feray",
+         "FR",
+         "ZOPGQ3"
+        ]
+       ]
+      },
+      {
+       "rang": 32,
+       "joueurs": [
+        [
+         "Anne",
+         "Humbert",
+         "FR",
+         "7LV3WK"
+        ],
+        [
+         "Axel",
+         "Berlemont",
+         "FR",
+         "63PQKK"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Open Classic",
+     "equipes": 178,
+     "classements": [
+      {
+       "rang": 39,
+       "joueurs": [
+        [
+         "Fao",
+         "Merene",
+         "FR",
+         "6RG5MZ"
+        ],
+        [
+         "Kacem",
+         "Bessam",
+         "FR",
+         "7L83R6"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Men Singles",
+     "equipes": 385,
+     "classements": [
+      {
+       "rang": 233,
+       "joueurs": [
+        [
+         "Thomas",
+         "Pichon",
+         "FR",
+         "ZQJEE8"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Senior O50 Singles",
+     "equipes": 96,
+     "classements": [
+      {
+       "rang": 19,
+       "joueurs": [
+        [
+         "Franck",
+         "Mahy",
+         "FR",
+         "63X25Z"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Women O50 Singles",
+     "equipes": 17,
+     "classements": [
+      {
+       "rang": 7,
+       "joueurs": [
+        [
+         "Anne",
+         "Humbert",
+         "FR",
+         "7LV3WK"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Open Doubles",
+     "equipes": 233,
+     "classements": [
+      {
+       "rang": 53,
+       "joueurs": [
+        [
+         "Thomas",
+         "Pichon",
+         "FR",
+         "ZQJEE8"
+        ],
+        [
+         "Fao",
+         "Merene",
+         "FR",
+         "6RG5MZ"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Women Doubles",
+     "equipes": 40,
+     "classements": [
+      {
+       "rang": 30,
+       "joueurs": [
+        [
+         "Anne",
+         "Humbert",
+         "FR",
+         "7LV3WK"
+        ],
+        [
+         "Angélique",
+         "Lecourtois",
+         "FR",
+         "7KYMNZ"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Senior O50 Doubles",
+     "equipes": 42,
+     "classements": [
+      {
+       "rang": 8,
+       "joueurs": [
+        [
+         "Franck",
+         "Mahy",
+         "FR",
+         "63X25Z"
+        ],
+        [
+         "Andy",
+         "Coesens",
+         "BE",
+         "6AYV8B"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "ITSF League - Women",
+     "equipes": 9,
+     "classements": [
+      {
+       "rang": 4,
+       "joueurs": [
+        [
+         "Anne",
+         "Humbert",
+         "FR",
+         "7LV3WK"
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "code": "6A8XR6",
+   "nom": "Open Régional de Saleilles",
+   "debut": "2026-05-23",
+   "fin": "2026-05-23",
+   "ville": "Saleilles",
+   "pays": "FR",
+   "categorie": "Open Régional",
+   "table": "Bonzini",
+   "lien": "https://app.tablesoccer.org/p/6A8XR6",
+   "epreuves": [
+    {
+     "nom": "Open Simple",
+     "equipes": 52,
+     "classements": [
+      {
+       "rang": 26,
+       "joueurs": [
+        [
+         "Thomas",
+         "Pichon",
+         "FR",
+         "ZQJEE8"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Open Double",
+     "equipes": 27,
+     "classements": [
+      {
+       "rang": 19,
+       "joueurs": [
+        [
+         "Thomas",
+         "Pichon",
+         "FR",
+         "ZQJEE8"
+        ],
+        [
+         "Matis",
+         "Leroy",
+         "FR",
+         "6P2DAG"
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "code": "6PDXG6",
+   "nom": "Championnat de France Individuel 2025/2026 - La Chapelle sur Erdre",
+   "debut": "2026-05-01",
+   "fin": "2026-05-03",
+   "ville": "La Chapelle-sur-Erdre",
+   "pays": "FR",
+   "categorie": "Championnats de France Individuels",
+   "table": "Bonzini",
+   "lien": "https://app.tablesoccer.org/p/cdf-indiv-2026",
+   "epreuves": [
+    {
+     "nom": "Double Mixte",
+     "equipes": 35,
+     "classements": [
+      {
+       "rang": 6,
+       "joueurs": [
+        [
+         "Franck",
+         "Mahy",
+         "FR",
+         "63X25Z"
+        ],
+        [
+         "Sandrine",
+         "Feray",
+         "FR",
+         "ZOPGQ3"
+        ]
+       ]
+      },
+      {
+       "rang": 17,
+       "joueurs": [
+        [
+         "Anne",
+         "Humbert",
+         "FR",
+         "7LV3WK"
+        ],
+        [
+         "Axel",
+         "Berlemont",
+         "FR",
+         "63PQKK"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Double Féminin",
+     "equipes": 20,
+     "classements": [
+      {
+       "rang": 10,
+       "joueurs": [
+        [
+         "Anne",
+         "Humbert",
+         "FR",
+         "7LV3WK"
+        ],
+        [
+         "Angélique",
+         "Lecourtois",
+         "FR",
+         "7KYMNZ"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Double Vétéran O50",
+     "equipes": 26,
+     "classements": [
+      {
+       "rang": 5,
+       "joueurs": [
+        [
+         "Franck",
+         "Mahy",
+         "FR",
+         "63X25Z"
+        ],
+        [
+         "Hugo",
+         "Inglese",
+         "FR",
+         "62OONR"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Simple Féminin",
+     "equipes": 35,
+     "classements": [
+      {
+       "rang": 16,
+       "joueurs": [
+        [
+         "Anne",
+         "Humbert",
+         "FR",
+         "7LV3WK"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Simple Féminin Vétéran",
+     "equipes": 6,
+     "classements": [
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Anne",
+         "Humbert",
+         "FR",
+         "7LV3WK"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Simple Vétéran O50",
+     "equipes": 53,
+     "classements": [
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Franck",
+         "Mahy",
+         "FR",
+         "63X25Z"
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "code": "ZOXD3Z",
+   "nom": "Open Régional de Marseille",
+   "debut": "2026-04-25",
+   "fin": "2026-04-25",
+   "ville": "Marseille",
+   "pays": "FR",
+   "categorie": "Open Régional",
+   "table": "Bonzini",
+   "lien": "https://app.tablesoccer.org/p/ZOXD3Z",
+   "epreuves": [
+    {
+     "nom": "Open Simple",
+     "equipes": 36,
+     "classements": [
+      {
+       "rang": 16,
+       "joueurs": [
+        [
+         "Nicolas",
+         "Robert",
+         "FR",
+         "7DY94B"
+        ]
+       ]
+      },
+      {
+       "rang": 28,
+       "joueurs": [
+        [
+         "Thomas",
+         "Pichon",
+         "FR",
+         "ZQJEE8"
+        ]
+       ]
+      },
+      {
+       "rang": 36,
+       "joueurs": [
+        [
+         "Anne",
+         "Humbert",
+         "FR",
+         "7LV3WK"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Open Double",
+     "equipes": 19,
+     "classements": [
+      {
+       "rang": 6,
+       "joueurs": [
+        [
+         "Fao",
+         "Merene",
+         "FR",
+         "6RG5MZ"
+        ],
+        [
+         "Kevin",
+         "Esenci",
+         "FR",
+         "ZO8E87"
+        ]
+       ]
+      },
+      {
+       "rang": 12,
+       "joueurs": [
+        [
+         "Nicolas",
+         "Robert",
+         "FR",
+         "7DY94B"
+        ],
+        [
+         "Thomas",
+         "Pichon",
+         "FR",
+         "ZQJEE8"
+        ]
+       ]
+      },
+      {
+       "rang": 17,
+       "joueurs": [
+        [
+         "Anne",
+         "Humbert",
+         "FR",
+         "7LV3WK"
+        ],
+        [
+         "Cedric",
+         "Nicolau",
+         "FR",
+         "6JNDMQ"
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "code": "Z8PL4Z",
+   "nom": "Open Régional de Saleilles",
+   "debut": "2026-04-04",
+   "fin": "2026-04-04",
+   "ville": "Saleilles",
+   "pays": "FR",
+   "categorie": "Open Régional",
+   "table": "Bonzini",
+   "lien": "https://app.tablesoccer.org/p/Z8PL4Z",
+   "epreuves": [
+    {
+     "nom": "Open Simple",
+     "equipes": 38,
+     "classements": [
+      {
+       "rang": 32,
+       "joueurs": [
+        [
+         "Thomas",
+         "Pichon",
+         "FR",
+         "ZQJEE8"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Open Double",
+     "equipes": 24,
+     "classements": [
+      {
+       "rang": 12,
+       "joueurs": [
+        [
+         "Thomas",
+         "Pichon",
+         "FR",
+         "ZQJEE8"
+        ],
+        [
+         "Fao",
+         "Merene",
+         "FR",
+         "6RG5MZ"
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "code": "6RAX4Z",
+   "nom": "1er Open National d'Avesnes-les-Aubert (ITSF 250)",
+   "debut": "2026-03-21",
+   "fin": "2026-03-22",
+   "ville": "Caudry",
+   "pays": "FR",
+   "categorie": "ITSF 250",
+   "table": "Bonzini",
+   "lien": "https://app.tablesoccer.org/p/6RAX4Z",
+   "epreuves": [
+    {
+     "nom": "Open Doubles",
+     "equipes": 109,
+     "classements": [
+      {
+       "rang": 43,
+       "joueurs": [
+        [
+         "Fao",
+         "Merene",
+         "FR",
+         "6RG5MZ"
+        ],
+        [
+         "Franck",
+         "Mahy",
+         "FR",
+         "63X25Z"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Senior Over 50 Singles",
+     "equipes": 23,
+     "classements": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Franck",
+         "Mahy",
+         "FR",
+         "63X25Z"
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "code": "6RABMZ",
+   "nom": "Championnat Régional Individuel \"Provence-Alpes-Côte d'Azur\" 2025/2026 - Marseille",
+   "debut": "2026-03-07",
+   "fin": "2026-03-07",
+   "ville": "Marseille",
+   "pays": "FR",
+   "categorie": "Championnat Régional Individuel",
+   "table": "Bonzini",
+   "lien": "https://app.tablesoccer.org/p/6RABMZ",
+   "epreuves": [
+    {
+     "nom": "Simple Masculin",
+     "equipes": 18,
+     "classements": [
+      {
+       "rang": 5,
+       "joueurs": [
+        [
+         "Thomas",
+         "Pichon",
+         "FR",
+         "ZQJEE8"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Simple Vétéran",
+     "equipes": 5,
+     "classements": [
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Nicolas",
+         "Robert",
+         "FR",
+         "7DY94B"
+        ]
+       ]
+      },
+      {
+       "rang": 4,
+       "joueurs": [
+        [
+         "Anne",
+         "Humbert",
+         "FR",
+         "7LV3WK"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Double Masculin",
+     "equipes": 13,
+     "classements": [
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Fao",
+         "Merene",
+         "FR",
+         "6RG5MZ"
+        ],
+        [
+         "Kevin",
+         "Esenci",
+         "FR",
+         "ZO8E87"
+        ]
+       ]
+      },
+      {
+       "rang": 4,
+       "joueurs": [
+        [
+         "Nicolas",
+         "Robert",
+         "FR",
+         "7DY94B"
+        ],
+        [
+         "Thomas",
+         "Pichon",
+         "FR",
+         "ZQJEE8"
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,129 @@
+---
+import Base from '../layouts/Base.astro';
+import Icone from '../components/Icone.astro';
+import club from '../data/club.json';
+
+const icones = { facebook: 'bulle', instagram: 'photo', youtube: 'video' } as const;
+---
+<Base
+  titre="Nos réseaux"
+  description="Suivez l’ASBM, club de baby-foot à Marseille, sur Facebook, Instagram et YouTube : annonces de tournois, photos et vidéos de matchs."
+>
+  <div class="conteneur">
+    <header class="entete-page">
+      <h1>Nos réseaux</h1>
+      <p>Annonces de tournois, photos des soirées et vidéos de matchs : suivez la vie du club au quotidien.</p>
+    </header>
+
+    <ul class="reseaux">
+      {club.reseaux.map((r, i) => (
+        <li class={`reseau reseau--${r.id} sur-marine`}>
+          <p class="reseau__numero nums" aria-hidden="true">0{i + 1}</p>
+          <span class="reseau__pastille" aria-hidden="true"><Icone nom={icones[r.id as keyof typeof icones]} /></span>
+          <h2 class="reseau__nom">{r.nom}</h2>
+          <p class="reseau__compte">{r.compte}</p>
+          <p class="reseau__texte">{r.texte}</p>
+          <a class="bouton reseau__action" href={r.lien} rel="noopener">
+            {r.action} <Icone nom="externe" titre="(site externe)" />
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <section class="bloc-partage" aria-labelledby="titre-partage">
+      <h2 id="titre-partage">Vous jouez au club&nbsp;?</h2>
+      <p>
+        Publiez vos photos et vidéos en indiquant le lieu «&nbsp;Babyfoot Marseille ASBM&nbsp;» sur Instagram ou en
+        mentionnant la page Facebook du club. Pensez à demander l’accord des personnes filmées ou photographiées.
+      </p>
+    </section>
+
+    <section class="bloc-federations" aria-labelledby="titre-federations">
+      <h2 id="titre-federations">Les compétitions en vidéo</h2>
+      <p>Les grandes compétitions sont retransmises en direct et archivées par les fédérations.</p>
+      <ul class="liens-federations">
+        {club.videos.map((v) => (
+          <li><a class="bouton bouton--contour" href={v.lien} rel="noopener">YouTube {v.nom}</a></li>
+        ))}
+      </ul>
+    </section>
+
+    <p class="note-confidentialite">
+      Ces liens ouvrent des sites externes, soumis à leurs propres règles de confidentialité. Le site du club
+      n’intègre aucun contenu de ces réseaux&nbsp;: aucune donnée n’est transmise tant que vous ne cliquez pas.
+    </p>
+  </div>
+</Base>
+
+<style>
+  .reseaux {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    gap: var(--e-5);
+  }
+  .reseau {
+    position: relative;
+    display: grid;
+    grid-template-rows: auto auto auto 1fr auto;
+    gap: var(--e-2);
+    padding: var(--e-6) var(--e-5) var(--e-5);
+    border-radius: var(--r-plateau);
+    background: var(--marine);
+    color: var(--sur-marine);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  /* Bande de couleur en biseau, rappel du bandeau de la page d'accueil */
+  .reseau::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 0.6rem;
+    background: var(--accent-reseau, var(--ciel));
+  }
+  .reseau--facebook { --accent-reseau: var(--ciel); }
+  .reseau--instagram { --accent-reseau: var(--ciel-clair); }
+  .reseau--youtube { --accent-reseau: var(--rouge); }
+
+  .reseau__numero {
+    position: absolute;
+    right: var(--e-4);
+    top: var(--e-3);
+    z-index: -1;
+    font-family: var(--f-display);
+    font-weight: 800;
+    font-size: 5.5rem;
+    line-height: 1;
+    color: rgb(255 255 255 / 0.08);
+  }
+  .reseau__pastille {
+    display: inline-grid;
+    place-items: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 50%;
+    background: var(--accent-reseau);
+    color: var(--marine);
+    font-size: 1.6rem;
+  }
+  .reseau--youtube .reseau__pastille { color: #fff; }
+  .reseau__nom { font-size: var(--t-4); margin-top: var(--e-2); color: var(--sur-marine); }
+  .reseau__compte { font-weight: 700; color: var(--ciel-clair); }
+  .reseau__texte { color: var(--sur-marine-doux); max-width: 34ch; }
+  .reseau__action { justify-self: start; margin-top: var(--e-3); display: inline-flex; align-items: center; gap: var(--e-2); }
+
+  .bloc-partage,
+  .bloc-federations {
+    margin-top: var(--e-7);
+    max-width: 62ch;
+  }
+  .bloc-partage h2,
+  .bloc-federations h2 { font-size: var(--t-3); }
+  .bloc-partage p,
+  .bloc-federations p { margin-top: var(--e-2); }
+  .bloc-partage { padding-left: var(--e-5); border-left: 6px solid var(--ciel); }
+  .liens-federations { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: var(--e-3); margin-top: var(--e-4); }
+  .note-confidentialite { margin-top: var(--e-7); font-size: var(--t-0); color: var(--doux); max-width: 70ch; }
+</style>

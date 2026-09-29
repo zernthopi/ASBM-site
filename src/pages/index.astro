@@ -1,0 +1,377 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import BabyfootInteractif from '../components/BabyfootInteractif.astro';
+import ListeActus from '../components/ListeActus.astro';
+import Icone from '../components/Icone.astro';
+import GaleriePhotos from '../components/GaleriePhotos.astro';
+import club from '../data/club.json';
+import { aujourdhui, heureFr, jourMois, jourSemaine, isoDate, dateLongue, FORMATS, insecable, plageDates } from '../lib/format';
+import { evenementsClub, libelleCategorie } from '../lib/competitions';
+
+const toutes = (await getCollection('actualites', ({ data }) => !data.brouillon))
+  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
+const auj = aujourdhui();
+// Prochain rendez-vous : annonce du site ou compétition officielle organisée par le club (calendrier FFBF)
+const aVenir = (await evenementsClub()).filter((e) => !e.termine);
+const prochainEvt = aVenir[0];
+const prochain = prochainEvt?.source === 'club' ? toutes.find((a) => `/actualites/${a.id}` === prochainEvt.lien) : undefined;
+const ensuite = aVenir.slice(1, 4);
+const recentes = [...toutes].reverse().filter((a) => a !== prochain).slice(0, 3);
+const dateEvt = prochainEvt ? new Date(`${prochainEvt.debut}T12:00:00Z`) : null;
+const dp = dateEvt ? jourMois(dateEvt) : null;
+
+const ouverts = club.horaires.filter((h) => h.ouverture);
+const plage = `${heureFr(ouverts[0].ouverture!)} – ${heureFr(ouverts[0].fermeture!)}`;
+const bonzini = club.tables.find((t) => t.marque === 'Bonzini');
+const leonhart = club.tables.find((t) => t.marque === 'Leonhart');
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SportsClub',
+  name: `${club.nomLong} (${club.nomCourt})`,
+  alternateName: club.nomUsage,
+  sport: 'Baby-foot (football de table)',
+  foundingDate: club.fondation,
+  telephone: club.contact.telephoneE164,
+  email: club.contact.email,
+  sameAs: [club.contact.facebook, club.contact.instagram, club.contact.youtube],
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: club.adresse.rue,
+    postalCode: club.adresse.codePostal,
+    addressLocality: club.adresse.ville,
+    addressCountry: 'FR',
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: club.adresse.latitude, longitude: club.adresse.longitude },
+  openingHoursSpecification: ouverts.map((h) => ({
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: `https://schema.org/${{ Mo: 'Monday', We: 'Wednesday', Fr: 'Friday' }[h.code]}`,
+    opens: h.ouverture,
+    closes: h.fermeture,
+  })),
+};
+---
+<Base
+  titre={club.nomUsage}
+  description="Club de baby-foot à Marseille (4e) depuis 1993 : loisir et compétition sur 9 tables, le lundi, le mercredi et le vendredi de 18 h à 22 h."
+  jsonLd={jsonLd}
+>
+  <section class="hero sur-marine" aria-labelledby="titre-accueil">
+    <div class="conteneur hero__grille">
+      <div class="hero__texte">
+        <h1 id="titre-accueil">
+          <span class="hero__ligne">Le <span class="insecable">baby-foot</span></span>
+          <span class="hero__ligne hero__ville">à Marseille</span>
+        </h1>
+        <p class="hero__accroche">Loisir et compétition depuis 1993, sur neuf tables de compétition.</p>
+
+        <div class="affichage">
+          <p class="sr-only">Ouvert le lundi, le mercredi et le vendredi, {plage}.</p>
+          <ul class="affichage__jours" aria-hidden="true">
+            <li>Lun</li><li>Mer</li><li>Ven</li>
+          </ul>
+          <p class="affichage__heure nums" aria-hidden="true">{plage}</p>
+        </div>
+
+        <p class="hero__adresse">
+          <Icone nom="lieu" />
+          <span>{club.adresse.rue}, Marseille 4<sup>e</sup><br />Tram T2, arrêt Foch Sakakini</span>
+        </p>
+
+        <div class="hero__actions">
+          <a class="bouton" href="/acces">Venir jouer</a>
+          <a class="bouton bouton--contour" href="/actualites">Les tournois</a>
+        </div>
+      </div>
+
+      <div class="hero__jeu">
+        <BabyfootInteractif />
+      </div>
+    </div>
+  </section>
+
+  <section class="section conteneur prochain" aria-labelledby="titre-prochain">
+    <h2 id="titre-prochain">Prochain rendez-vous</h2>
+    {prochainEvt && dp && dateEvt ? (
+      <article class="match">
+        <p class="match__date nums">
+          <time datetime={prochainEvt.debut}>
+            <span class="match__jour">{dp.jour}</span>
+            <span class="match__mois">{dp.mois}</span>
+            <span class="sr-only">{dateLongue(dateEvt)}</span>
+          </time>
+        </p>
+        <div class="match__corps">
+          <p class="match__meta">
+            <span class={`etiquette etiquette--${prochainEvt.etiquette}`}>
+              {prochainEvt.source === 'ffbf' ? `${libelleCategorie(prochainEvt.categorie)} FFBF` : FORMATS[prochainEvt.etiquette].long}
+            </span>
+            <span class="match__heure">{jourSemaine(dateEvt)}{prochainEvt.heure && `, ${prochainEvt.heure}`}</span>
+          </p>
+          <h3>
+            <a href={prochainEvt.lien} rel={prochainEvt.externe ? 'noopener' : undefined} set:html={insecable(prochainEvt.titre)} />
+          </h3>
+          <p class="match__resume">{prochainEvt.resume || (prochainEvt.lieu ? `${prochainEvt.lieu}. Inscription sur la plateforme de la FFBF.` : '')}</p>
+        </div>
+        <a class="bouton match__action" href={prochainEvt.lien} rel={prochainEvt.externe ? 'noopener' : undefined} aria-hidden="true" tabindex="-1">
+          {prochainEvt.externe ? 'Inscription et infos' : 'Voir l’annonce'}
+        </a>
+      </article>
+    ) : (
+      <p class="doux">Aucun tournoi n’est annoncé pour le moment. Les prochaines dates seront publiées ici et sur <a href="/reseaux">nos réseaux</a>.</p>
+    )}
+    {ensuite.length > 0 && (
+      <div class="ensuite">
+        <h3 class="ensuite__titre">Ensuite au club</h3>
+        <ul class="ensuite__liste">
+          {ensuite.map((e) => (
+            <li>
+              <span class="ensuite__date nums">{plageDates(e.debut, e.fin)}</span>
+              <span class="ensuite__nom">{e.titre}</span>
+            </li>
+          ))}
+        </ul>
+        <p><a href="/competitions#club">Tout le calendrier du club</a></p>
+      </div>
+    )}
+    {recentes.length > 0 && (
+      <div class="prochain__autres">
+        <h3 class="sr-only">Autres actualités</h3>
+        <ListeActus actus={recentes} />
+        <p><a href="/actualites">Toutes les actualités</a></p>
+      </div>
+    )}
+  </section>
+
+  <section class="chiffres" aria-labelledby="titre-chiffres">
+    <div class="conteneur">
+      <h2 id="titre-chiffres" class="sr-only">Le club en chiffres</h2>
+      <ul class="chiffres__liste">
+        <li><strong class="nums">{bonzini?.nombre}</strong><span>tables Bonzini de compétition, neuves</span></li>
+        <li><strong class="nums">{leonhart?.nombre}</strong><span>table allemande Leonhart homologuée ITSF</span></li>
+        <li><strong class="nums">{ouverts.length}</strong><span>soirs d’entraînement par semaine</span></li>
+        <li><strong class="nums">1993</strong><span>année de création du club</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section conteneur" aria-labelledby="titre-photos">
+    <h2 id="titre-photos">Au club</h2>
+    <div class="photos"><GaleriePhotos /></div>
+  </section>
+
+  <section class="section conteneur" aria-labelledby="titre-jouer">
+    <h2 id="titre-jouer">Deux façons de jouer</h2>
+    <div class="facons">
+      <div class="facon facon--loisir">
+        <h3>Loisir</h3>
+        <p>Venez jouer entre amis, apprendre les gestes de base et progresser à votre rythme.</p>
+        <p><a href="/acces">Horaires et accès</a></p>
+      </div>
+      <div class="facon facon--competition sur-marine">
+        <h3>Compétition</h3>
+        <p>
+          Entraînements, tournois DYP et open au club, préparation aux compétitions.
+          Les matchs se jouent selon les règles officielles de la FFBF et de l’ITSF.
+        </p>
+        <p><a href="/reglement">Règlement et fédérations</a></p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ---------- Bandeau d'accueil ---------- */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: var(--marine);
+    color: var(--sur-marine);
+    padding-block: var(--e-7) calc(var(--e-8) + var(--biseau));
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--biseau)), 0 100%);
+  }
+  .hero__grille {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.5fr);
+    gap: var(--e-7);
+    align-items: center;
+  }
+  .hero h1 { font-size: clamp(2.9rem, 1.4rem + 4.2vw, 5rem); line-height: 0.92; }
+  .hero__ligne { display: block; }
+  .hero__ville { color: var(--ciel); }
+  .hero__accroche { font-size: var(--t-2); color: var(--sur-marine-doux); max-width: 30ch; margin-top: var(--e-5); line-height: 1.45; }
+
+  .affichage {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: var(--e-2);
+    margin-top: var(--e-6);
+    font-family: var(--f-display);
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+  .affichage__jours { list-style: none; padding: 0; display: flex; gap: var(--e-2); }
+  .affichage__jours li {
+    display: grid;
+    place-items: center;
+    min-width: 3.4rem;
+    padding: 0.35rem 0.6rem;
+    background: var(--ciel);
+    color: var(--marine);
+    font-size: 1.5rem;
+    line-height: 1;
+    border-radius: var(--r-petit);
+  }
+  .affichage__heure {
+    display: grid;
+    place-items: center;
+    padding: 0.35rem 0.9rem;
+    border: 2px solid var(--ciel);
+    color: var(--sur-marine);
+    font-size: 1.5rem;
+    line-height: 1;
+    border-radius: var(--r-petit);
+  }
+
+  .hero__adresse { display: flex; gap: var(--e-3); align-items: flex-start; margin-top: var(--e-5); color: var(--sur-marine); line-height: 1.45; }
+  .hero__adresse .icone { color: var(--ciel-clair); margin-top: 0.15rem; }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: var(--e-3); margin-top: var(--e-6); }
+
+  .hero__jeu { position: relative; }
+  .hero__jeu::before {
+    content: '';
+    position: absolute;
+    top: -12%;
+    bottom: 26%;
+    left: 10%;
+    right: -60vw;
+    background: var(--ciel);
+    transform: skewX(-14deg);
+    z-index: 0;
+  }
+  .hero__jeu > :global(*) { position: relative; z-index: 1; }
+
+  /* ---------- Prochain rendez-vous ---------- */
+  .prochain h2 { font-size: var(--t-4); }
+  .match {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--e-5) var(--e-6);
+    margin-top: var(--e-5);
+    border: 2px solid var(--marine);
+    border-radius: var(--r-plateau);
+    overflow: hidden;
+    background: var(--balle);
+    box-shadow: var(--ombre);
+    padding-right: var(--e-6);
+  }
+  .match__date {
+    align-self: stretch;
+    display: grid;
+    place-items: center;
+    min-width: 8.5rem;
+    padding: var(--e-5) var(--e-4);
+    background: var(--ciel);
+    color: var(--marine);
+    font-family: var(--f-display);
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .match__date time { display: grid; line-height: 0.9; }
+  .match__jour { font-size: 4.5rem; font-weight: 800; }
+  .match__mois { font-size: 1.7rem; font-weight: 800; }
+  .match__corps { padding-block: var(--e-5); }
+  .match__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--e-2) var(--e-3); }
+  .match__heure { font-weight: 700; color: var(--marine); }
+  .match__heure::first-letter { text-transform: uppercase; }
+  .match h3 { font-size: var(--t-4); margin-top: var(--e-2); text-transform: uppercase; }
+  .match h3 a { color: var(--marine); text-decoration: none; }
+  .match h3 a:hover { color: var(--bleu); text-decoration: underline; text-decoration-thickness: 3px; }
+  .match__resume { color: var(--doux); margin-top: var(--e-2); }
+  .ensuite {
+    margin-top: var(--e-4);
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--e-2) var(--e-6);
+    padding: var(--e-4) var(--e-5);
+    border-left: 5px solid var(--ciel);
+    background: var(--surface);
+    border-radius: 0 var(--r-petit) var(--r-petit) 0;
+  }
+  .ensuite__titre { font-size: 1.2rem; text-transform: uppercase; white-space: nowrap; }
+  .ensuite__liste { list-style: none; padding: 0; display: grid; gap: var(--e-1); }
+  .ensuite__liste li { display: flex; gap: var(--e-3); align-items: baseline; }
+  .ensuite__date { flex: none; min-width: 4.2rem; font-family: var(--f-display); font-weight: 800; color: var(--bleu); text-transform: uppercase; }
+  .ensuite__nom { font-weight: 700; }
+  .ensuite p { font-weight: 700; white-space: nowrap; }
+  @media (max-width: 48rem) {
+    .ensuite { grid-template-columns: 1fr; }
+  }
+  .prochain__autres { margin-top: var(--e-7); }
+  .prochain__autres > p { margin-top: var(--e-4); font-weight: 700; }
+
+  /* ---------- Chiffres ---------- */
+  .chiffres {
+    background: var(--ciel);
+    color: var(--marine);
+    padding-block: calc(var(--e-7) + var(--biseau) * 0.6);
+    clip-path: polygon(0 calc(var(--biseau) * 0.6), 100% 0, 100% calc(100% - var(--biseau) * 0.6), 0 100%);
+  }
+  .chiffres__liste {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+    gap: var(--e-6);
+  }
+  .chiffres__liste li { display: grid; gap: var(--e-2); align-content: start; }
+  .chiffres__liste strong {
+    font-family: var(--f-display);
+    font-weight: 800;
+    font-size: clamp(3.5rem, 2.5rem + 3vw, 5.5rem);
+    line-height: 0.85;
+  }
+  .chiffres__liste span { font-weight: 700; font-size: var(--t-2); line-height: 1.3; max-width: 18ch; }
+
+  .photos { margin-top: var(--e-5); }
+
+  /* ---------- Deux façons de jouer ---------- */
+  .facons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+    gap: var(--e-5);
+    margin-top: var(--e-6);
+  }
+  .facon {
+    display: grid;
+    gap: var(--e-3);
+    align-content: start;
+    padding: var(--e-6);
+    border-radius: var(--r-plateau);
+  }
+  .facon h3 { font-size: var(--t-4); text-transform: uppercase; }
+  .facon p:last-child { margin-top: var(--e-2); font-weight: 700; }
+  .facon--loisir { background: var(--surface); color: var(--marine); border-top: 6px solid var(--ciel); }
+  .facon--loisir h3 { color: var(--marine); }
+  .facon--competition { background: var(--marine); color: var(--sur-marine); border-top: 6px solid var(--ciel); }
+  .facon--competition h3 { color: var(--ciel); }
+  .facon--competition a { color: var(--ciel-clair); }
+  .facon--competition a:hover { color: var(--sur-marine); }
+
+  @media (max-width: 62rem) {
+    .hero__grille { grid-template-columns: 1fr; gap: var(--e-6); }
+    .hero__jeu::before { left: 20%; top: -6%; bottom: 30%; }
+  }
+  @media (max-width: 40rem) {
+    .match { grid-template-columns: auto minmax(0, 1fr); padding-right: var(--e-4); }
+    .match__date { min-width: 5.5rem; padding-inline: var(--e-3); }
+    .match__jour { font-size: 3.2rem; }
+    .match__mois { font-size: 1.3rem; }
+    .match__action { display: none; }
+    .match h3 { font-size: var(--t-3); }
+  }
+</style>

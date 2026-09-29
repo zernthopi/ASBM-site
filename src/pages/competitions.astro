@@ -1,0 +1,829 @@
+---
+import Base from '../layouts/Base.astro';
+import Icone from '../components/Icone.astro';
+import Drapeau from '../components/Drapeau.astro';
+import VignetteTable from '../components/VignetteTable.astro';
+import club from '../data/club.json';
+import itsfCal from '../data/itsf-calendrier.json';
+import itsfRes from '../data/itsf-resultats.json';
+import ffbfCal from '../data/ffbf-calendrier.json';
+import ffbfRes from '../data/ffbf-resultats.json';
+import clubRes from '../data/club-resultats.json';
+import { nomPays, plageDates, moisAnnee, dateLongue, jourCourt, jourMoisIso, isoDate, aujourdhui, insecable } from '../lib/format';
+import { classeCategorie, libelleCategorie, place, evenementsClub, libelleTable, slugTable, marquesPresentes } from '../lib/competitions';
+
+const auj = isoDate(aujourdhui());
+const sigle = club.sigleFederal;
+
+function parMois<T extends { debut: string }>(liste: T[]) {
+  const groupes: { mois: string; tournois: T[] }[] = [];
+  for (const t of liste) {
+    const m = moisAnnee(t.debut);
+    const dernier = groupes[groupes.length - 1];
+    if (dernier && dernier.mois === m) dernier.tournois.push(t);
+    else groupes.push({ mois: m, tournois: [t] });
+  }
+  return groupes;
+}
+
+// ---- Calendrier du club
+const evenements = await evenementsClub();
+const clubAVenir = evenements.filter((e) => !e.termine);
+const clubJoues = evenements.filter((e) => e.termine).reverse();
+
+// ---- Calendrier FFBF (tournois à venir de la saison)
+const ffbfAVenir = ffbfCal.tournois.filter((t) => t.statut !== 'finished' && t.fin >= auj);
+const moisFfbf = parMois(ffbfAVenir);
+const GROUPES = [
+  { id: 'loisir', libelle: 'Open Loisir' },
+  { id: 'regional', libelle: 'Régionaux' },
+  { id: 'national', libelle: 'Nationaux' },
+  { id: 'championnat', libelle: 'Championnats' },
+];
+const nbGroupe = (g: string) => ffbfAVenir.filter((t) => t.groupe === g).length;
+const regionClub = ffbfCal.tournois.find((t) => t.organisateur.sigle === sigle && t.codeRegion)?.codeRegion || 'FRPAC';
+const libelleRegion = regionClub === 'FRPAC' ? 'PACA' : ffbfCal.tournois.find((t) => t.codeRegion === regionClub)?.region || regionClub;
+const nbRegion = ffbfAVenir.filter((t) => t.codeRegion === regionClub).length;
+const marquesFfbf = marquesPresentes(ffbfAVenir);
+
+// ---- Calendrier ITSF
+const moisItsf = parMois(itsfCal.tournois);
+const nbFrance = itsfCal.tournois.filter((t) => t.pays === 'FR').length;
+const marquesItsf = marquesPresentes(itsfCal.tournois);
+
+// ---- Résultats : ITSF et FFBF fusionnés (un tournoi peut compter pour les deux circuits)
+type Joueur = string[];
+type Resultat = {
+  code: string; nom: string; debut: string; fin: string; ville: string; pays: string;
+  categorie: string; table: string; lien: string;
+  epreuves: { nom: string; podium: { rang: number; joueurs: Joueur[] }[] }[];
+  sources: string[];
+};
+const fusion = new Map<string, Resultat>();
+for (const t of itsfRes.tournois) fusion.set(t.code, { ...t, sources: ['itsf'] });
+for (const t of ffbfRes.tournois) {
+  const deja = fusion.get(t.code);
+  if (deja) deja.sources.push('ffbf');
+  else fusion.set(t.code, { ...t, sources: ['ffbf'] });
+}
+const resultats = [...fusion.values()].sort((a, b) => b.fin.localeCompare(a.fin));
+const marquesResultats = marquesPresentes([...resultats, ...clubRes.tournois]);
+
+const codesClub = new Set(clubRes.joueurs.map((j) => j.code));
+const estClub = (j: Joueur) => codesClub.has(j[3]);
+const nomJoueur = (j: Joueur) => (j[0] || j[1] ? `${j[0] ?? ''} ${j[1] ?? ''}`.trim() : nomPays(j[2] || ''));
+const classements = clubRes.tournois.flatMap((t) => t.epreuves.flatMap((e) => e.classements));
+const nbPodiums = classements.filter((c) => c.rang <= 3).length;
+const nbVictoires = classements.filter((c) => c.rang === 1).length;
+const nbJoueurs = clubRes.joueurs.length;
+
+const majLe = dateLongue(new Date(ffbfCal.maj || itsfCal.maj));
+const annee = (iso: string) => iso.slice(0, 4);
+---
+<Base
+  titre="Compétitions : calendriers du club, FFBF et ITSF, résultats"
+  description="Tournois organisés par l’ASBM à Marseille, calendrier de la Fédération française de baby-foot (FFBF), circuit mondial ITSF et derniers résultats des joueurs du club, mis à jour chaque jour."
+>
+  <div class="conteneur">
+    <header class="entete-page">
+      <h1>Compétitions</h1>
+      <p>Les tournois organisés au club, les calendriers français et mondial, et les derniers résultats de nos joueurs, mis à jour automatiquement chaque jour.</p>
+      <p class="maj">
+        Mise à jour du {majLe}. Sources&nbsp;: <a href={ffbfCal.source} rel="noopener">FFBF</a> et <a href={itsfCal.source} rel="noopener">ITSF</a>.
+      </p>
+    </header>
+
+    <div class="onglets" role="tablist" aria-label="Compétitions" data-onglets hidden>
+      <button type="button" role="tab" id="onglet-club" aria-controls="club" aria-selected="true">
+        <span class="onglet__sur">Calendrier</span> <span class="onglet__titre">Club</span>
+      </button>
+      <button type="button" role="tab" id="onglet-ffbf" aria-controls="ffbf" aria-selected="false" tabindex="-1">
+        <span class="onglet__sur">Calendrier</span> <span class="onglet__titre">FFBF</span>
+      </button>
+      <button type="button" role="tab" id="onglet-itsf" aria-controls="itsf" aria-selected="false" tabindex="-1">
+        <span class="onglet__sur">Calendrier</span> <span class="onglet__titre">ITSF</span>
+      </button>
+      <button type="button" role="tab" id="onglet-resultats" aria-controls="resultats" aria-selected="false" tabindex="-1">
+        <span class="onglet__sur">Résultats</span> <span class="onglet__titre">récents</span>
+      </button>
+    </div>
+
+    <!-- ============================== Calendrier du club ============================== -->
+    <section id="club" class="panneau" role="tabpanel" aria-labelledby="onglet-club" tabindex="0">
+      <h2 class="titre-panneau">Calendrier du club</h2>
+      <p class="panneau__intro">
+        Les tournois organisés par l’{club.nomCourt} au club, {club.adresse.rue}&nbsp;: compétitions officielles de la FFBF
+        et tournois du club. L’inscription aux compétitions officielles se fait sur la plateforme de la fédération.
+      </p>
+
+      {clubAVenir.length > 0 ? (
+        <ol class="evts">
+          {clubAVenir.map((e) => {
+            const d = jourMoisIso(e.debut);
+            return (
+              <li class={`evt evt--${e.classe}`}>
+                <time class="evt__date nums" datetime={e.debut}>
+                  <span class="evt__jsem">{jourCourt(e.debut)}</span>
+                  <span class="evt__jour">{d.jour}</span>
+                  <span class="evt__mois">{d.mois} {annee(e.debut)}</span>
+                  <span class="sr-only">{dateLongue(new Date(`${e.debut}T12:00:00Z`))}</span>
+                </time>
+                <div class="evt__corps">
+                  <p class="evt__meta">
+                    <span class={`cat cat--${e.classe}`}>{libelleCategorie(e.categorie)}</span>
+                    <span class="evt__source">{e.source === 'ffbf' ? 'Compétition officielle FFBF' : 'Tournoi du club'}</span>
+                    {e.heure && <span class="evt__heure">{e.heure}</span>}
+                  </p>
+                  <h3 class="evt__titre">
+                    <a href={e.lien} rel={e.externe ? 'noopener' : undefined} set:html={insecable(e.titre)} />
+                  </h3>
+                  <div class="evt__infos">
+                    <VignetteTable nom={e.table} />
+                    <p>
+                      <strong>Table {libelleTable(e.table)}</strong>
+                      {e.lieu && <span class="evt__lieu"><Icone nom="lieu" /> {e.lieu}</span>}
+                    </p>
+                  </div>
+                  {e.resume && <p class="evt__resume">{e.resume}</p>}
+                </div>
+                <div class="evt__actions">
+                  {e.externe ? (
+                    <a class="bouton" href={e.lien} rel="noopener">Inscription et infos <Icone nom="externe" titre="(site externe)" /></a>
+                  ) : (
+                    <a class="bouton" href={e.lien}>Voir l’annonce</a>
+                  )}
+                  {e.info && (
+                    <a class="evt__info" href={e.info} rel="noopener"><Icone nom="document" /> Règlement du tournoi<span class="sr-only"> {e.titre}</span> (PDF)</a>
+                  )}
+                </div>
+              </li>
+            );
+          })}
+        </ol>
+      ) : (
+        <p class="vide">Aucune compétition n’est annoncée pour le moment. Les prochaines dates seront publiées ici et sur <a href="/reseaux">nos réseaux</a>.</p>
+      )}
+
+      {clubJoues.length > 0 && (
+        <section class="deja-joues" aria-labelledby="titre-joues">
+          <h3 id="titre-joues">Déjà joués cette saison</h3>
+          <ul>
+            {clubJoues.map((e) => (
+              <li>
+                <span class="nums doux">{plageDates(e.debut, e.fin)}</span>
+                {e.externe ? <a href={e.lien} rel="noopener">{e.titre}</a> : <a href={e.lien}>{e.titre}</a>}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+    </section>
+
+    <!-- ============================== Calendrier FFBF ============================== -->
+    <section id="ffbf" class="panneau" role="tabpanel" aria-labelledby="onglet-ffbf" tabindex="0" data-filtrable data-unite="tournoi">
+      <h2 class="titre-panneau">Calendrier FFBF</h2>
+      <p class="panneau__intro">
+        Circuit National de la Fédération française de baby-foot, saison {ffbfCal.saison}&nbsp;: opens loisir,
+        opens régionaux et nationaux, championnats régionaux et de France.
+      </p>
+      <div class="barre-filtres">
+        <div class="filtres" role="group" aria-labelledby="etiquette-type" data-filtre-groupe="type">
+          <span class="filtres__etiquette" id="etiquette-type">Type</span>
+          <button type="button" aria-pressed="true" data-valeur="tous">Tous <span class="nums">({ffbfAVenir.length})</span></button>
+          {GROUPES.map((g) => (
+            <button type="button" aria-pressed="false" data-valeur={g.id}>{g.libelle} <span class="nums">({nbGroupe(g.id)})</span></button>
+          ))}
+        </div>
+        <div class="filtres" role="group" aria-labelledby="etiquette-zone" data-filtre-groupe="zone">
+          <span class="filtres__etiquette" id="etiquette-zone">Zone</span>
+          <button type="button" aria-pressed="true" data-valeur="tous">Toute la France</button>
+          <button type="button" aria-pressed="false" data-valeur={regionClub}>Région {libelleRegion} <span class="nums">({nbRegion})</span></button>
+        </div>
+        {marquesFfbf.length > 1 ? (
+          <div class="filtres" role="group" aria-labelledby="etiquette-table-ffbf" data-filtre-groupe="table">
+            <span class="filtres__etiquette" id="etiquette-table-ffbf">Table</span>
+            <button type="button" aria-pressed="true" data-valeur="tous">Toutes</button>
+            {marquesFfbf.map((m) => (
+              <button type="button" aria-pressed="false" data-valeur={m.slug} class="avec-vignette"><VignetteTable nom={m.nom} taille="filtre" paresseux={false} /> {libelleTable(m.nom)} <span class="nums">({m.nombre})</span></button>
+            ))}
+          </div>
+        ) : marquesFfbf.length === 1 && (
+          <p class="table-unique"><VignetteTable nom={marquesFfbf[0].nom} taille="filtre" paresseux={false} /> Toutes ces compétitions se jouent sur table {libelleTable(marquesFfbf[0].nom)}.</p>
+        )}
+      </div>
+      <p class="sr-only" aria-live="polite" data-compte></p>
+
+      {moisFfbf.map((g) => (
+        <section class="mois" data-bloc>
+          <h3>{g.mois}</h3>
+          <ul class="tournois">
+            {g.tournois.map((t) => {
+              const duClub = t.organisateur.sigle === sigle;
+              return (
+                <li class:list={['tournoi', { 'tournoi--club': duClub }]} data-item data-type={`tous ${t.groupe}`} data-zone={`tous ${t.codeRegion}`} data-table={`tous ${slugTable(t.table)}`}>
+                  <p class="tournoi__date nums"><span class="tournoi__jsem">{jourCourt(t.debut)}</span> {plageDates(t.debut, t.fin)}</p>
+                  <VignetteTable nom={t.table} class="tournoi__vignette" />
+                  <div class="tournoi__corps">
+                    <p class="tournoi__nom">
+                      {t.lien ? <a href={t.lien} rel="noopener">{t.nom}</a> : t.nom}
+                      {duClub && <span class="badge-club" title="Organisé par le club">{sigle}</span>}
+                    </p>
+                    <p class="tournoi__meta">
+                      <span>{[t.ville, t.region].filter(Boolean).join(', ')}</span>
+                      <span>Table {libelleTable(t.table)}</span>
+                      {t.organisateur.nom && !duClub && <span>{t.organisateur.nom}</span>}
+                      {t.info && <a href={t.info} rel="noopener">Infos<span class="sr-only"> sur {t.nom}</span> (PDF)</a>}
+                    </p>
+                  </div>
+                  <span class={`cat cat--${classeCategorie(t.categorie)}`}>{libelleCategorie(t.categorie)}</span>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ))}
+      <p class="vide" data-vide hidden>Aucun tournoi ne correspond à ces filtres pour le moment.</p>
+      <p class="panneau__source">
+        Inscriptions, horaires et règlement sur la page de chaque tournoi. Calendrier complet&nbsp;:
+        <a href={ffbfCal.source} rel="noopener">coral.ffbabyfoot.fr</a>.
+      </p>
+    </section>
+
+    <!-- ============================== Calendrier ITSF ============================== -->
+    <section id="itsf" class="panneau" role="tabpanel" aria-labelledby="onglet-itsf" tabindex="0" data-filtrable data-unite="tournoi">
+      <h2 class="titre-panneau">Calendrier ITSF</h2>
+      <p class="panneau__intro">Le circuit mondial de la fédération internationale (ITSF)&nbsp;: World Series et tournois ITSF 500 et 250.</p>
+      <div class="barre-filtres">
+        <div class="filtres" role="group" aria-labelledby="etiquette-pays" data-filtre-groupe="pays">
+          <span class="filtres__etiquette" id="etiquette-pays">Pays</span>
+          <button type="button" aria-pressed="true" data-valeur="tous">Tous <span class="nums">({itsfCal.tournois.length})</span></button>
+          <button type="button" aria-pressed="false" data-valeur="FR">En France <span class="nums">({nbFrance})</span></button>
+        </div>
+        <div class="filtres" role="group" aria-labelledby="etiquette-table-itsf" data-filtre-groupe="table">
+          <span class="filtres__etiquette" id="etiquette-table-itsf">Table</span>
+          <button type="button" aria-pressed="true" data-valeur="tous">Toutes</button>
+          {marquesItsf.map((m) => (
+            <button type="button" aria-pressed="false" data-valeur={m.slug} class="avec-vignette"><VignetteTable nom={m.nom} taille="filtre" paresseux={false} /> {m.nom === 'Other' ? 'Autres' : m.nom} <span class="nums">({m.nombre})</span></button>
+          ))}
+        </div>
+      </div>
+      <p class="sr-only" aria-live="polite" data-compte></p>
+
+      {moisItsf.map((g) => (
+        <section class="mois" data-bloc>
+          <h3>{g.mois}</h3>
+          <ul class="tournois">
+            {g.tournois.map((t) => (
+              <li class:list={['tournoi', { 'tournoi--france': t.pays === 'FR' }]} data-item data-pays={`tous ${t.pays}`} data-table={`tous ${slugTable(t.table)}`}>
+                <p class="tournoi__date nums">{plageDates(t.debut, t.fin)}</p>
+                <VignetteTable nom={t.table} class="tournoi__vignette" />
+                <div class="tournoi__corps">
+                  <p class="tournoi__nom">{t.lien ? <a href={t.lien} rel="noopener">{t.nom}</a> : t.nom}</p>
+                  <p class="tournoi__meta">
+                    <span class="tournoi__lieu"><Drapeau code={t.pays} /> {[t.ville, nomPays(t.pays)].filter(Boolean).join(', ')}</span>
+                    <span>Table {libelleTable(t.table)}</span>
+                  </p>
+                </div>
+                <span class={`cat cat--${classeCategorie(t.categorie)}`}>{t.categorie}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+      <p class="vide" data-vide hidden>Aucun tournoi ne correspond à ce filtre pour le moment.</p>
+    </section>
+
+    <!-- ============================== Résultats ============================== -->
+    <section id="resultats" class="panneau" role="tabpanel" aria-labelledby="onglet-resultats" tabindex="0" data-filtrable data-unite="tournoi">
+      <h2 class="titre-panneau">Résultats récents</h2>
+      <div class="barre-filtres">
+        <div class="filtres" role="group" aria-label="Filtrer les résultats" data-filtre-groupe="source">
+          <button type="button" aria-pressed="true" data-valeur="tous">Tous</button>
+          <button type="button" aria-pressed="false" data-valeur="itsf">ITSF</button>
+          <button type="button" aria-pressed="false" data-valeur="ffbf">FFBF</button>
+          <button type="button" aria-pressed="false" data-valeur="club" class="filtre-club"><Icone nom="groupe" /> Joueurs du club</button>
+        </div>
+        <div class="filtres" role="group" aria-labelledby="etiquette-table-res" data-filtre-groupe="table">
+          <span class="filtres__etiquette" id="etiquette-table-res">Table</span>
+          <button type="button" aria-pressed="true" data-valeur="tous">Toutes</button>
+          {marquesResultats.map((m) => (
+            <button type="button" aria-pressed="false" data-valeur={m.slug} class="avec-vignette"><VignetteTable nom={m.nom} taille="filtre" paresseux={false} /> {m.nom === 'Other' ? 'Autres' : m.nom}</button>
+          ))}
+        </div>
+      </div>
+      <p class="sr-only" aria-live="polite" data-compte></p>
+
+      <div class="resultats" data-bloc>
+        <h3 class="sr-only">Podiums des derniers tournois</h3>
+        {resultats.map((t) => (
+          <article class="resultat" data-item data-source={`tous ${t.sources.join(' ')}`} data-table={`tous ${slugTable(t.table)}`}>
+            <header class="resultat__entete">
+              <VignetteTable nom={t.table} taille="carte" class="resultat__vignette" />
+              <p class="resultat__etiquettes">
+                <span class={`cat cat--${classeCategorie(t.categorie)}`}>{libelleCategorie(t.categorie)}</span>
+                {t.sources.map((s) => <span class="circuit">{s.toUpperCase()}</span>)}
+              </p>
+              <h4>{t.nom}</h4>
+              <p class="resultat__meta nums">
+                <span>{plageDates(t.debut, t.fin)} {annee(t.fin)}</span>
+                <span class="lieu-pays"><Drapeau code={t.pays} /> {[t.ville, nomPays(t.pays)].filter(Boolean).join(', ')}</span>
+                <span>Table {libelleTable(t.table)}</span>
+              </p>
+            </header>
+            <div class="epreuves">
+              {t.epreuves.map((e) => (
+                <section class="epreuve">
+                  <h5>{e.nom}</h5>
+                  <ol class="podium">
+                    {e.podium.filter((p) => p.joueurs.length).map((p) => (
+                      <li>
+                        <span class={`medaille medaille--${p.rang}`}>{place(p.rang)}</span>
+                        <span class="podium__noms">
+                          {p.joueurs.map((j, k) => (
+                            <>
+                              {k > 0 && ' / '}
+                              <span class:list={['joueur', { 'joueur--club': estClub(j) }]}>{nomJoueur(j)}</span>
+                              {t.sources.includes('itsf') && j[2] && (j[0] || j[1]) && <Drapeau code={j[2]} nomme />}
+                              {estClub(j) && <span class="badge-club">{sigle}</span>}
+                            </>
+                          ))}
+                        </span>
+                      </li>
+                    ))}
+                  </ol>
+                </section>
+              ))}
+            </div>
+            {t.lien && <p class="resultat__lien"><a href={t.lien} rel="noopener">Tous les résultats du tournoi <Icone nom="externe" titre="(site externe)" /></a></p>}
+          </article>
+        ))}
+      </div>
+
+      <div class="club-resultats" data-bloc>
+        <div class="bilan-club sur-marine">
+          <h3>Les joueurs de l’{club.nomCourt} en compétition</h3>
+          <p>
+            Classements des {nbJoueurs} joueurs licenciés au club, sur leurs tournois des douze derniers mois
+            (classements FFBF et ITSF).
+          </p>
+          <ul class="bilan-club__chiffres">
+            <li><strong class="nums">{clubRes.tournois.length}</strong> tournois</li>
+            <li><strong class="nums">{nbPodiums}</strong> podiums</li>
+            {nbVictoires > 0 && <li><strong class="nums">{nbVictoires}</strong> {nbVictoires > 1 ? 'victoires' : 'victoire'}</li>}
+          </ul>
+        </div>
+        {clubRes.tournois.length === 0 && (
+          <p class="vide" data-item data-source="club" data-table="tous">Aucun résultat récent pour les joueurs du club.</p>
+        )}
+        {clubRes.tournois.map((t) => (
+          <article class="resultat resultat--club" data-item data-source="club" data-table={`tous ${slugTable(t.table)}`}>
+            <header class="resultat__entete">
+              <VignetteTable nom={t.table} taille="carte" class="resultat__vignette" />
+              <p class="resultat__etiquettes">
+                <span class={`cat cat--${classeCategorie(t.categorie)}`}>{libelleCategorie(t.categorie)}</span>
+              </p>
+              <h4>{t.nom}</h4>
+              <p class="resultat__meta nums">
+                <span>{plageDates(t.debut, t.fin)} {annee(t.fin)}</span>
+                <span class="lieu-pays"><Drapeau code={t.pays} /> {[t.ville, nomPays(t.pays)].filter(Boolean).join(', ')}</span>
+                <span>Table {libelleTable(t.table)}</span>
+              </p>
+            </header>
+            <div class="epreuves">
+              {t.epreuves.map((e) => (
+                <section class="epreuve">
+                  <h5>{e.nom} {e.equipes > 0 && <span class="epreuve__nb">{e.equipes} {/simple|singles/i.test(e.nom) ? 'joueurs' : 'équipes'}</span>}</h5>
+                  <ol class="podium">
+                    {e.classements.map((c) => (
+                      <li>
+                        <span class={`medaille medaille--${c.rang <= 3 ? c.rang : 'autre'}`}>{place(c.rang)}</span>
+                        <span class="podium__noms">
+                          {c.joueurs.map((j, k) => (
+                            <>
+                              {k > 0 && ' / '}
+                              <span class:list={['joueur', { 'joueur--club': estClub(j) }]}>{nomJoueur(j)}</span>
+                            </>
+                          ))}
+                        </span>
+                      </li>
+                    ))}
+                  </ol>
+                </section>
+              ))}
+            </div>
+            <p class="resultat__lien"><a href={t.lien} rel="noopener">Tous les résultats du tournoi <Icone nom="externe" titre="(site externe)" /></a></p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="bloc-videos" aria-labelledby="titre-videos">
+      <h2 id="titre-videos">Regarder les compétitions</h2>
+      <p>Les vidéos du club et les retransmissions des grandes compétitions par les fédérations.</p>
+      <ul class="videos">
+        <li><a class="bouton" href={club.contact.youtube} rel="noopener">Chaîne YouTube de l’{club.nomCourt}</a></li>
+        {club.videos.map((v) => (
+          <li><a class="bouton bouton--contour" href={v.lien} rel="noopener">YouTube {v.nom}</a></li>
+        ))}
+      </ul>
+      <p class="bloc-videos__plus"><a href="/reseaux">Tous nos réseaux</a></p>
+    </section>
+  </div>
+</Base>
+
+<script is:inline>
+  (function () {
+    var tous = function (racine, sel) { return Array.prototype.slice.call(racine.querySelectorAll(sel)); };
+
+    // ---- Onglets
+    var liste = document.querySelector('[data-onglets]');
+    if (liste) {
+      var onglets = tous(liste, '[role="tab"]');
+      var panneaux = onglets.map(function (o) { return document.getElementById(o.getAttribute('aria-controls')); });
+      liste.hidden = false;
+      document.documentElement.classList.add('avec-onglets');
+      var choisir = function (i, focus, initial) {
+        onglets.forEach(function (o, k) {
+          var actif = k === i;
+          o.setAttribute('aria-selected', String(actif));
+          o.tabIndex = actif ? 0 : -1;
+          panneaux[k].hidden = !actif;
+        });
+        if (focus) onglets[i].focus();
+        if (!initial) { try { history.replaceState(null, '', '#' + panneaux[i].id); } catch (e) {} }
+      };
+      onglets.forEach(function (o, i) {
+        o.addEventListener('click', function () { choisir(i, false); });
+        o.addEventListener('keydown', function (e) {
+          var n = onglets.length, j = null;
+          if (e.key === 'ArrowRight') j = (i + 1) % n;
+          else if (e.key === 'ArrowLeft') j = (i + n - 1) % n;
+          else if (e.key === 'Home') j = 0;
+          else if (e.key === 'End') j = n - 1;
+          if (j !== null) { e.preventDefault(); choisir(j, true); }
+        });
+      });
+      var alias = { calendrier: 'itsf' };
+      var cible = location.hash.slice(1);
+      cible = alias[cible] || cible;
+      var depart = 0;
+      panneaux.forEach(function (p, k) { if (p.id === cible) depart = k; });
+      choisir(depart, false, true);
+      // Arrivée par un lien #club, #ffbf… : le navigateur place le focus sur le panneau ; on le retire
+      // pour éviter un cadre de focus inattendu (la navigation au clavier repart de ce point).
+      var retirerFocus = function () {
+        var a = document.activeElement;
+        if (a && a.getAttribute && a.getAttribute('role') === 'tabpanel') a.blur();
+      };
+      setTimeout(retirerFocus, 0);
+      window.addEventListener('load', retirerFocus);
+    }
+
+    // ---- Filtres (chaque zone filtrable combine ses groupes de boutons)
+    tous(document, '[data-filtrable]').forEach(function (zone) {
+      var groupes = tous(zone, '[data-filtre-groupe]');
+      if (!groupes.length) return;
+      var items = tous(zone, '[data-item]');
+      var blocs = tous(zone, '[data-bloc]');
+      var compte = zone.querySelector('[data-compte]');
+      var vide = zone.querySelector('[data-vide]');
+      var unite = zone.getAttribute('data-unite') || 'élément';
+      var appliquer = function (annoncer) {
+        var actifs = groupes.map(function (g) {
+          var b = g.querySelector('[aria-pressed="true"]');
+          return [g.getAttribute('data-filtre-groupe'), b ? b.getAttribute('data-valeur') : 'tous'];
+        });
+        var n = 0;
+        items.forEach(function (it) {
+          var ok = actifs.every(function (a) {
+            return (' ' + (it.getAttribute('data-' + a[0]) || '') + ' ').indexOf(' ' + a[1] + ' ') >= 0;
+          });
+          it.hidden = !ok;
+          if (ok && it.tagName !== 'P') n++;
+        });
+        blocs.forEach(function (b) { b.hidden = !b.querySelector('[data-item]:not([hidden])'); });
+        if (vide) vide.hidden = n > 0;
+        if (annoncer && compte) {
+          compte.textContent = n + ' ' + unite + (n > 1 ? 's' : '') + ' affiché' + (n > 1 ? 's' : '') + '.';
+        }
+      };
+      groupes.forEach(function (g) {
+        g.addEventListener('click', function (e) {
+          var b = e.target.closest('button[data-valeur]');
+          if (!b) return;
+          tous(g, 'button[data-valeur]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+          appliquer(true);
+        });
+      });
+      appliquer(false);
+    });
+  })();
+</script>
+
+<style>
+  .maj { font-size: var(--t-0) !important; margin-top: var(--e-3) !important; }
+
+  /* ---------- Onglets ---------- */
+  .onglets {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--e-2);
+    border-bottom: 4px solid var(--marine);
+    margin-bottom: var(--e-6);
+  }
+  .onglets [role='tab'] {
+    display: grid;
+    justify-items: start;
+    align-content: center;
+    min-height: 64px;
+    padding: var(--e-2) var(--e-4);
+    border: 0;
+    border-radius: var(--r-petit) var(--r-petit) 0 0;
+    background: var(--surface);
+    color: var(--marine);
+    font-family: var(--f-display);
+    text-transform: uppercase;
+    text-align: left;
+    cursor: pointer;
+    position: relative;
+  }
+  .onglet__sur { font-weight: 700; font-size: 0.95rem; letter-spacing: 0.06em; color: var(--bleu); line-height: 1.1; }
+  .onglet__titre { font-weight: 800; font-size: 1.6rem; line-height: 1; letter-spacing: 0.02em; }
+  .onglets [role='tab']:hover { background: #dcebf6; }
+  .onglets [role='tab'][aria-selected='true'] { background: var(--marine); color: var(--sur-marine); }
+  .onglets [role='tab'][aria-selected='true'] .onglet__sur { color: var(--ciel-clair); }
+  .onglets [role='tab'][aria-selected='true']::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 -4px 0;
+    height: 4px;
+    background: var(--ciel);
+  }
+  .onglets [role='tab']:focus-visible { outline: 3px solid var(--bleu); outline-offset: 2px; }
+
+  :global(.avec-onglets) .titre-panneau { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .titre-panneau { font-size: var(--t-4); margin-bottom: var(--e-4); }
+  .panneau { padding-bottom: var(--e-7); }
+  .panneau + .panneau { margin-top: var(--e-6); }
+  .panneau:focus-visible { outline: 3px solid var(--bleu); outline-offset: 6px; }
+  .panneau__intro { max-width: 68ch; margin-bottom: var(--e-5); color: var(--doux); }
+  .panneau__source { margin-top: var(--e-6); font-size: var(--t-0); color: var(--doux); }
+
+  /* ---------- Filtres ---------- */
+  .barre-filtres { display: flex; flex-wrap: wrap; gap: var(--e-3) var(--e-6); margin-bottom: var(--e-5); }
+  .filtres { display: flex; flex-wrap: wrap; gap: var(--e-2); }
+  .filtres button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--e-2);
+    min-height: 44px;
+    padding: 0 var(--e-4);
+    border: 2px solid var(--marine);
+    border-radius: 999px;
+    background: var(--balle);
+    color: var(--marine);
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .filtres button:hover { background: var(--surface); }
+  .filtres button.avec-vignette { padding-left: 5px; }
+  .table-unique { display: flex; align-items: center; gap: var(--e-2); font-size: var(--t-0); font-weight: 700; color: var(--doux); }
+  .filtres__etiquette {
+    align-self: center;
+    min-width: 3.2rem;
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--doux);
+  }
+  .filtres button[aria-pressed='true'] { background: var(--ciel); border-color: var(--ciel); }
+  .filtres .filtre-club { border-color: var(--bleu); color: var(--bleu-fort); }
+  .filtres .filtre-club[aria-pressed='true'] { background: var(--marine); border-color: var(--marine); color: var(--sur-marine); }
+
+  /* ---------- Calendrier du club ---------- */
+  .evts { list-style: none; padding: 0; display: grid; gap: var(--e-4); }
+  .evt {
+    display: grid;
+    grid-template-columns: 7rem minmax(0, 1fr) auto;
+    gap: var(--e-3) var(--e-5);
+    align-items: center;
+    padding: var(--e-4) var(--e-5) var(--e-4) 0;
+    border: 2px solid var(--marine);
+    border-radius: var(--r-plateau);
+    background: var(--balle);
+    overflow: hidden;
+  }
+  .evt__date {
+    align-self: stretch;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    margin-block: calc(-1 * var(--e-4));
+    padding: var(--e-3) var(--e-2);
+    background: var(--marine);
+    color: var(--sur-marine);
+    font-family: var(--f-display);
+    text-transform: uppercase;
+    line-height: 1;
+    clip-path: polygon(0 0, 100% 0, 86% 100%, 0 100%);
+  }
+  .evt--championnat .evt__date { background: var(--bleu-fort); }
+  .evt__jsem { font-weight: 700; font-size: 1rem; color: var(--ciel-clair); letter-spacing: 0.06em; }
+  .evt__jour { font-weight: 800; font-size: 3rem; }
+  .evt__mois { font-weight: 700; font-size: 1rem; letter-spacing: 0.04em; }
+  .evt__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--e-2) var(--e-3); font-size: var(--t-0); }
+  .evt__source { font-weight: 700; color: var(--doux); }
+  .evt__heure { font-weight: 700; color: var(--bleu); }
+  .evt__titre { font-size: var(--t-3); margin-top: var(--e-2); }
+  .evt__titre a { color: var(--marine); text-decoration: none; }
+  .evt__titre a:hover { color: var(--bleu); text-decoration: underline; }
+  .evt__infos { display: flex; align-items: center; gap: var(--e-3); margin-top: var(--e-2); }
+  .evt__infos p { display: grid; gap: 0.1rem; font-size: var(--t-0); }
+  .evt__lieu { display: flex; align-items: center; gap: var(--e-2); color: var(--doux); }
+  .evt__resume { margin-top: var(--e-1); max-width: 60ch; }
+  .evt__actions { display: grid; gap: var(--e-2); justify-items: end; }
+  .evt__info { display: inline-flex; align-items: center; gap: var(--e-2); font-size: var(--t-0); font-weight: 700; }
+
+  .deja-joues { margin-top: var(--e-7); }
+  .deja-joues h3 { font-size: var(--t-3); text-transform: uppercase; margin-bottom: var(--e-3); }
+  .deja-joues ul { list-style: none; padding: 0; display: grid; gap: var(--e-2); }
+  .deja-joues li { display: flex; flex-wrap: wrap; gap: var(--e-3); }
+
+  /* ---------- Listes de tournois ---------- */
+  .mois + .mois { margin-top: var(--e-6); }
+  .mois h3 { font-size: var(--t-3); text-transform: uppercase; margin-bottom: var(--e-2); }
+  .tournois { list-style: none; padding: 0; border-top: 2px solid var(--marine); }
+  .tournoi {
+    display: grid;
+    grid-template-columns: 9rem 72px minmax(0, 1fr) auto;
+    gap: var(--e-2) var(--e-5);
+    align-items: center;
+    padding-block: var(--e-3);
+    border-bottom: 1px solid var(--filet);
+  }
+  .tournoi--france,
+  .tournoi--club { background: linear-gradient(90deg, var(--surface), transparent 70%); }
+  .tournoi--club { box-shadow: inset 5px 0 0 var(--ciel); }
+  .tournoi__date { font-family: var(--f-display); font-weight: 800; font-size: 1.35rem; line-height: 1.1; color: var(--bleu); padding-left: var(--e-3); }
+  .tournoi__jsem { font-weight: 700; font-size: 0.9em; color: var(--doux); }
+  .tournoi__nom { font-weight: 700; line-height: 1.3; }
+  .tournoi__nom a { color: var(--marine); text-decoration: none; }
+  .tournoi__nom a:hover { color: var(--bleu); text-decoration: underline; }
+  .tournoi__meta { display: flex; flex-wrap: wrap; gap: 0 var(--e-4); font-size: var(--t-0); color: var(--doux); margin-top: 0.1rem; }
+  .tournoi__meta a { font-weight: 700; }
+  .tournoi__lieu { display: inline-flex; align-items: center; gap: 0.4em; }
+
+  .badge-club {
+    display: inline-block;
+    margin-left: 0.4em;
+    padding: 0 0.4em;
+    border-radius: var(--r-petit);
+    background: var(--marine);
+    color: var(--sur-marine);
+    font-family: var(--f-display);
+    font-weight: 800;
+    font-size: 0.8em;
+    letter-spacing: 0.04em;
+    vertical-align: 0.1em;
+  }
+
+  .cat {
+    display: inline-block;
+    padding: 0.15em 0.6em;
+    border-radius: var(--r-petit);
+    font-family: var(--f-display);
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    border: 2px solid var(--marine);
+    color: var(--marine);
+    background: var(--balle);
+  }
+  .cat--ws,
+  .cat--championnat { background: var(--marine); color: var(--sur-marine); }
+  .cat--i500,
+  .cat--national { background: var(--ciel); border-color: var(--ciel); }
+  .cat--i250,
+  .cat--regional { background: var(--balle); }
+  .cat--loisir,
+  .cat--club { background: var(--surface); border-color: var(--bleu); color: var(--bleu-fort); }
+  .cat--autre { background: var(--surface); border-color: var(--surface); }
+
+  .vide { color: var(--doux); padding-block: var(--e-5); }
+
+  /* ---------- Résultats ---------- */
+  .resultats,
+  .club-resultats { display: grid; gap: var(--e-6); }
+  .resultat { border: 2px solid var(--marine); border-radius: var(--r-plateau); overflow: hidden; }
+  .resultat__entete {
+    background: var(--marine);
+    color: var(--sur-marine);
+    padding: var(--e-5);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--e-2) var(--e-5);
+    justify-items: start;
+    align-items: start;
+  }
+  .resultat__entete > :not(.resultat__vignette) { grid-column: 1; }
+  .resultat__entete :global(.resultat__vignette) { grid-column: 2; grid-row: 1 / span 3; align-self: center; box-shadow: 0 0 0 2px var(--ciel); }
+  .resultat__etiquettes { display: flex; flex-wrap: wrap; gap: var(--e-2); align-items: center; }
+  .resultat__entete .cat { background: var(--ciel); border-color: var(--ciel); color: var(--marine); }
+  .circuit {
+    padding: 0.1em 0.5em;
+    border: 1px solid var(--sur-marine-doux);
+    border-radius: var(--r-petit);
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.06em;
+    color: var(--sur-marine);
+  }
+  .resultat__entete h4 { font-family: var(--f-display); font-weight: 800; font-size: var(--t-3); line-height: 1.1; color: var(--sur-marine); }
+  .resultat__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.1em var(--e-4); color: var(--sur-marine-doux); font-size: var(--t-0); }
+  .lieu-pays { display: inline-flex; align-items: center; gap: 0.4em; }
+  .epreuves {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    gap: var(--e-5) var(--e-6);
+    padding: var(--e-5);
+  }
+  .epreuve h5 { font-family: var(--f-display); font-weight: 800; font-size: 1.25rem; text-transform: uppercase; margin-bottom: var(--e-2); }
+  .epreuve__nb { font-family: var(--f-texte); font-weight: 400; font-size: var(--t-0); text-transform: none; color: var(--doux); margin-left: 0.3em; }
+  .podium { list-style: none; padding: 0; display: grid; gap: var(--e-2); }
+  .podium li { display: grid; grid-template-columns: 2.9rem minmax(0, 1fr); gap: var(--e-2); align-items: baseline; font-size: var(--t-0); line-height: 1.4; }
+  .medaille {
+    display: inline-grid;
+    place-items: center;
+    height: 1.6rem;
+    border-radius: var(--r-petit);
+    font-family: var(--f-display);
+    font-weight: 800;
+    font-size: 0.95rem;
+    color: var(--marine);
+  }
+  .medaille--1 { background: #f2c94c; }
+  .medaille--2 { background: #cfd8e2; }
+  .medaille--3 { background: #e0a370; }
+  .medaille--autre { background: var(--surface); box-shadow: inset 0 0 0 1px var(--filet); }
+  .podium__noms :global(.drapeau) { margin-left: 0.3em; }
+  .joueur { font-weight: 700; }
+  .joueur--club { color: var(--marine); background: rgb(42 169 224 / 0.2); border-radius: 3px; padding-inline: 0.2em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+  .resultat--club .joueur--club { background: none; padding-inline: 0; }
+  .resultat--club .joueur:not(.joueur--club) { font-weight: 400; color: var(--doux); }
+  .resultat__lien { padding: 0 var(--e-5) var(--e-5); font-weight: 700; }
+  .resultat__lien a { display: inline-flex; align-items: center; gap: var(--e-2); }
+
+  .bilan-club {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--e-3) var(--e-6);
+    align-items: center;
+    padding: var(--e-5) var(--e-6);
+    border-radius: var(--r-plateau);
+    background: var(--marine);
+    border-left: 8px solid var(--ciel);
+    color: var(--sur-marine);
+  }
+  .bilan-club h3 { font-size: var(--t-3); color: var(--sur-marine); }
+  .bilan-club p { color: var(--sur-marine-doux); margin-top: var(--e-2); max-width: 55ch; }
+  .bilan-club__chiffres { grid-row: 1 / span 2; grid-column: 2; list-style: none; padding: 0; display: flex; gap: var(--e-5); }
+  .bilan-club__chiffres li { display: grid; justify-items: center; font-family: var(--f-display); font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ciel-clair); }
+  .bilan-club__chiffres strong { font-weight: 800; font-size: 3rem; line-height: 1; color: var(--sur-marine); }
+
+  .bloc-videos { margin-top: var(--e-7); padding: var(--e-6); background: var(--surface); border-radius: var(--r-plateau); border-top: 6px solid var(--ciel); }
+  .bloc-videos h2 { font-size: var(--t-3); }
+  .bloc-videos p { margin-top: var(--e-2); max-width: 60ch; }
+  .videos { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: var(--e-3); margin-top: var(--e-4); }
+  .bloc-videos__plus { font-weight: 700; margin-top: var(--e-4) !important; }
+
+  @media (max-width: 48rem) {
+    .evt { grid-template-columns: 5.5rem minmax(0, 1fr); padding-right: var(--e-4); }
+    .evt__actions { grid-column: 1 / -1; justify-items: start; padding-left: var(--e-4); }
+    .evt__jour { font-size: 2.4rem; }
+    .bilan-club { grid-template-columns: 1fr; }
+    .bilan-club__chiffres { grid-row: auto; grid-column: auto; }
+  }
+  @media (max-width: 40rem) {
+    .onglets { grid-template-columns: repeat(2, minmax(0, 1fr)); border-bottom: 0; }
+    .onglets [role='tab'] { border-radius: var(--r-petit); min-height: 56px; }
+    .onglets [role='tab'][aria-selected='true']::after { display: none; }
+    .onglet__titre { font-size: 1.35rem; }
+    .tournoi { grid-template-columns: 5.5rem minmax(0, 1fr); grid-template-rows: auto 1fr auto; row-gap: var(--e-2); }
+    .tournoi__date { grid-column: 1; grid-row: 1; }
+    .tournoi__corps { grid-column: 2; grid-row: 1 / span 2; }
+    .tournoi :global(.tournoi__vignette) { grid-column: 1; grid-row: 2 / span 2; align-self: start; width: 64px; height: 48px; margin-left: var(--e-2); }
+    .tournoi .cat { grid-column: 2; grid-row: 3; justify-self: start; align-self: center; }
+    .resultat__entete :global(.resultat__vignette) { width: 84px; height: 63px; grid-row: 1; align-self: start; }
+    .filtres__etiquette { flex-basis: 100%; }
+    .filtres button { padding-inline: var(--e-3); }
+    .tournoi { align-items: start; }
+    .tournoi__date { font-size: 1.15rem; padding-left: var(--e-2); }
+    .tournoi__jsem { display: block; font-size: 0.85em; }
+    .evt__titre { font-size: var(--t-2); }
+  }
+</style>

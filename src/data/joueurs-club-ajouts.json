@@ -1,0 +1,4 @@
+{
+ "aide": "Joueurs du club absents des classements FFBF (ex. nouveaux licenciés). Le code figure dans l'adresse de la fiche joueur sur coral.ffbabyfoot.fr ou tablesoccer.org. Exemple : { \"code\": \"ZQJEE8\", \"prenom\": \"Thomas\", \"nom\": \"Pichon\" }",
+ "joueurs": []
+}

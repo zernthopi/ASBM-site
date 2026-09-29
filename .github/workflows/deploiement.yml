@@ -1,0 +1,44 @@
+# Construit et publie le site sur GitHub Pages à chaque modification,
+# et chaque matin pour rafraîchir le calendrier et les résultats ITSF.
+name: Construire et publier le site
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '17 4 * * *' # tous les jours vers 6 h (heure de Paris)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  construire:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      # build:local = mise à jour ITSF + build + liens relatifs (fonctionne aussi sous /nom-du-depot/)
+      - run: npm run build:local
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+  publier:
+    needs: construire
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploiement.outputs.page_url }}
+    steps:
+      - id: deploiement
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,15 @@
+{
+ "aide": "Vignette de chaque marque de table (public/tables/, 480 × 360 px, table seule sur fond blanc). Pour une nouvelle marque : déposer l'image et ajouter une entrée (le nom doit être celui de l'ITSF, ex. « Ullrich Kicker »). « texte » remplace l'image par un mot. Les marques absentes utilisent l'illustration générique.",
+ "credit": "Visuels des tables officielles et reconnues par l'ITSF (tablesoccer.org), fournis par le club ; les modèles et marques appartiennent à leurs fabricants.",
+ "marques": {
+  "Bonzini": { "image": "/tables/bonzini.webp", "modele": "ITSF B90", "statut": "officielle" },
+  "Leonhart": { "image": "/tables/leonhart.webp", "modele": "Leo Tournament", "statut": "officielle" },
+  "Tornado": { "image": "/tables/tornado.webp", "modele": "Tornado", "statut": "officielle" },
+  "Garlando": { "image": "/tables/garlando.webp", "modele": "World Champion", "statut": "officielle" },
+  "Roberto Sport": { "image": "/tables/roberto-sport.webp", "modele": "Sport Revolution", "statut": "officielle" },
+  "Rosengart": { "image": "/tables/rosengart.webp", "modele": "Rosengart", "statut": "reconnue" },
+  "Ullrich Kicker": { "image": "/tables/ullrich.webp", "modele": "Beast ITSF", "statut": "reconnue" },
+  "Multitable": { "texte": "MULTI" }
+ },
+ "defaut": { "image": "/tables/table-generique.svg", "illustration": true }
+}

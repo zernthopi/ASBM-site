@@ -1,0 +1,112 @@
+---
+import Base from '../layouts/Base.astro';
+import PlanAcces from '../components/PlanAcces.astro';
+import CarteAuClic from '../components/CarteAuClic.astro';
+import Icone from '../components/Icone.astro';
+import club from '../data/club.json';
+import { heureFr } from '../lib/format';
+---
+<Base
+  titre="Venir jouer : horaires et plan d’accès"
+  description="Horaires (lundi, mercredi, vendredi, 18 h – 22 h), adresse, tram T2 et métro M1 pour venir jouer au baby-foot à l’ASBM, Marseille 4e."
+>
+  <div class="conteneur">
+    <header class="entete-page entete-page--compacte">
+      <h1>Venir jouer</h1>
+      <p>Le club est ouvert trois soirs par semaine au {club.adresse.rue}, Marseille 4<sup>e</sup>.</p>
+    </header>
+
+    <div class="acces">
+      <section aria-labelledby="titre-horaires" class="acces__horaires">
+        <h2 id="titre-horaires">Horaires d’ouverture</h2>
+        <table class="horaires nums">
+          <caption class="sr-only">Horaires d’ouverture du club</caption>
+          <tbody>
+            {club.horaires.map((h) => (
+              <tr class:list={{ ferme: !h.ouverture }}>
+                <th scope="row">{h.jour}</th>
+                <td>
+                  {h.ouverture ? `${heureFr(h.ouverture)} – ${heureFr(h.fermeture!)}` : 'Fermé'}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p class="doux note">Horaires de la saison 2026-2027. Les dates de tournoi sont annoncées dans les <a href="/actualites">actualités</a>.</p>
+      </section>
+
+      <section aria-labelledby="titre-adresse" class="acces__adresse">
+        <h2 id="titre-adresse">Adresse et transports</h2>
+        <address class="adresse">
+          <strong>{club.nomLong}</strong><br />
+          {club.adresse.rue}<br />
+          {club.adresse.codePostal} {club.adresse.ville}
+        </address>
+        <p class="complement"><Icone nom="lieu" /> <strong>{club.adresse.complement}</strong></p>
+        <ul class="liste-infos transports">
+          <li>
+            <Icone nom="tram" />
+            <span><strong>Tram T2</strong>, arrêt Foch Sakakini, à 2&nbsp;minutes à pied (120&nbsp;m)</span>
+          </li>
+          <li>
+            <Icone nom="metro" />
+            <span><strong>Métro M1</strong>, station Cinq Avenues – Longchamp, à 6&nbsp;minutes à pied (500&nbsp;m)</span>
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <section aria-labelledby="titre-plan" class="bloc">
+      <h2 id="titre-plan">Plan d’accès</h2>
+      <PlanAcces />
+      <div class="carte-interactive">
+        <h3>Carte interactive</h3>
+        <CarteAuClic />
+      </div>
+    </section>
+
+    <section aria-labelledby="titre-contact" class="bloc">
+      <h2 id="titre-contact">Une question avant de venir&nbsp;?</h2>
+      <ul class="liste-infos contact">
+        <li><Icone nom="telephone" /><a href={`tel:${club.contact.telephoneE164}`} class="nums">{club.contact.telephone}</a></li>
+        <li><Icone nom="email" /><a href={`mailto:${club.contact.email}`}>{club.contact.email}</a></li>
+        <li><Icone nom="groupe" /><a href={club.contact.facebook} rel="noopener">Page Facebook du club</a></li>
+      </ul>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .acces {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: var(--e-7);
+    padding-bottom: var(--e-7);
+  }
+  .acces h2, .bloc h2 { font-size: var(--t-3); margin-bottom: var(--e-4); }
+  .horaires { width: 100%; max-width: 24rem; font-size: var(--t-2); }
+  .horaires th, .horaires td { padding-block: var(--e-2); border-bottom: 1px solid var(--filet); }
+  .horaires th { text-align: left; font-weight: 700; }
+  .horaires td { text-align: right; }
+  .horaires .ferme th, .horaires .ferme td { color: var(--doux); font-weight: 400; }
+  .note { margin-top: var(--e-4); font-size: var(--t-0); max-width: 40ch; }
+  .entete-page--compacte h1 { font-size: var(--t-4); }
+  .entete-page--compacte p { max-width: none; }
+  .adresse { font-style: normal; font-size: var(--t-2); line-height: 1.45; }
+  .complement {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--e-2);
+    margin-top: var(--e-4);
+    padding: var(--e-3) var(--e-4);
+    background: var(--surface);
+    border-left: 5px solid var(--ciel);
+    border-radius: 0 var(--r-petit) var(--r-petit) 0;
+  }
+  .complement :global(.icone) { flex: none; margin-top: 0.2em; color: var(--bleu); }
+  .transports { margin-top: var(--e-5); }
+  .bloc { padding-block: var(--e-6) var(--e-7); border-top: 1px solid var(--filet); }
+  .carte-interactive { margin-top: var(--e-7); max-width: 48rem; }
+  .carte-interactive h3 { font-size: var(--t-2); text-transform: uppercase; margin-bottom: var(--e-3); }
+  .contact { font-size: var(--t-2); }
+</style>

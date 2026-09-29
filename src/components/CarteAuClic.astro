@@ -1,0 +1,70 @@
+---
+// Carte OpenStreetMap chargée uniquement à la demande du visiteur :
+// aucune requête vers un tiers tant qu'il n'a pas cliqué (pas de bandeau cookies nécessaire).
+import club from '../data/club.json';
+import Icone from './Icone.astro';
+
+const { latitude: lat, longitude: lon } = club.adresse;
+const d = 0.004;
+const embed = `https://www.openstreetmap.org/export/embed.html?bbox=${lon - d * 1.4}%2C${lat - d}%2C${lon + d * 1.4}%2C${lat + d}&layer=mapnik&marker=${lat}%2C${lon}`;
+const liens = [
+  { label: 'OpenStreetMap', href: `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=18/${lat}/${lon}` },
+  { label: 'Google Maps', href: `https://www.google.com/maps/search/?api=1&query=${lat}%2C${lon}` },
+  { label: 'Plans (Apple)', href: `https://maps.apple.com/?ll=${lat},${lon}&q=ASBM%20Baby-foot` },
+];
+---
+<div class="carte" data-carte data-src={embed}>
+  <div class="carte__cadre" data-carte-cadre>
+    <p>La carte est hébergée par OpenStreetMap. Elle ne se charge que si vous le demandez.</p>
+    <button type="button" class="bouton" data-carte-bouton>
+      <Icone nom="lieu" />
+      Afficher la carte
+    </button>
+  </div>
+  <p class="carte__liens">
+    Ouvrir l’itinéraire dans{' '}
+    {liens.map((l, i) => (
+      <>
+        <a href={l.href} rel="noopener">{l.label}</a>{i < liens.length - 2 ? ', ' : i === liens.length - 2 ? ' ou ' : '.'}
+      </>
+    ))}
+  </p>
+</div>
+
+<script is:inline>
+  document.querySelectorAll('[data-carte]').forEach(function (carte) {
+    var bouton = carte.querySelector('[data-carte-bouton]');
+    var cadre = carte.querySelector('[data-carte-cadre]');
+    if (!bouton || !cadre) return;
+    bouton.addEventListener('click', function () {
+      var iframe = document.createElement('iframe');
+      iframe.src = carte.getAttribute('data-src');
+      iframe.title = 'Carte OpenStreetMap : ASBM, 21 avenue du Maréchal-Foch, Marseille';
+      iframe.referrerPolicy = 'no-referrer';
+      cadre.replaceChildren(iframe);
+      cadre.classList.add('carte__cadre--charge');
+      iframe.focus();
+    });
+  });
+</script>
+
+<style>
+  .carte__cadre {
+    aspect-ratio: 4 / 3;
+    max-width: 100%;
+    border-radius: var(--r-plateau);
+    background: var(--surface);
+    border: 1px solid var(--filet);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: var(--e-4);
+    padding: var(--e-6);
+    overflow: hidden;
+  }
+  .carte__cadre p { color: var(--doux); max-width: 34ch; }
+  .carte__cadre--charge { padding: 0; }
+  .carte__cadre :global(iframe) { width: 100%; height: 100%; border: 0; }
+  .carte__liens { margin-top: var(--e-3); font-size: var(--t-0); color: var(--doux); }
+</style>

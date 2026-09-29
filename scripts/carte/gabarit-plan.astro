@@ -1,0 +1,176 @@
+---
+// FICHIER GÉNÉRÉ par scripts/carte/generer-plan.py (gabarit : scripts/carte/gabarit-plan.astro).
+// Ne pas modifier à la main : relancer le script. Données © contributeurs OpenStreetMap (ODbL).
+import club from '../data/club.json';
+---
+<div class="plans">
+  <figure class="plan plan--situation">
+    <div class="plan__defilant" tabindex="0" role="region" aria-label="Plan de situation, faire défiler horizontalement sur petit écran" data-centre="0.7">
+      <svg viewBox="0 0 %%W1%% %%H1%%" role="img" aria-labelledby="plan1-titre plan1-desc" class="plan__svg plan__svg--situation">
+        <title id="plan1-titre">Plan de situation du club dans le centre de Marseille</title>
+        <desc id="plan1-desc">Le club se trouve au 21 avenue du Maréchal-Foch, dans le 4e arrondissement, entre la station de métro M1 Cinq Avenues – Longchamp et l’arrêt de tram T2 Foch Sakakini. La gare Saint-Charles est à deux stations de métro, le Vieux-Port à quatre.</desc>
+%%SITUATION%%
+      </svg>
+    </div>
+    <figcaption class="plan__legende">
+      <p class="plan__titre">Plan de situation <span class="plan__glisser">(faites glisser la carte)</span></p>
+      <ul class="legende" aria-label="Légende">
+        <li><span class="legende__trait legende__trait--metro" style="--c: #0075be"></span>Métro M1</li>
+        <li><span class="legende__trait legende__trait--metro" style="--c: #e30513"></span>Métro M2</li>
+        <li><span class="legende__trait" style="--c: #f5e615"></span>Tram T2</li>
+        <li><span class="legende__trait" style="--c: #f18e00"></span>Tram T1</li>
+        <li><span class="legende__trait" style="--c: #96be0d"></span>Tram T3</li>
+        <li><span class="legende__gare"></span>Gare SNCF</li>
+        <li><span class="legende__club"></span>Le club</li>
+      </ul>
+    </figcaption>
+  </figure>
+
+  <div class="plans__bas">
+    <figure class="plan plan--quartier">
+      <div class="plan__defilant" tabindex="0" role="region" aria-label="Plan du quartier, faire défiler horizontalement sur petit écran" data-centre="0.66">
+      <svg viewBox="0 0 %%W2%% %%H2%%" role="img" aria-labelledby="plan2-titre plan2-desc" class="plan__svg plan__svg--quartier">
+        <title id="plan2-titre">Plan du quartier : du métro et du tram au club</title>
+        <desc id="plan2-desc">Depuis la station de métro Cinq Avenues – Longchamp, descendre l’avenue du Maréchal-Foch vers la Blancarde : %%M_METRO%% mètres, environ %%MIN_METRO%% minutes. Depuis l’arrêt de tram Foch Sakakini, remonter l’avenue sur %%M_TRAM%% mètres. Le club est au sous-sol de l’École Michelet.</desc>
+%%QUARTIER%%
+      </svg>
+      </div>
+      <figcaption class="plan__legende"><p class="plan__titre">Du métro et du tram au club <span class="plan__glisser">(faites glisser la carte)</span></p></figcaption>
+    </figure>
+
+    <div class="itineraires">
+      <h3>Comment venir</h3>
+      <ol class="itineraires__liste">
+        <li>
+          <span class="pastille pastille--metro">M1</span>
+          <div>
+            <p class="itineraires__titre">Métro M1, station Cinq Avenues – Longchamp</p>
+            <p>Puis %%MIN_METRO%%&nbsp;min à pied (%%M_METRO%%&nbsp;m) par l’avenue du Maréchal-Foch, direction la Blancarde.</p>
+            <p class="doux">Depuis la gare Saint-Charles&nbsp;: 2&nbsp;stations, direction La Rose. Depuis le Vieux-Port&nbsp;: 4&nbsp;stations.</p>
+          </div>
+        </li>
+        <li>
+          <span class="pastille pastille--tram">T2</span>
+          <div>
+            <p class="itineraires__titre">Tram T2, arrêt Foch Sakakini</p>
+            <p>Puis %%MIN_TRAM%%&nbsp;min à pied (%%M_TRAM%%&nbsp;m) en remontant l’avenue vers les Cinq Avenues.</p>
+            <p class="doux">Depuis Noailles ou la Canebière&nbsp;: direction La Blancarde. Depuis la gare de la Blancarde (TER)&nbsp;: direction Arenc, 2&nbsp;arrêts.</p>
+          </div>
+        </li>
+        <li>
+          <span class="pastille pastille--club" aria-hidden="true"></span>
+          <div>
+            <p class="itineraires__titre">{club.adresse.rue}, {club.adresse.codePostal} {club.adresse.ville}</p>
+            <p>{club.adresse.complement}.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  // Sur petit écran, les cartes défilent : on les ouvre centrées sur le club.
+  document.querySelectorAll('[data-centre]').forEach(function (el) {
+    var f = parseFloat(el.getAttribute('data-centre'));
+    if (el.scrollWidth > el.clientWidth) el.scrollLeft = el.scrollWidth * f - el.clientWidth / 2;
+  });
+</script>
+
+<style>
+  .plans { display: grid; gap: var(--e-6); min-width: 0; }
+  .plan { margin: 0; min-width: 0; }
+  .plan__defilant { overflow-x: auto; border-radius: var(--r-plateau); }
+  .plan__defilant:focus-visible { outline: 3px solid var(--bleu); outline-offset: 3px; }
+  .plan__svg { display: block; width: 100%; height: auto; border-radius: var(--r-plateau); box-shadow: 0 0 0 1px var(--filet); background: #e7eef4; }
+  .plan__legende { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--e-2) var(--e-5); margin-top: var(--e-3); }
+  .plan__titre { font-family: var(--f-display); font-weight: 800; font-size: 1.25rem; text-transform: uppercase; letter-spacing: 0.03em; }
+  .legende { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: var(--e-2) var(--e-4); font-size: var(--t-0); font-weight: 700; }
+  .legende li { display: inline-flex; align-items: center; gap: var(--e-2); }
+  .legende__trait { width: 26px; height: 7px; border-radius: 4px; background: var(--c); box-shadow: 0 0 0 1.5px var(--marine); }
+  .legende__trait--metro { height: 9px; }
+  .legende__gare { width: 13px; height: 13px; border-radius: 3px; background: var(--marine); }
+  .legende__club { width: 14px; height: 14px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: var(--rouge); }
+
+  .plans__bas { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: var(--e-6); align-items: start; }
+  .itineraires h3 { font-size: var(--t-3); text-transform: uppercase; margin-bottom: var(--e-4); }
+  .itineraires__liste { list-style: none; padding: 0; display: grid; gap: var(--e-5); }
+  .itineraires__liste li { display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: var(--e-4); align-items: start; }
+  .itineraires__liste p + p { margin-top: var(--e-1); }
+  .itineraires__titre { font-weight: 700; }
+  .pastille { display: inline-grid; place-items: center; width: 3rem; height: 3rem; border-radius: 50%; font-family: var(--f-display); font-weight: 800; font-size: 1.3rem; }
+  .pastille--metro { background: #0075be; color: #fff; }
+  .pastille--tram { background: #f5e615; color: var(--marine); box-shadow: inset 0 0 0 2px var(--marine); }
+  .pastille--club { background: var(--rouge); border-radius: 50% 50% 50% 0; transform: rotate(-45deg) scale(0.8); }
+
+  /* ---------- Cartographie ---------- */
+  .plan :global(svg text) { font-family: var(--f-texte); }
+  .c-fond { fill: #e7eef4; }
+  .c-parc { fill: #d3e9d8; }
+  .c-eau { fill: #b7dcf0; }
+  .c-bati { fill: #dde6ee; stroke: #cbd8e3; stroke-width: 0.6; }
+  .c-rail { fill: #cdd6df; }
+  .c-rue-bord, .c-rue { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .c-rue-bord { stroke: #bccbd8; }
+  .c-rue { stroke: #fff; }
+  .c-rue-bord--t { stroke-width: 6; } .c-rue--t { stroke-width: 3.8; }
+  .c-rue-bord--m { stroke-width: 9.5; } .c-rue--m { stroke-width: 6.8; }
+  .c-rue-bord--p { stroke-width: 9; } .c-rue--p { stroke-width: 6.6; }
+  .c-rue-bord--g { stroke-width: 14; } .c-rue--g { stroke-width: 11; }
+  .c-rue-bord--pi { stroke-width: 8; } .c-rue--pi { stroke-width: 5.6; stroke: #f6f9fb; }
+  .c-ligne-bord, .c-ligne { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .c-ligne-bord { stroke: var(--marine); }
+  .c-ligne-bord--tram { stroke-width: 8.5; } .c-ligne--tram { stroke-width: 5.5; }
+  .c-ligne-bord--metro { stroke-width: 11.5; } .c-ligne--metro { stroke-width: 8; }
+  .c-ligne-bord--tram-z { stroke-width: 12; } .c-ligne--tram-z { stroke-width: 8; }
+  .c-ligne-bord--metro-z { stroke: #fff; stroke-width: 14; opacity: 0.8; }
+  .c-ligne--metro-z { stroke-width: 7; stroke-dasharray: 12 8; stroke-linecap: butt; }
+  .c-arret { fill: #fff; stroke: var(--marine); stroke-width: 2.2; }
+  .c-arret--z { stroke-width: 3.5; }
+  .c-station { fill: #fff; stroke: var(--marine); stroke-width: 3.2; }
+  .c-station--z { fill: #0075be; stroke: #fff; stroke-width: 3; }
+  .c-picto { font-family: var(--f-display) !important; font-weight: 800; font-size: 17px; fill: #fff; }
+  .c-gare { fill: var(--marine); stroke: #fff; stroke-width: 2; }
+  .c-ecole { fill: var(--ciel); fill-opacity: 0.6; stroke: var(--marine); stroke-width: 2.2; }
+  .c-pied { fill: none; stroke: var(--rouge); stroke-width: 4.5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 0.1 9; }
+
+  .c-lib-station, .c-lib-arret, .c-repere, .c-nom-rue, .c-echelle__txt { paint-order: stroke; stroke: #fff; stroke-linejoin: round; }
+  .c-lib-station { font-weight: 700; font-size: 15px; fill: var(--marine); stroke-width: 4px; }
+  .c-lib-station--fort { font-size: 17px; }
+  .c-lib-station--z { font-size: 16.5px; }
+  .c-lib-arret { font-weight: 700; font-size: 13px; fill: #4a5d75; stroke-width: 3.5px; }
+  .c-repere { font-family: var(--f-display) !important; font-weight: 800; font-size: 17px; letter-spacing: 0.06em; fill: #5d7089; stroke-width: 3px; }
+  .c-repere--parc { fill: #2f6a45; }
+  .c-repere--eau { fill: #0b5f8c; }
+  .c-nom-rue { font-family: var(--f-display) !important; font-weight: 700; font-size: 11.5px; letter-spacing: 0.08em; fill: #667a91; stroke-width: 2.5px; }
+  .c-nom-rue--z { font-size: 13.5px; }
+  .c-nom-rue--fort { fill: var(--marine); font-weight: 800; }
+
+  .c-club__halo { fill: rgb(208 38 58 / 0.18); }
+  .c-club__epingle { fill: var(--rouge); stroke: #fff; stroke-width: 2.5; }
+  .c-club__point { fill: #fff; }
+  .c-club__cartouche { fill: var(--marine); }
+  .c-club__nom { font-family: var(--f-display) !important; font-weight: 800; font-size: 20px; letter-spacing: 0.04em; fill: #fff; }
+  .c-club__adresse { font-weight: 700; font-size: 13px; fill: var(--ciel-clair); }
+  .c-duree rect { fill: #fff; stroke: var(--rouge); stroke-width: 2; }
+  .c-duree text { font-weight: 700; font-size: 13.5px; fill: var(--marine); }
+
+  .c-echelle__fond { fill: rgb(255 255 255 / 0.88); }
+  .c-echelle__barre { stroke: var(--marine); stroke-width: 3; }
+  .c-echelle__traits { stroke: var(--marine); stroke-width: 2; }
+  .c-echelle__txt { font-weight: 700; font-size: 12px; fill: var(--marine); stroke-width: 0; }
+  .c-nord__fond { fill: #fff; stroke: var(--filet); }
+  .c-nord__fleche { fill: var(--marine); }
+  .c-nord__txt { font-family: var(--f-display) !important; font-weight: 800; font-size: 11px; fill: var(--marine); }
+  .c-credit { font-size: 10px; fill: #5d7089; }
+
+  @media (max-width: 56rem) {
+    .plans__bas { grid-template-columns: 1fr; }
+  }
+  .plan__glisser { display: none; font-family: var(--f-texte); font-weight: 400; font-size: var(--t-0); text-transform: none; letter-spacing: 0; color: var(--doux); }
+  @media (max-width: 40rem) {
+    .plan__svg--situation { min-width: 720px; }
+    .plan__svg--quartier { min-width: 500px; }
+    .plan__glisser { display: inline; }
+  }
+</style>

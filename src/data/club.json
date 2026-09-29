@@ -1,0 +1,137 @@
+{
+  "nomCourt": "ASBM",
+  "nomLong": "Association Sportive de Baby-foot de Marseille",
+  "nomUsage": "Babyfoot Marseille",
+  "sigleFederal": "ASBM",
+  "fondation": "1993-12",
+  "adresse": {
+    "rue": "21 avenue du Maréchal-Foch",
+    "complement": "École Michelet, au sous-sol",
+    "codePostal": "13004",
+    "ville": "Marseille",
+    "arrondissement": "4e",
+    "latitude": 43.301125,
+    "longitude": 5.399112
+  },
+  "horaires": [
+    {
+      "jour": "Lundi",
+      "code": "Mo",
+      "ouverture": "18:00",
+      "fermeture": "22:00"
+    },
+    {
+      "jour": "Mardi",
+      "code": "Tu",
+      "ouverture": null,
+      "fermeture": null
+    },
+    {
+      "jour": "Mercredi",
+      "code": "We",
+      "ouverture": "18:00",
+      "fermeture": "22:00"
+    },
+    {
+      "jour": "Jeudi",
+      "code": "Th",
+      "ouverture": null,
+      "fermeture": null
+    },
+    {
+      "jour": "Vendredi",
+      "code": "Fr",
+      "ouverture": "18:00",
+      "fermeture": "22:00"
+    },
+    {
+      "jour": "Samedi",
+      "code": "Sa",
+      "ouverture": null,
+      "fermeture": null
+    },
+    {
+      "jour": "Dimanche",
+      "code": "Su",
+      "ouverture": null,
+      "fermeture": null
+    }
+  ],
+  "contact": {
+    "telephone": "06 64 19 54 78",
+    "telephoneE164": "+33664195478",
+    "email": "babyfoot.marseille@gmail.com",
+    "facebook": "https://www.facebook.com/p/Babyfoot-Marseille-ASBM-100027268282850/?locale=fr_FR",
+    "youtube": "https://www.youtube.com/@babyfootmarseille",
+    "instagram": "https://www.instagram.com/explore/locations/280810199624/babyfoot-marseille-asbm/"
+  },
+  "tables": [
+    {
+      "nombre": 8,
+      "marque": "Bonzini",
+      "description": "Tables de compétition neuves du fabricant français Bonzini, la référence historique du baby-foot en France."
+    },
+    {
+      "nombre": 1,
+      "marque": "Leonhart",
+      "description": "Table allemande homologuée ITSF, pour s’habituer aux tables des compétitions internationales."
+    }
+  ],
+  "transports": [
+    {
+      "mode": "tram",
+      "ligne": "T2",
+      "arret": "Foch Sakakini",
+      "distance": "environ 120 m, 2 min à pied"
+    },
+    {
+      "mode": "metro",
+      "ligne": "M1",
+      "arret": "Cinq-Avenues – Longchamp",
+      "distance": "environ 500 m, 6 min à pied",
+      "note": "correspondance avec le tram T2 à l’arrêt Cinq Avenues"
+    }
+  ],
+  "legal": {
+    "rna": "W133038531",
+    "siren": "429 665 417",
+    "siege": "36 rue d’Orient, 13010 Marseille",
+    "aVerifier": "Siège, RNA et SIREN relevés sur le registre public (pappers.fr) le 28/09/2026 : à confirmer par le bureau."
+  },
+  "videos": [
+    {
+      "nom": "ITSF (fédération internationale)",
+      "lien": "https://www.youtube.com/channel/UCBrio3TC0-sV1DXLOlV7YZw"
+    },
+    {
+      "nom": "FFBF (fédération française)",
+      "lien": "https://www.youtube.com/channel/UC9UHzVl-nFU9vALNROTfy2A"
+    }
+  ],
+  "reseaux": [
+    {
+      "id": "facebook",
+      "nom": "Facebook",
+      "compte": "Babyfoot Marseille ASBM",
+      "lien": "https://www.facebook.com/p/Babyfoot-Marseille-ASBM-100027268282850/?locale=fr_FR",
+      "texte": "Les nouvelles du club, les annonces de tournois et d’entraînements, les photos des soirées.",
+      "action": "Voir la page Facebook"
+    },
+    {
+      "id": "instagram",
+      "nom": "Instagram",
+      "compte": "Lieu « Babyfoot Marseille ASBM »",
+      "lien": "https://www.instagram.com/explore/locations/280810199624/babyfoot-marseille-asbm/",
+      "texte": "Les photos et vidéos publiées depuis le club par les joueurs et les visiteurs.",
+      "action": "Voir les publications"
+    },
+    {
+      "id": "youtube",
+      "nom": "YouTube",
+      "compte": "@babyfootmarseille",
+      "lien": "https://www.youtube.com/@babyfootmarseille",
+      "texte": "Les vidéos de matchs et de tournois, pour revoir les plus belles actions.",
+      "action": "Voir la chaîne YouTube"
+    }
+  ]
+}

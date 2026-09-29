@@ -1,0 +1,94 @@
+---
+import club from '../data/club.json';
+import { heureFr } from '../lib/format';
+const ouverts = club.horaires.filter((h) => h.ouverture);
+const annee = new Date().getFullYear();
+---
+<footer class="pied">
+  <div class="conteneur pied__grille">
+    <section aria-labelledby="pied-club">
+      <h2 id="pied-club">{club.nomCourt}</h2>
+      <p>{club.nomLong}</p>
+      <address>
+        {club.adresse.rue}<br />
+        {club.adresse.codePostal} {club.adresse.ville}
+      </address>
+    </section>
+
+    <section aria-labelledby="pied-horaires">
+      <h2 id="pied-horaires">Horaires</h2>
+      <ul class="pied__liste nums">
+        {ouverts.map((h) => (
+          <li>{h.jour} <span class="doux">{heureFr(h.ouverture!)} – {heureFr(h.fermeture!)}</span></li>
+        ))}
+      </ul>
+    </section>
+
+    <section aria-labelledby="pied-contact">
+      <h2 id="pied-contact">Contact</h2>
+      <ul class="pied__liste">
+        <li><a href={`tel:${club.contact.telephoneE164}`}>{club.contact.telephone}</a></li>
+        <li><a href={`mailto:${club.contact.email}`}>{club.contact.email}</a></li>
+        <li><a href={club.contact.facebook} rel="noopener">Facebook</a> · <a href={club.contact.instagram} rel="noopener">Instagram</a> · <a href={club.contact.youtube} rel="noopener">YouTube</a></li>
+        <li><a href="/reseaux">Tous nos réseaux</a></li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="pied-liens">
+      <h2 id="pied-liens">Liens utiles</h2>
+      <ul class="pied__liste">
+        <li><a href="/competitions">Calendriers et résultats</a></li>
+        <li><a href="/reglement">Règlement et fédérations</a></li>
+        <li><a href="https://ffbabyfoot.fr/" rel="noopener">Fédération française de baby-foot</a></li>
+        <li><a href="https://www.tablesoccer.org/" rel="noopener">Fédération internationale (ITSF)</a></li>
+        <li><a href="/mentions-legales">Mentions légales</a></li>
+      </ul>
+    </section>
+  </div>
+  <div class="conteneur pied__bas">
+    <p>© {annee} {club.nomLong}, association loi 1901.</p>
+    <p>Ce site ne dépose aucun cookie.</p>
+  </div>
+</footer>
+
+<style>
+  .pied {
+    margin-top: var(--e-8);
+    background: var(--cadre);
+    color: #dfe6f3;
+    padding-block: var(--e-7) var(--e-5);
+  }
+  .pied a { color: #ffffff; }
+  .pied a:hover { color: #c3d0ff; }
+  .pied :focus-visible { outline-color: #9db2ff; }
+  .pied .doux { color: #a5b2cc; }
+  .pied__grille {
+    display: grid;
+    gap: var(--e-6);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  }
+  .pied h2 {
+    font-size: var(--t-2);
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: var(--e-3);
+  }
+  .pied address { font-style: normal; margin-top: var(--e-2); }
+  .pied__liste { list-style: none; padding: 0; display: grid; gap: var(--e-2); }
+  .pied__liste a { display: inline-block; padding-block: 0.15rem; }
+  @media (pointer: coarse) {
+    .pied__liste { gap: 0; }
+    .pied__liste a { padding-block: 0.6rem; }
+  }
+  .pied__bas {
+    margin-top: var(--e-7);
+    padding-top: var(--e-4);
+    border-top: 1px solid rgb(255 255 255 / 0.15);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--e-2) var(--e-5);
+    font-size: var(--t-0);
+    color: #a5b2cc;
+  }
+</style>

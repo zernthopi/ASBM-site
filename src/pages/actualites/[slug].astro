@@ -1,0 +1,76 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Icone from '../../components/Icone.astro';
+import club from '../../data/club.json';
+import { FORMATS, dateLongue, isoDate, insecable } from '../../lib/format';
+
+export async function getStaticPaths() {
+  const actus = await getCollection('actualites', ({ data }) => !data.brouillon);
+  return actus.map((a) => ({ params: { slug: a.id }, props: { actu: a } }));
+}
+
+const { actu } = Astro.props;
+const { Content } = await render(actu);
+const f = FORMATS[actu.data.format];
+const estEvenement = actu.data.format !== 'vie-du-club';
+---
+<Base titre={actu.data.titre} description={actu.data.resume}>
+  <article class="conteneur article">
+    <p class="retour"><a href="/actualites">Toutes les actualités</a></p>
+    <header class="article__entete">
+      <span class={`etiquette etiquette--${actu.data.format}`}>{f.long}</span>
+      <h1 set:html={insecable(actu.data.titre)} />
+    </header>
+
+    {estEvenement && (
+      <ul class="liste-infos article__infos">
+        <li>
+          <Icone nom="calendrier" />
+          <span>
+            <time datetime={isoDate(actu.data.date)} class="capitale">{dateLongue(actu.data.date)}</time>
+            {actu.data.heure && <>, {actu.data.heure}</>}
+          </span>
+        </li>
+        {actu.data.lieu && (
+          <li><Icone nom="lieu" /><span>{actu.data.lieu} (<a href="/acces">plan d’accès</a>)</span></li>
+        )}
+        {actu.data.inscription && (
+          <li><Icone nom="externe" /><a href={actu.data.inscription} rel="noopener">S’inscrire en ligne</a></li>
+        )}
+      </ul>
+    )}
+    {!estEvenement && (
+      <p class="doux">Publié le <time datetime={isoDate(actu.data.date)}>{dateLongue(actu.data.date)}</time></p>
+    )}
+
+    <div class="prose article__corps">
+      <Content />
+    </div>
+
+    <aside class="article__contact" aria-label="Contact">
+      <p>
+        Une question&nbsp;? Appelez le <a href={`tel:${club.contact.telephoneE164}`} class="nums">{club.contact.telephone}</a>
+        ou écrivez à <a href={`mailto:${club.contact.email}`}>{club.contact.email}</a>.
+      </p>
+    </aside>
+  </article>
+</Base>
+
+<style>
+  .article { padding-block: var(--e-6) var(--e-8); }
+  .retour { font-weight: 700; }
+  .article__entete { margin-top: var(--e-6); }
+  .article__entete h1 { font-size: var(--t-4); margin-top: var(--e-3); max-width: 20ch; }
+  .article__infos { margin-top: var(--e-5); font-size: var(--t-2); }
+  .capitale { display: inline-block; }
+  .capitale::first-letter { text-transform: uppercase; }
+  .article__corps { margin-top: var(--e-6); }
+  .article__contact {
+    margin-top: var(--e-7);
+    padding-top: var(--e-5);
+    border-top: 1px solid var(--filet);
+    max-width: var(--mesure);
+    color: var(--doux);
+  }
+</style>

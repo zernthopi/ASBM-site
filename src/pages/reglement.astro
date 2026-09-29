@@ -1,0 +1,115 @@
+---
+import Base from '../layouts/Base.astro';
+import Icone from '../components/Icone.astro';
+import ACompleter from '../components/ACompleter.astro';
+
+const regles = [
+  {
+    titre: 'Règles officielles de la FFBF',
+    texte: 'Les règles en vigueur lors des tournois fédéraux en France, avec leur version simplifiée pour débuter.',
+    href: 'https://ffbabyfoot.fr/jouer-au-babyfoot/regles',
+    lien: 'Consulter sur ffbabyfoot.fr',
+  },
+  {
+    titre: 'Règlement international de l’ITSF',
+    texte: 'Le règlement de jeu utilisé dans les compétitions internationales.',
+    href: 'https://www.tablesoccer.org/page/itsf-rules',
+    lien: 'Consulter sur tablesoccer.org',
+  },
+];
+const federations = [
+  {
+    sigle: 'FFBF',
+    nom: 'Fédération française de baby-foot',
+    texte: 'Créée en 1991, elle organise les compétitions nationales et le classement des joueurs en France.',
+    href: 'https://ffbabyfoot.fr/',
+    domaine: 'ffbabyfoot.fr',
+  },
+  {
+    sigle: 'ITSF',
+    nom: 'International Table Soccer Federation',
+    texte: 'La fédération internationale de football de table, basée à Nantes. Elle homologue les tables de compétition et organise les compétitions mondiales.',
+    href: 'https://www.tablesoccer.org/',
+    domaine: 'tablesoccer.org',
+  },
+];
+---
+<Base
+  titre="Règlement et fédérations"
+  description="Règles officielles du baby-foot (FFBF et ITSF) et liens vers les fédérations française et internationale."
+>
+  <div class="conteneur">
+    <header class="entete-page">
+      <h1>Règlement et fédérations</h1>
+      <p>Les matchs au club et en tournoi se jouent selon les règles officielles. Voici où les trouver.</p>
+    </header>
+
+    <section class="bloc" aria-labelledby="titre-regles">
+      <h2 id="titre-regles">Règles du jeu</h2>
+      <ul class="liens-docs">
+        {regles.map((r) => (
+          <li>
+            <Icone nom="document" />
+            <div>
+              <h3><a href={r.href} rel="noopener">{r.titre}</a></h3>
+              <p>{r.texte}</p>
+              <p class="domaine doux">{r.lien}</p>
+            </div>
+          </li>
+        ))}
+        <li>
+          <Icone nom="document" />
+          <div>
+            <h3>Règlement intérieur du club</h3>
+            <p>Fonctionnement des séances, adhésion, respect du matériel. <ACompleter texte="Document à fournir" /></p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section class="bloc" aria-labelledby="titre-federations">
+      <h2 id="titre-federations">Les fédérations</h2>
+      <div class="federations">
+        {federations.map((f) => (
+          <article class="federation">
+            <p class="federation__sigle">{f.sigle}</p>
+            <h3>{f.nom}</h3>
+            <p>{f.texte}</p>
+            <a href={f.href} rel="noopener" class="federation__lien">
+              {f.domaine}<Icone nom="externe" titre="(site externe)" />
+            </a>
+          </article>
+        ))}
+      </div>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .bloc { padding-block: var(--e-6) var(--e-7); border-top: 1px solid var(--filet); }
+  .bloc > h2 { font-size: var(--t-3); margin-bottom: var(--e-5); }
+  .liens-docs { list-style: none; padding: 0; display: grid; gap: var(--e-6); max-width: var(--mesure); }
+  .liens-docs li { display: grid; grid-template-columns: auto 1fr; gap: var(--e-4); }
+  .liens-docs > li > .icone { width: 1.75rem; height: 1.75rem; color: var(--bleu); margin-top: 0.2rem; }
+  .liens-docs h3 { font-family: var(--f-texte); font-weight: 700; font-size: var(--t-2); letter-spacing: 0; line-height: 1.3; }
+  .liens-docs h3 a { text-decoration-thickness: 2px; }
+  .liens-docs p { margin-top: var(--e-1); }
+  .domaine { font-size: var(--t-0); }
+
+  .federations {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: var(--e-7);
+  }
+  .federation { display: grid; gap: var(--e-2); align-content: start; }
+  .federation__sigle {
+    font-family: var(--f-display);
+    font-weight: 800;
+    font-size: 4rem;
+    line-height: 0.9;
+    color: var(--bleu);
+  }
+  .federation h3 { font-family: var(--f-texte); font-weight: 700; font-size: var(--t-2); letter-spacing: 0; line-height: 1.3; }
+  .federation p { max-width: 46ch; }
+  .federation__lien { display: inline-flex; align-items: center; gap: var(--e-2); font-weight: 700; min-height: 44px; }
+</style>

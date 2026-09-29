@@ -1,0 +1,85 @@
+---
+import Base from '../layouts/Base.astro';
+import ACompleter from '../components/ACompleter.astro';
+import club from '../data/club.json';
+import tables from '../data/tables.json';
+
+const modelesTables = Object.entries(tables.marques as Record<string, { modele?: string }>)
+  .filter(([, t]) => t.modele)
+  .map(([nom, t]) => (t.modele === nom ? nom : `${nom} ${t.modele}`));
+---
+<Base
+  titre="Mentions légales"
+  description="Mentions légales et politique de confidentialité du site de l’ASBM, club de baby-foot à Marseille."
+>
+  <div class="conteneur">
+    <header class="entete-page">
+      <h1>Mentions légales</h1>
+    </header>
+
+    <div class="prose">
+      <h2>Éditeur du site</h2>
+      <p>
+        <strong>{club.nomLong} ({club.nomCourt})</strong>, association déclarée régie par la loi du 1<sup>er</sup> juillet 1901.<br />
+        Siège social : {club.legal.siege} <ACompleter texte="À confirmer" /><br />
+        N° RNA : {club.legal.rna}, SIREN : {club.legal.siren}<br />
+        Téléphone : <a href={`tel:${club.contact.telephoneE164}`}>{club.contact.telephone}</a>,
+        e-mail : <a href={`mailto:${club.contact.email}`}>{club.contact.email}</a>
+      </p>
+      <p>Directeur ou directrice de la publication : <ACompleter texte="Nom du président ou de la présidente" /></p>
+
+      <h2>Hébergement</h2>
+      <p>
+        <ACompleter texte="À compléter selon l’hébergeur choisi" /> (raison sociale, adresse et téléphone de l’hébergeur,
+        par exemple Cloudflare, GitHub ou Netlify).
+      </p>
+
+      <h2>Données personnelles et cookies</h2>
+      <p>
+        Ce site ne dépose aucun cookie, n’utilise aucun outil de mesure d’audience et ne collecte aucune donnée
+        personnelle. Les polices de caractères sont hébergées sur le site lui-même.
+      </p>
+      <p>
+        La carte de la page « Venir jouer » est fournie par OpenStreetMap et ne se charge que si vous cliquez
+        sur « Afficher la carte ». Votre navigateur se connecte alors aux serveurs d’OpenStreetMap.
+      </p>
+      <p>
+        Les liens vers Facebook, Instagram et YouTube (page « Nos réseaux ») sont de simples liens : aucun contenu de
+        ces réseaux n’est intégré au site et aucune donnée ne leur est transmise tant que vous ne cliquez pas.
+      </p>
+      <p>
+        Si vous écrivez au club par e-mail ou par téléphone, vos coordonnées servent uniquement à vous répondre.
+        Pour toute question sur vos données : <a href={`mailto:${club.contact.email}`}>{club.contact.email}</a>.
+      </p>
+
+      <h2>Propriété intellectuelle</h2>
+      <p>
+        Les textes et illustrations de ce site appartiennent à l’{club.nomCourt}, sauf mention contraire.
+        Les noms Bonzini, Leonhart, FFBF et ITSF appartiennent à leurs détenteurs respectifs.
+      </p>
+      <p>
+        Photos et logo : {club.nomCourt}, publiés sur la page Facebook du club. Les personnes photographiées
+        peuvent demander le retrait d’une image en écrivant à <a href={`mailto:${club.contact.email}`}>{club.contact.email}</a>.
+      </p>
+      <p>
+        Calendriers, classements et résultats de la page « Compétitions » : données publiques de la Fédération
+        française de baby-foot (<a href="https://coral.ffbabyfoot.fr/" rel="noopener">coral.ffbabyfoot.fr</a>) et de
+        l’International Table Soccer Federation (<a href="https://www.tablesoccer.org/" rel="noopener">tablesoccer.org</a>),
+        reprises chaque jour. Les joueurs qui ne souhaitent pas voir leurs résultats repris sur ce site peuvent le
+        signaler à <a href={`mailto:${club.contact.email}`}>{club.contact.email}</a>.
+      </p>
+      <p>
+        Plan d’accès (page « Venir jouer ») : cartes dessinées pour le site à partir des données
+        © <a href="https://www.openstreetmap.org/copyright" rel="noopener">contributeurs OpenStreetMap</a>
+        (licence ODbL) ; couleurs des lignes de la RTM.
+      </p>
+      <p>
+        Drapeaux : projet <a href="https://github.com/lipis/flag-icons" rel="noopener">flag-icons</a> (licence MIT).
+      </p>
+      <p>
+        Images des tables ({modelesTables.join(', ')}) : {tables.credit} Les autres marques sont représentées par
+        une illustration réalisée pour le site.
+      </p>
+    </div>
+  </div>
+</Base>

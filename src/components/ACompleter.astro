@@ -1,0 +1,6 @@
+---
+// Marqueur visible pour les contenus que le club doit fournir.
+interface Props { texte?: string }
+const { texte = 'À compléter' } = Astro.props;
+---
+<span class="a-completer">{texte}</span>

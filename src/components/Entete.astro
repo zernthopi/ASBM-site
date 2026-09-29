@@ -1,0 +1,149 @@
+---
+import Icone from './Icone.astro';
+
+const liens = [
+  { href: '/actualites', label: 'Actualités' },
+  { href: '/competitions', label: 'Compétitions' },
+  { href: '/club', label: 'Le club' },
+  { href: '/acces', label: 'Venir jouer' },
+  { href: '/reglement', label: 'Règlement' },
+  { href: '/reseaux', label: 'Nos réseaux' },
+];
+const normaliser = (p: string) => p.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+const actuel = normaliser(Astro.url.pathname);
+const estActif = (href: string) => actuel === href || actuel.startsWith(`${href}/`);
+---
+<header class="entete sur-marine">
+  <div class="conteneur entete__rangee">
+    <a class="marque" href="/" aria-label="ASBM, Babyfoot Marseille : accueil">
+      <img class="marque__logo" src="/logo-asbm.webp" width="52" height="52" alt="" />
+      <span class="marque__sigle" aria-hidden="true">ASBM</span>
+      <span class="marque__nom" aria-hidden="true">Baby-foot<br />Marseille</span>
+    </a>
+
+    <nav class="nav nav--large" aria-label="Navigation principale">
+      <ul>
+        {liens.map((l) => (
+          <li><a href={l.href} aria-current={estActif(l.href) ? 'page' : undefined}>{l.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <details class="nav nav--mobile">
+      <summary>
+        <Icone nom="menu" />
+        <span>Menu</span>
+      </summary>
+      <nav aria-label="Navigation principale">
+        <ul>
+          {liens.map((l) => (
+            <li><a href={l.href} aria-current={estActif(l.href) ? 'page' : undefined}>{l.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<style>
+  .entete {
+    background: var(--marine);
+    color: var(--sur-marine);
+    border-bottom: 5px solid var(--ciel);
+  }
+  .entete__rangee {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--e-5);
+    min-height: 4.5rem;
+    position: relative;
+  }
+  .marque {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--e-3);
+    color: var(--sur-marine);
+    text-decoration: none;
+    padding-block: var(--e-2);
+  }
+  .marque:hover { color: var(--sur-marine); }
+  .marque__logo { width: 52px; height: 52px; flex: none; }
+  .marque__sigle {
+    font-family: var(--f-display);
+    font-weight: 800;
+    font-size: 2.3rem;
+    line-height: 1;
+    letter-spacing: 0.02em;
+  }
+  .marque__nom {
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    line-height: 1.05;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ciel-clair);
+    border-left: 3px solid var(--ciel);
+    padding-left: var(--e-3);
+  }
+
+  .nav ul { list-style: none; padding: 0; display: flex; gap: var(--e-1); }
+  .nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-inline: var(--e-3);
+    color: var(--sur-marine);
+    text-decoration: none;
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    border-radius: var(--r-petit);
+  }
+  .nav a:hover { color: var(--ciel-clair); }
+  .nav a[aria-current='page'] {
+    color: var(--marine);
+    background: var(--ciel);
+  }
+
+  .nav--mobile { display: none; }
+  .nav--mobile summary {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--e-2);
+    min-height: 44px;
+    padding-inline: var(--e-3);
+    border: 2px solid var(--sur-marine);
+    border-radius: var(--r-petit);
+    font-family: var(--f-display);
+    font-weight: 800;
+    font-size: 1.15rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    list-style: none;
+  }
+  .nav--mobile summary::-webkit-details-marker { display: none; }
+  .nav--mobile[open] summary { background: var(--ciel); border-color: var(--ciel); color: var(--marine); }
+  .nav--mobile nav {
+    position: absolute;
+    inset-inline: 0;
+    top: calc(100% + 5px);
+    z-index: 5;
+    background: var(--marine);
+    border-bottom: 5px solid var(--ciel);
+    padding: var(--e-2) max(1rem, 4vw) var(--e-4);
+  }
+  .nav--mobile ul { flex-direction: column; gap: var(--e-1); }
+  .nav--mobile a { width: 100%; font-size: 1.5rem; }
+
+  @media (max-width: 62rem) {
+    .nav a { padding-inline: var(--e-2); font-size: 1.1rem; }
+  }
+  @media (max-width: 52rem) {
+    .nav--large { display: none; }
+    .nav--mobile { display: block; }
+  }
+</style>

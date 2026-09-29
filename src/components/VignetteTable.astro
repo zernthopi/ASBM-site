@@ -1,0 +1,64 @@
+---
+// Vignette de la table d'une marque : visuel de la table sur fond blanc, mot (ex. « MULTI »)
+// ou illustration générique. Décorative : le nom de la table est toujours écrit à côté.
+import { infosTable, libelleTable } from '../lib/competitions';
+
+interface Props {
+  nom: string | null | undefined;
+  taille?: 'filtre' | 'liste' | 'carte';
+  paresseux?: boolean;
+  class?: string;
+}
+const { nom, taille = 'liste', paresseux = true, class: classe } = Astro.props;
+const t = infosTable(nom);
+const dims = { filtre: [36, 27], liste: [72, 54], carte: [112, 84] }[taille];
+const titre = t.modele && t.modele !== t.nom ? `Table ${libelleTable(t.nom)} ${t.modele}` : `Table ${libelleTable(t.nom)}`;
+---
+{t.texte ? (
+  <span class:list={['vignette-table', `vignette-table--${taille}`, 'vignette-table--texte', classe]} aria-hidden="true" title={titre}>
+    <span>{t.texte}</span>
+  </span>
+) : (
+  <span class:list={['vignette-table', `vignette-table--${taille}`, { 'vignette-table--illustration': t.illustration }, classe]}>
+    <img
+      src={t.image}
+      width={dims[0]}
+      height={dims[1]}
+      alt=""
+      title={titre}
+      loading={paresseux ? 'lazy' : 'eager'}
+      decoding="async"
+    />
+  </span>
+)}
+
+<style>
+  .vignette-table {
+    display: inline-grid;
+    place-items: center;
+    flex: none;
+    line-height: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 0 0 1px rgb(11 29 58 / 0.18);
+  }
+  .vignette-table img { width: 100%; height: 100%; object-fit: contain; }
+  .vignette-table--illustration { background: var(--surface); }
+  .vignette-table--illustration img { object-fit: cover; }
+  .vignette-table--filtre { width: 36px; height: 27px; border-radius: 4px; }
+  .vignette-table--liste { width: 72px; height: 54px; }
+  .vignette-table--carte { width: 112px; height: 84px; }
+
+  /* Multitable : le mot à la place d'une image */
+  .vignette-table--texte span {
+    font-family: var(--f-display);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0.04em;
+    color: var(--marine);
+  }
+  .vignette-table--filtre.vignette-table--texte span { font-size: 0.72rem; }
+  .vignette-table--liste.vignette-table--texte span { font-size: 1.35rem; }
+  .vignette-table--carte.vignette-table--texte span { font-size: 2rem; }
+</style>

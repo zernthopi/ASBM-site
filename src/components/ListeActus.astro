@@ -1,0 +1,70 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { FORMATS, jourMois, jourSemaine, isoDate, dateLongue, insecable } from '../lib/format';
+
+interface Props {
+  actus: CollectionEntry<'actualites'>[];
+  afficherAnnee?: boolean;
+  niveauTitre?: 'h2' | 'h3';
+}
+const { actus, afficherAnnee = false, niveauTitre = 'h3' } = Astro.props;
+const Titre = niveauTitre;
+---
+<ol class="actus">
+  {actus.map((a) => {
+    const { jour, mois } = jourMois(a.data.date);
+    const annee = a.data.date.getUTCFullYear();
+    const f = FORMATS[a.data.format];
+    return (
+      <li class="actu">
+        <time class="actu__date nums" datetime={isoDate(a.data.date)}>
+          <span class="actu__jour">{jour}</span>
+          <span class="actu__mois">{mois}{afficherAnnee && <> {annee}</>}</span>
+          <span class="sr-only">{dateLongue(a.data.date)}</span>
+        </time>
+        <div class="actu__corps">
+          <p class="actu__meta">
+            <span class={`etiquette etiquette--${a.data.format}`} title={f.long}>{f.court}</span>
+            {a.data.heure && <span class="doux">{jourSemaine(a.data.date)}, {a.data.heure}</span>}
+          </p>
+          <Titre class="actu__titre"><a href={`/actualites/${a.id}`} set:html={insecable(a.data.titre)} /></Titre>
+          <p class="actu__resume">{a.data.resume}</p>
+        </div>
+      </li>
+    );
+  })}
+</ol>
+
+<style>
+  .actus { list-style: none; padding: 0; border-top: 1px solid var(--filet); }
+  .actu {
+    position: relative;
+    display: grid;
+    grid-template-columns: 5.5rem 1fr;
+    gap: var(--e-5);
+    padding-block: var(--e-5);
+    border-bottom: 1px solid var(--filet);
+  }
+  .actu__date {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-family: var(--f-display);
+    line-height: 0.95;
+    color: var(--bleu);
+  }
+  .actu__jour { font-size: 3.25rem; font-weight: 800; }
+  .actu__mois { font-size: 1.25rem; font-weight: 700; }
+  .actu__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--e-2) var(--e-3); }
+  .actu__titre { font-size: var(--t-3); margin-top: var(--e-2); }
+  .actu__titre a { color: var(--marine); text-decoration: none; }
+  .actu__titre a::after { content: ''; position: absolute; inset: 0; }
+  .actu:hover .actu__titre a { color: var(--bleu); text-decoration: underline; text-decoration-thickness: 2px; }
+  .actu__titre a:focus-visible { outline: none; }
+  .actu:has(a:focus-visible) { outline: 3px solid var(--bleu); outline-offset: 4px; border-radius: 4px; }
+  .actu__resume { color: var(--doux); margin-top: var(--e-2); max-width: 60ch; }
+  @media (max-width: 30rem) {
+    .actu { grid-template-columns: 4rem 1fr; gap: var(--e-4); }
+    .actu__jour { font-size: 2.6rem; }
+  }
+</style>

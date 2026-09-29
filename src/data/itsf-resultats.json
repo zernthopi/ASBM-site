@@ -1,0 +1,3302 @@
+{
+ "maj": "2026-09-29T09:42:01.033Z",
+ "source": "https://www.tablesoccer.org/tournaments",
+ "tournois": [
+  {
+   "code": "692NJ7",
+   "nom": "6e Open National du Grand Lyon (ITSF 500)",
+   "debut": "2026-09-26",
+   "fin": "2026-09-27",
+   "ville": "Chasse-sur-Rhône",
+   "pays": "FR",
+   "categorie": "ITSF 500",
+   "table": "Bonzini",
+   "lien": "https://app.tablesoccer.org/p/692NJ7",
+   "statut": "finished",
+   "epreuves": [
+    {
+     "nom": "Open Mixed",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Adam",
+         "Tourmente",
+         "FR",
+         "7D38Y6"
+        ],
+        [
+         "Malika",
+         "Senouci",
+         "FR",
+         "ZYQ8A7"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Kaithline",
+         "Larmigny",
+         "FR",
+         "7KA8W4"
+        ],
+        [
+         "Maxime",
+         "Blin",
+         "FR",
+         "ZX44QZ"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Tom",
+         "Droit",
+         "FR",
+         "6P5JW6"
+        ],
+        [
+         "Clara",
+         "Barbey",
+         "FR",
+         "7KAQGP"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Open Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Tom",
+         "Droit",
+         "FR",
+         "6P5JW6"
+        ],
+        [
+         "Adam",
+         "Tourmente",
+         "FR",
+         "7D38Y6"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "François",
+         "Cheuret",
+         "FR",
+         "625WB6"
+        ],
+        [
+         "Aurélien",
+         "Le Godec",
+         "FR",
+         "ZV2NJZ"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Yoann",
+         "Sicot",
+         "FR",
+         "ZVM2PZ"
+        ],
+        [
+         "Damien",
+         "Willemet",
+         "FR",
+         "Z43NK6"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Women Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Clara",
+         "Barbey",
+         "FR",
+         "7KAQGP"
+        ],
+        [
+         "Ilana",
+         "Robin",
+         "FR",
+         "ZQDKY9"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Caroline",
+         "Osmont",
+         "FR",
+         "7G9G3G"
+        ],
+        [
+         "Clémentine",
+         "Thomar",
+         "FR",
+         "69JEK7"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Anastasia",
+         "Sheykina",
+         "RU",
+         "6P3VM9"
+        ],
+        [
+         "Malika",
+         "Senouci",
+         "FR",
+         "ZYQ8A7"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Senior Over 50 Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Sebastien",
+         "Friedrichs",
+         "FR",
+         "7GPMO7"
+        ],
+        [
+         "Yannick",
+         "Fontaine",
+         "FR",
+         "ZYP4VZ"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Cyril",
+         "Jegu",
+         "FR",
+         "7KY34Z"
+        ],
+        [
+         "Lionel",
+         "Martinez",
+         "FR",
+         "ZV5335"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Cyrille",
+         "Marceau",
+         "FR",
+         "6J8XQ6"
+        ],
+        [
+         "Raphaël",
+         "Poiraud",
+         "FR",
+         "7GPQ97"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Open Singles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Adam",
+         "Tourmente",
+         "FR",
+         "7D38Y6"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Miguel",
+         "Dos Santos Lote",
+         "FR",
+         "ZQ5PV6"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Julien",
+         "Pierron",
+         "FR",
+         "7DEPP6"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Women Singles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Clémentine",
+         "Thomar",
+         "FR",
+         "69JEK7"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Clara",
+         "Barbey",
+         "FR",
+         "7KAQGP"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Anastasia",
+         "Sheykina",
+         "RU",
+         "6P3VM9"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Senior Over 50 Singles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Sebastien",
+         "Friedrichs",
+         "FR",
+         "7GPMO7"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Raphaël",
+         "Poiraud",
+         "FR",
+         "7GPQ97"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Frédéric",
+         "Fleurot",
+         "FR",
+         "6PB35Z"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Junior Under 19 Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Matheo",
+         "Moizan",
+         "FR",
+         "6RELDM"
+        ],
+        [
+         "Augustin",
+         "Le Dantec",
+         "FR",
+         "6P2JWO"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Jean",
+         "Mallet",
+         "FR",
+         "63JEKR"
+        ],
+        [
+         "Valentin",
+         "Grandys",
+         "FR",
+         "ZOEQJD"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Junior Under 19 Singles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Matheo",
+         "Moizan",
+         "FR",
+         "6RELDM"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Jean",
+         "Mallet",
+         "FR",
+         "63JEKR"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Valentin",
+         "Grandys",
+         "FR",
+         "ZOEQJD"
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "code": "6EOBGZ",
+   "nom": "World Series Garlando 2026 Cieszyn",
+   "debut": "2026-09-16",
+   "fin": "2026-09-20",
+   "ville": "Cieszyn",
+   "pays": "PL",
+   "categorie": "World Series",
+   "table": "Garlando",
+   "lien": "https://app.tablesoccer.org/p/ws-garlando-2026",
+   "statut": "finished",
+   "epreuves": [
+    {
+     "nom": "Open Mixed",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Blagovesta",
+         "Hoffmann",
+         "BG",
+         "Z85KA4"
+        ],
+        [
+         "Tony",
+         "Spredeman",
+         "US",
+         "ZXA382"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Thomas",
+         "Haas",
+         "DE",
+         "69N54K"
+        ],
+        [
+         "Sarah",
+         "Klabunde",
+         "DE",
+         "6J38VL"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Jana",
+         "Pankova",
+         "SK",
+         "6P3QDR"
+        ],
+        [
+         "Šimon",
+         "Vároš",
+         "SK",
+         "62NPX5"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Senior Mixed",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Yaka",
+         "Diaz",
+         "GB",
+         "ZQ39EO"
+        ],
+        [
+         "Oliver",
+         "Vilim",
+         "AT",
+         "ZO5M3A"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Wilfried",
+         "Honekamp",
+         "DE",
+         "ZV3MEJ"
+        ],
+        [
+         "Silvia",
+         "Hansen",
+         "DE",
+         "7G9NJL"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Helmut",
+         "Hanekamp",
+         "DE",
+         "ZO5VVA"
+        ],
+        [
+         "Nicole",
+         "Hanekamp",
+         "DE",
+         "7DN3AB"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Junior Mixed",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Helene",
+         "Voss",
+         "DE",
+         "6REQXK"
+        ],
+        [
+         "Julius",
+         "Hartmann",
+         "DE",
+         "6AKDYB"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Danylo",
+         "Korenovskyi",
+         "PL",
+         "Z54LAD"
+        ],
+        [
+         "Łucja",
+         "Zwierko",
+         "PL",
+         "ZXNAG2"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Aleksandra",
+         "Litwa",
+         "PL",
+         "ZMOX4R"
+        ],
+        [
+         "Julian",
+         "Antolik",
+         "PL",
+         "6JY5WD"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Classic Open Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Stefan",
+         "Burmetler",
+         "AT",
+         "6JGJAQ"
+        ],
+        [
+         "Matthias",
+         "Schöpf",
+         "AT",
+         "7GRL8L"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Piotr",
+         "Leszczyński",
+         "PL",
+         "ZXYGNQ"
+        ],
+        [
+         "Filip",
+         "Tokaj",
+         "PL",
+         "Z54Q2M"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Patrik",
+         "Landolt",
+         "CH",
+         "ZB8RW2"
+        ],
+        [
+         "Christoph",
+         "Zimmermann",
+         "CH",
+         "ZWLKGK"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Nations Cup - Men",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "",
+         "",
+         "AT",
+         ""
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "",
+         "",
+         "CH",
+         ""
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "",
+         "",
+         "DE",
+         ""
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Nations Cup - Women",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "",
+         "",
+         "DE",
+         ""
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "",
+         "",
+         "BG",
+         ""
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "",
+         "",
+         "AT",
+         ""
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Nations Cup - Junior",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "",
+         "",
+         "DE",
+         ""
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "",
+         "",
+         "AT",
+         ""
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "",
+         "",
+         "PL",
+         ""
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Nations Cup - Senior",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "",
+         "",
+         "AT",
+         ""
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "",
+         "",
+         "PL",
+         ""
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Men Singles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Justus",
+         "Aust",
+         "DE",
+         "ZX32E2"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Markus",
+         "Rosicky",
+         "AT",
+         "634R85"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Tony",
+         "Spredeman",
+         "US",
+         "ZXA382"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Women Singles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Marina",
+         "Tabakovic",
+         "AT",
+         "7L5MWR"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Beatrice",
+         "Berner",
+         "CH",
+         "6R39XM"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Elli",
+         "McDonald",
+         "AT",
+         "ZOEXX2"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Senior Over 50 Singles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "David",
+         "Ziemann",
+         "GB",
+         "692AGY"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Oliver",
+         "Vilim",
+         "AT",
+         "ZO5M3A"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Roman",
+         "Benz",
+         "AT",
+         "7DX8P8"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Senior Over 63 Singles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Rhys",
+         "Roberts",
+         "GB",
+         "ZB893O"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "David",
+         "Ziemann",
+         "GB",
+         "692AGY"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Peter",
+         "Swoboda",
+         "AT",
+         "62GRWW"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Women Senior Singles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Mirjam",
+         "Caviezel",
+         "CH",
+         "Z4NDQY"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Yaka",
+         "Diaz",
+         "GB",
+         "ZQ39EO"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Nicole",
+         "Hanekamp",
+         "DE",
+         "7DN3AB"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Junior Under 19 Singles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Julius",
+         "Hartmann",
+         "DE",
+         "6AKDYB"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Juraj",
+         "Rybansky",
+         "AT",
+         "62KP4O"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Louis",
+         "Georgi",
+         "AT",
+         "7NB4OP"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Junior Under 16 Singles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Mateusz",
+         "Czarnecki",
+         "PL",
+         "7DNKA9"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Stanley",
+         "Darragh",
+         "GB",
+         "ZVL48D"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Bela",
+         "Bonkowski",
+         "DE",
+         "Z8NGBG"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Junior Under 13 Singles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Isaak Quentin Walter",
+         "Fülle-Klement",
+         "AT",
+         "6EX2O9"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Maximilian",
+         "Hanzlik",
+         "AT",
+         "ZVL95J"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Gurnoor",
+         "Kaur",
+         "IN",
+         "ZQDBOO"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Girls Under 19 Singles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Aleksandra",
+         "Litwa",
+         "PL",
+         "ZMOX4R"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Helene",
+         "Voss",
+         "DE",
+         "6REQXK"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Alicja",
+         "Noiszewska",
+         "PL",
+         "ZWP2ME"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Open Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Björn",
+         "Hoffmann",
+         "DE",
+         "69NKM4"
+        ],
+        [
+         "Tony",
+         "Spredeman",
+         "US",
+         "ZXA382"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Stefan",
+         "Burmetler",
+         "AT",
+         "6JGJAQ"
+        ],
+        [
+         "Matthias",
+         "Schöpf",
+         "AT",
+         "7GRL8L"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Hannes",
+         "Bruns",
+         "DE",
+         "ZB4Q3E"
+        ],
+        [
+         "Justus",
+         "Aust",
+         "DE",
+         "ZX32E2"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Women Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Katarzyna",
+         "Przystalska",
+         "PL",
+         "ZX3RLK"
+        ],
+        [
+         "Zuzanna",
+         "Sokolowska",
+         "PL",
+         "6JYXLL"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Blagovesta",
+         "Hoffmann",
+         "BG",
+         "Z85KA4"
+        ],
+        [
+         "Petra",
+         "Koncz",
+         "HU",
+         "Z8RPPG"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Stanislava",
+         "Staykova",
+         "BG",
+         "ZVK9JD"
+        ],
+        [
+         "Veronika",
+         "Mincheva",
+         "BG",
+         "6JNK8D"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Senior Over 50 Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Roman",
+         "Benz",
+         "AT",
+         "7DX8P8"
+        ],
+        [
+         "Oliver",
+         "Vilim",
+         "AT",
+         "ZO5M3A"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Helmut",
+         "Hanekamp",
+         "DE",
+         "ZO5VVA"
+        ],
+        [
+         "Thomas",
+         "Mauritz",
+         "DE",
+         "Z45KK2"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "René",
+         "Affengruber",
+         "AT",
+         "6PDEJR"
+        ],
+        [
+         "Andreas",
+         "Lentsch",
+         "AT",
+         "6AKME3"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Senior Over 63 Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "David",
+         "Ziemann",
+         "GB",
+         "692AGY"
+        ],
+        [
+         "Rhys",
+         "Roberts",
+         "GB",
+         "ZB893O"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Peter",
+         "Swoboda",
+         "AT",
+         "62GRWW"
+        ],
+        [
+         "Reinhard",
+         "Wiege",
+         "AT",
+         "7GRNGW"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Junior Under 19 Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Stanley",
+         "Darragh",
+         "GB",
+         "ZVL48D"
+        ],
+        [
+         "Filip",
+         "Cellary",
+         "GB",
+         "7GMDYO"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Julian",
+         "Antolik",
+         "PL",
+         "6JY5WD"
+        ],
+        [
+         "Danylo",
+         "Korenovskyi",
+         "PL",
+         "Z54LAD"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Ashmeet",
+         "Aliyaan",
+         "IN",
+         "6JRNER"
+        ],
+        [
+         "Louis",
+         "Georgi",
+         "AT",
+         "7NB4OP"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Junior Under 16 Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Stanley",
+         "Darragh",
+         "GB",
+         "ZVL48D"
+        ],
+        [
+         "Filip",
+         "Cellary",
+         "GB",
+         "7GMDYO"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Oskar",
+         "Reigardt",
+         "DE",
+         "ZQDQ9O"
+        ],
+        [
+         "Bela",
+         "Bonkowski",
+         "DE",
+         "Z8NGBG"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Isaak Quentin Walter",
+         "Fülle-Klement",
+         "AT",
+         "6EX2O9"
+        ],
+        [
+         "Maximilian",
+         "Hanzlik",
+         "AT",
+         "ZVL95J"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Junior Under 13 Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Isaak Quentin Walter",
+         "Fülle-Klement",
+         "AT",
+         "6EX2O9"
+        ],
+        [
+         "Maximilian",
+         "Hanzlik",
+         "AT",
+         "ZVL95J"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Gurnoor",
+         "Kaur",
+         "IN",
+         "ZQDBOO"
+        ],
+        [
+         "Anya",
+         "Darragh",
+         "GB",
+         "7L2VWD"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Henryk",
+         "Ścibik",
+         "PL",
+         "ZORD8A"
+        ],
+        [
+         "Paweł",
+         "Filipowski",
+         "PL",
+         "7DNGNB"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "ITSF League - Men",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "",
+         "",
+         "DE",
+         ""
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "",
+         "",
+         "DE",
+         ""
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "",
+         "",
+         "AT",
+         ""
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "ITSF League - Women",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "",
+         "",
+         "AT",
+         ""
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "",
+         "",
+         "PL",
+         ""
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "",
+         "",
+         "PL",
+         ""
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "ITSF League - Junior",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "",
+         "",
+         "DE",
+         ""
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "",
+         "",
+         "PL",
+         ""
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "ITSF League - Senior",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "",
+         "",
+         "AT",
+         ""
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "",
+         "",
+         "AT",
+         ""
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Men Team Poland versus World",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "",
+         "",
+         "",
+         ""
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "",
+         "",
+         "PL",
+         ""
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Women Team Poland Versus World",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "",
+         "",
+         "",
+         ""
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "",
+         "",
+         "PL",
+         ""
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Junior U19 Team Poland versus World",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "",
+         "",
+         "",
+         ""
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "",
+         "",
+         "PL",
+         ""
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Girls Under 19 Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Alicja",
+         "Noiszewska",
+         "PL",
+         "ZWP2ME"
+        ],
+        [
+         "Aleksandra",
+         "Litwa",
+         "PL",
+         "ZMOX4R"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Helene",
+         "Voss",
+         "DE",
+         "6REQXK"
+        ],
+        [
+         "Rosa",
+         "Georgi",
+         "AT",
+         "ZOEVXD"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "ITSF League - Joint Qualifications",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "",
+         "",
+         "PL",
+         ""
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "",
+         "",
+         "AT",
+         ""
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "",
+         "",
+         "PL",
+         ""
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "code": "7NPX4Z",
+   "nom": "2026 Tokai Open",
+   "debut": "2026-09-04",
+   "fin": "2026-09-06",
+   "ville": "Anjo",
+   "pays": "JP",
+   "categorie": "ITSF 250",
+   "table": "Tornado",
+   "lien": "https://app.tablesoccer.org/p/7NPX4Z",
+   "statut": "finished",
+   "epreuves": [
+    {
+     "nom": "Open Singles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Masao",
+         "Suzuki",
+         "JP",
+         "Z8R59X"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Adam",
+         "Jurasek",
+         "CZ",
+         "62GB4W"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Kento",
+         "Kawanaka",
+         "JP",
+         "ZB8J4P"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Open Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Hiromi",
+         "Okamura",
+         "JP",
+         "ZOP59P"
+        ],
+        [
+         "Nana",
+         "Kumakura",
+         "JP",
+         "6RELJA"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Yuki",
+         "Minami",
+         "JP",
+         "7K2WA8"
+        ],
+        [
+         "Tadayoshi",
+         "Yamashita",
+         "JP",
+         "ZOR3X3"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Kento",
+         "Kawanaka",
+         "JP",
+         "ZB8J4P"
+        ],
+        [
+         "Toshinori",
+         "Eto",
+         "JP",
+         "6R3V5D"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Handicap Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Hiroshi",
+         "Yoshida",
+         "JP",
+         "6R3V4M"
+        ],
+        [
+         "Yuji",
+         "Inagami",
+         "JP",
+         "7LN5XK"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Viggo",
+         "Petersen",
+         "DK",
+         "7NRBO4"
+        ],
+        [
+         "Adam",
+         "Jurasek",
+         "CZ",
+         "62GB4W"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Kazuki",
+         "Saito",
+         "JP",
+         "ZQJL4Y"
+        ],
+        [
+         "Marin",
+         "Kakimoto",
+         "JP",
+         "6RREM4"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Rookie Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Shogo",
+         "Miyazaki",
+         "JP",
+         "ZM92NA"
+        ],
+        [
+         "Takuya",
+         "Sugishita",
+         "",
+         "ZYN4JV"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Kuantang",
+         "Huang",
+         "JP",
+         "ZQJNMY"
+        ],
+        [
+         "Takashi",
+         "Ono",
+         "JP",
+         "6JN9EL"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Akihiro",
+         "Fukaya",
+         "JP",
+         "6P2WA5"
+        ],
+        [
+         "Kaiya",
+         "Muto",
+         "JP",
+         "ZBWNR2"
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "code": "ZMP3RZ",
+   "nom": "4. Südburgenland Open",
+   "debut": "2026-08-28",
+   "fin": "2026-08-30",
+   "ville": "Rudersdorf",
+   "pays": "AT",
+   "categorie": "ITSF 500",
+   "table": "Garlando",
+   "lien": "https://app.tablesoccer.org/p/ZMP3RZ",
+   "statut": "finished",
+   "epreuves": [
+    {
+     "nom": "Open Mixed",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Migle",
+         "Januševičiūtė",
+         "LT",
+         "ZOPWDD"
+        ],
+        [
+         "Lukas",
+         "Mayerhofer",
+         "AT",
+         "6EO2MW"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Marisa",
+         "Müller-Kobler",
+         "AT",
+         "7GRLEW"
+        ],
+        [
+         "Sebastian",
+         "Wiesinger",
+         "AT",
+         "ZQALPY"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Marina",
+         "Tabakovic",
+         "AT",
+         "7L5MWR"
+        ],
+        [
+         "Stefan",
+         "Burmetler",
+         "AT",
+         "6JGJAQ"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Open Classic Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Markus",
+         "Schützenhofer",
+         "AT",
+         "6ELPXG"
+        ],
+        [
+         "Markus",
+         "Rosicky",
+         "AT",
+         "634R85"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Wolfgang",
+         "Breuer",
+         "AT",
+         "6RVMQ9"
+        ],
+        [
+         "Stefan",
+         "Burmetler",
+         "AT",
+         "6JGJAQ"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Pascal",
+         "Salzgeber",
+         "CH",
+         "7LNL5K"
+        ],
+        [
+         "Pascal",
+         "Nater",
+         "CH",
+         "692KGY"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Women Classic Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Julia",
+         "Holler",
+         "AT",
+         "Z5K3RV"
+        ],
+        [
+         "Marina",
+         "Tabakovic",
+         "AT",
+         "7L5MWR"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Djamila",
+         "Nader",
+         "DE",
+         "7KAGRP"
+        ],
+        [
+         "Karolina",
+         "Daugėlaitė",
+         "LT",
+         "ZORPB3"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Elli",
+         "McDonald",
+         "AT",
+         "ZOEXX2"
+        ],
+        [
+         "Marisa",
+         "Müller-Kobler",
+         "AT",
+         "7GRLEW"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Open Singles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Stefan",
+         "Burmetler",
+         "AT",
+         "6JGJAQ"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Ludwig",
+         "Gansch",
+         "AT",
+         "ZB8B58"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Sebastian",
+         "Wiesinger",
+         "AT",
+         "ZQALPY"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Junior Under 13 Singles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Felix",
+         "Haslwanter",
+         "AT",
+         "ZBWDB2"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Rosa",
+         "Georgi",
+         "AT",
+         "ZOEVXD"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Julian",
+         "Breuer",
+         "AT",
+         "ZXY9DB"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Women Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Djamila",
+         "Nader",
+         "DE",
+         "7KAGRP"
+        ],
+        [
+         "Karolina",
+         "Daugėlaitė",
+         "LT",
+         "ZORPB3"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Elli",
+         "McDonald",
+         "AT",
+         "ZOEXX2"
+        ],
+        [
+         "Marisa",
+         "Müller-Kobler",
+         "AT",
+         "7GRLEW"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Nora",
+         "Breuer",
+         "AT",
+         "ZWDJJE"
+        ],
+        [
+         "Laura",
+         "Edlmayr",
+         "AT",
+         "ZY4DO9"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Junior Under 19 Singles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Hugo",
+         "Haslwanter",
+         "AT",
+         "6JNPAD"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Louis",
+         "Georgi",
+         "AT",
+         "7NB4OP"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Marcel",
+         "Petek",
+         "SI",
+         "Z4QLDY"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Junior Under 19 Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Laurin",
+         "Breuer",
+         "AT",
+         "ZB4L38"
+        ],
+        [
+         "Rosa",
+         "Georgi",
+         "AT",
+         "ZOEVXD"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Maximilian",
+         "Hanzlik",
+         "AT",
+         "ZVL95J"
+        ],
+        [
+         "Marcel",
+         "Petek",
+         "SI",
+         "Z4QLDY"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Kristóf",
+         "Gilicze",
+         "HU",
+         "7G9JD4"
+        ],
+        [
+         "Hugo",
+         "Haslwanter",
+         "AT",
+         "6JNPAD"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Designated Mixed",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Djamila",
+         "Nader",
+         "DE",
+         "7KAGRP"
+        ],
+        [
+         "Wolfgang",
+         "Breuer",
+         "AT",
+         "6RVMQ9"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Nora",
+         "Breuer",
+         "AT",
+         "ZWDJJE"
+        ],
+        [
+         "Andreas",
+         "Breuer",
+         "AT",
+         "ZV3B4B"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Louis",
+         "Georgi",
+         "AT",
+         "7NB4OP"
+        ],
+        [
+         "Laura",
+         "Edlmayr",
+         "AT",
+         "ZY4DO9"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "2 Ball Rollerball",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Stefan",
+         "Burmetler",
+         "AT",
+         "6JGJAQ"
+        ],
+        [
+         "Djamila",
+         "Nader",
+         "DE",
+         "7KAGRP"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Szilárd",
+         "Schuszbauer",
+         "HU",
+         "692P4K"
+        ],
+        [
+         "János",
+         "Bertalan",
+         "HU",
+         "ZMPDVR"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Wolfgang",
+         "Breuer",
+         "AT",
+         "6RVMQ9"
+        ],
+        [
+         "Andreas",
+         "Breuer",
+         "AT",
+         "ZV3B4B"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Open Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Markus",
+         "Schützenhofer",
+         "AT",
+         "6ELPXG"
+        ],
+        [
+         "Markus",
+         "Rosicky",
+         "AT",
+         "634R85"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Sebastian",
+         "Wiesinger",
+         "AT",
+         "ZQALPY"
+        ],
+        [
+         "Stefan",
+         "Burmetler",
+         "AT",
+         "6JGJAQ"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Wolfgang",
+         "Breuer",
+         "AT",
+         "6RVMQ9"
+        ],
+        [
+         "Laurin",
+         "Breuer",
+         "AT",
+         "ZB4L38"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Women Singles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Elli",
+         "McDonald",
+         "AT",
+         "ZOEXX2"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Djamila",
+         "Nader",
+         "DE",
+         "7KAGRP"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Marina",
+         "Tabakovic",
+         "AT",
+         "7L5MWR"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Senior Over 50 Singles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Oliver",
+         "Vilim",
+         "AT",
+         "ZO5M3A"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Peter",
+         "Nigitz",
+         "AT",
+         "7GRLYG"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Peter",
+         "Swoboda",
+         "AT",
+         "62GRWW"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Senior Over 50 Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Peter",
+         "Nigitz",
+         "AT",
+         "7GRLYG"
+        ],
+        [
+         "Oliver",
+         "Vilim",
+         "AT",
+         "ZO5M3A"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Andreas",
+         "Lentsch",
+         "AT",
+         "6AKME3"
+        ],
+        [
+         "René",
+         "Affengruber",
+         "AT",
+         "6PDEJR"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Martin",
+         "Borovnik",
+         "AT",
+         "6J3BWQ"
+        ],
+        [
+         "Bernhard",
+         "Sillipp",
+         "AT",
+         "7DXKNJ"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Oldschool Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Pascal",
+         "Nater",
+         "CH",
+         "692KGY"
+        ],
+        [
+         "Horst",
+         "Winkelmann",
+         "AT",
+         "69NEQN"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Laurin",
+         "Breuer",
+         "AT",
+         "ZB4L38"
+        ],
+        [
+         "Jan",
+         "Kurz",
+         "AT",
+         "62N5EB"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Rainer",
+         "Ropac",
+         "AT",
+         "ZQAMD9"
+        ],
+        [
+         "Stefan",
+         "Wachtel",
+         "AT",
+         "6ELP8D"
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "code": "69N9D6",
+   "nom": "Open Danish Championship 26",
+   "debut": "2026-08-28",
+   "fin": "2026-08-29",
+   "ville": "København",
+   "pays": "DK",
+   "categorie": "ITSF 500",
+   "table": "Bonzini",
+   "lien": "https://app.tablesoccer.org/p/69N9D6",
+   "statut": "finished",
+   "epreuves": [
+    {
+     "nom": "Open Singles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Sven",
+         "Wonsyld",
+         "DK",
+         "7GR8J9"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Robert",
+         "Zamora",
+         "FR",
+         "7GGEAO"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Troels",
+         "Trier",
+         "DK",
+         "ZV39W5"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Open Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Sven",
+         "Wonsyld",
+         "DK",
+         "7GR8J9"
+        ],
+        [
+         "Niels",
+         "Wonsyld",
+         "DK",
+         "Z5XOL8"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Semin",
+         "Mensah",
+         "DE",
+         "ZBYOB8"
+        ],
+        [
+         "Jörg",
+         "Harms",
+         "DE",
+         "7DXRDP"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Peter",
+         "Toubro",
+         "DK",
+         "ZWYB8E"
+        ],
+        [
+         "Malthe",
+         "Dencker Petersen",
+         "DK",
+         "Z45MW2"
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "code": "6RVK4Z",
+   "nom": "Open Malinówka Game 2026",
+   "debut": "2026-08-21",
+   "fin": "2026-08-23",
+   "ville": "Elk",
+   "pays": "PL",
+   "categorie": "ITSF 250",
+   "table": "Garlando",
+   "lien": "https://app.tablesoccer.org/p/6RVK4Z",
+   "statut": "finished",
+   "epreuves": [
+    {
+     "nom": "Open Singles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Piotr",
+         "Leszczyński",
+         "PL",
+         "ZXYGNQ"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Michal",
+         "Lipinski",
+         "PL",
+         "ZWP3PE"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Dovydas",
+         "Bukauskas",
+         "LT",
+         "692A5D"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Junior Under 19 Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Alicja",
+         "Noiszewska",
+         "PL",
+         "ZWP2ME"
+        ],
+        [
+         "Piotr",
+         "Leszczyński",
+         "PL",
+         "ZXYGNQ"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Julian",
+         "Antolik",
+         "PL",
+         "6JY5WD"
+        ],
+        [
+         "Olgierd",
+         "Lapinski",
+         "PL",
+         "ZBWVRO"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Amateur Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Monika",
+         "Lewandowska",
+         "PL",
+         "ZXYOER"
+        ],
+        [
+         "Kacper",
+         "Strojecki",
+         "PL",
+         "7N2X58"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Dzmitry",
+         "Dziokin",
+         "PL",
+         "7DNPV8"
+        ],
+        [
+         "Julian",
+         "Antolik",
+         "PL",
+         "6JY5WD"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Tomasz",
+         "Lesniewski",
+         "PL",
+         "ZYKNKO"
+        ],
+        [
+         "Przemyslaw",
+         "Pojawa",
+         "PL",
+         "ZXR53B"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Open Mixed",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Michal",
+         "Lipinski",
+         "PL",
+         "ZWP3PE"
+        ],
+        [
+         "Sybilla",
+         "Zwierko",
+         "PL",
+         "69X2AK"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Anna",
+         "Lamperska-Duda",
+         "PL",
+         "Z58KQL"
+        ],
+        [
+         "Piotr",
+         "Leszczyński",
+         "PL",
+         "ZXYGNQ"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Migle",
+         "Januševičiūtė",
+         "LT",
+         "ZOPWDD"
+        ],
+        [
+         "Radvila",
+         "Šimkus",
+         "LT",
+         "6A8DDR"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Junior Under 19 Singles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Julian",
+         "Antolik",
+         "PL",
+         "6JY5WD"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Olgierd",
+         "Lapinski",
+         "PL",
+         "ZBWVRO"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Alicja",
+         "Noiszewska",
+         "PL",
+         "ZWP2ME"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Women Singles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Migle",
+         "Januševičiūtė",
+         "LT",
+         "ZOPWDD"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Anna",
+         "Lamperska-Duda",
+         "PL",
+         "Z58KQL"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Alicja",
+         "Noiszewska",
+         "PL",
+         "ZWP2ME"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Women Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Migle",
+         "Januševičiūtė",
+         "LT",
+         "ZOPWDD"
+        ],
+        [
+         "Anna",
+         "Lamperska-Duda",
+         "PL",
+         "Z58KQL"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Joanna",
+         "Noiszewska",
+         "PL",
+         "6EO9KG"
+        ],
+        [
+         "Dominika",
+         "Pawełczyk",
+         "PL",
+         "7GYXDW"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Alicja",
+         "Noiszewska",
+         "PL",
+         "ZWP2ME"
+        ],
+        [
+         "Magdalena",
+         "Matysiak",
+         "PL",
+         "ZBWK9E"
+        ]
+       ]
+      }
+     ]
+    },
+    {
+     "nom": "Open Doubles",
+     "podium": [
+      {
+       "rang": 1,
+       "joueurs": [
+        [
+         "Damian",
+         "Wojcieszak",
+         "PL",
+         "7G9LK9"
+        ],
+        [
+         "Piotr",
+         "Leszczyński",
+         "PL",
+         "ZXYGNQ"
+        ]
+       ]
+      },
+      {
+       "rang": 2,
+       "joueurs": [
+        [
+         "Bartosz",
+         "Nogajski",
+         "PL",
+         "7NPKW8"
+        ],
+        [
+         "Michal",
+         "Melnyczok",
+         "PL",
+         "ZXRN5K"
+        ]
+       ]
+      },
+      {
+       "rang": 3,
+       "joueurs": [
+        [
+         "Rapolas",
+         "Jamontas",
+         "LT",
+         "7NPBBY"
+        ],
+        [
+         "Dovydas",
+         "Bukauskas",
+         "LT",
+         "692A5D"
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
