@@ -1,0 +1,336 @@
+---
+// Frise de l'histoire du club : étapes marquantes et titres, chaque titre accompagné de son trophée
+// modélisé en 3D d'après les photos des trophées du club (rendus dans public/trophees/).
+import ACompleter from './ACompleter.astro';
+import Icone from './Icone.astro';
+import histoire from '../data/histoire.json';
+import palmares from '../data/palmares.json';
+import trophees from '../data/trophees.json';
+import images from '../data/trophees-images.json';
+
+type Titre = (typeof palmares)[number] & { equipe?: string[]; aConfirmer?: string };
+type Etape = { annee: string; titre: string; texte?: string; aCompleter?: boolean; anneeIncertaine?: boolean; tri: number; titreSportif?: Titre };
+const specs = trophees as Record<string, { nom: string; alt: string }>;
+const dims = images as Record<string, [number, number]>;
+
+// étapes et titres réunis dans l'ordre chronologique (tri stable : l'ordre des fichiers départage)
+const etapes: Etape[] = [
+  ...histoire.map((e) => ({ ...e })),
+  ...(palmares as Titre[]).map((t) => ({ annee: t.annee, titre: t.titre, tri: parseInt(t.annee, 10) + 0.5, titreSportif: t })),
+].sort((a, b) => a.tri - b.tri);
+
+const rang = (r: number | null) => (r === 1 ? '1er' : r ? `${r}e` : '?');
+const classeRang = (r: number | null) =>
+  r === 1 ? 'or' : r === 2 ? 'argent' : r === 3 ? 'bronze' : r ? 'place' : 'inconnu';
+---
+<section class="bloc" aria-labelledby="titre-histoire">
+  <h2 id="titre-histoire">Histoire</h2>
+  <p class="doux mesure">
+    Les grandes étapes du club et ses titres, avec les trophées exposés au local, modélisés en 3D :
+    touchez « 3D » pour les faire tourner.
+  </p>
+
+  <ol class="frise">
+    {etapes.map((e) => {
+      const t = e.titreSportif;
+      return (
+        <li class:list={[
+          'frise__etape',
+          t && `frise__etape--${classeRang(t.rang)}`,
+          { 'frise__etape--simple': !t?.trophees.length, 'frise__etape--todo': e.aCompleter },
+        ]}>
+          <p class="frise__annee nums">
+            {e.aCompleter ? <ACompleter texte="Année à compléter" /> : e.annee.replace('-', '–')}
+            {e.anneeIncertaine && <span class="sr-only"> (année exacte à confirmer)</span>}
+          </p>
+
+          {t && t.trophees.length > 0 && (
+            <div class="vitrine">
+              {t.trophees.map((id, i) => {
+                const [l, h] = dims[id] ?? [300, 520];
+                return (
+                  <figure class:list={['trophee', { 'trophee--second': i > 0 }]} data-ouvrir={id}>
+                    <img src={`/trophees/${id}.webp`} width={l} height={h} alt={specs[id].alt} loading="lazy" decoding="async" />
+                    <button type="button" class="trophee__3d" data-trophee={id} data-nom={specs[id].nom} aria-haspopup="dialog">
+                      <Icone nom="cube" />
+                      <span aria-hidden="true">3D</span>
+                      <span class="sr-only">Voir en 3D : {specs[id].nom}</span>
+                    </button>
+                  </figure>
+                );
+              })}
+            </div>
+          )}
+
+          <div class="frise__texte">
+            {t && (
+              <p class="frise__rang">
+                <span class:list={['rang', `rang--${classeRang(t.rang)}`]}>
+                  {rang(t.rang)}
+                  <span class="sr-only">{t.rang ? ' place' : ' place à confirmer'}</span>
+                </span>
+                {!/^\d+e$/.test(t.resultat) && <span class="frise__resultat">{t.resultat}</span>}
+              </p>
+            )}
+            <h3>{e.titre}</h3>
+            {t && <p class="frise__meta">{[t.competition, t.lieu, t.epreuve].filter(Boolean).join(' · ')}</p>}
+            {(t?.texte || e.texte) && <p>{t?.texte || e.texte}</p>}
+            {t?.aConfirmer && <p><ACompleter texte={t.aConfirmer} /></p>}
+            {t?.equipe && (
+              <details class="equipe">
+                <summary>L’équipe championne</summary>
+                <ul>{t.equipe.map((n) => <li>{n}</li>)}</ul>
+              </details>
+            )}
+          </div>
+        </li>
+      );
+    })}
+  </ol>
+
+  <dialog class="visionneuse" id="visionneuse" aria-labelledby="visionneuse-titre">
+    <div class="visionneuse__entete">
+      <h2 id="visionneuse-titre">Trophée</h2>
+      <button type="button" class="visionneuse__fermer" data-fermer>
+        <Icone nom="fermer" />
+        <span class="sr-only">Fermer la vue 3D</span>
+      </button>
+    </div>
+    <div class="visionneuse__scene" data-scene>
+      <p class="visionneuse__etat" data-etat role="status">Chargement du modèle 3D…</p>
+    </div>
+    <p class="visionneuse__aide">
+      Faites glisser pour tourner, pincez ou utilisez la molette pour zoomer.
+    </p>
+    <p class="visionneuse__description" data-description></p>
+  </dialog>
+</section>
+
+<script>
+  const dialogue = document.getElementById('visionneuse') as HTMLDialogElement;
+  const scene = dialogue.querySelector<HTMLElement>('[data-scene]')!;
+  const etat = dialogue.querySelector<HTMLElement>('[data-etat]')!;
+  const titre = dialogue.querySelector<HTMLElement>('#visionneuse-titre')!;
+  const description = dialogue.querySelector<HTMLElement>('[data-description]')!;
+  let arreter: (() => void) | null = null;
+  let declencheur: HTMLElement | null = null;
+
+  async function ouvrir(bouton: HTMLButtonElement) {
+    declencheur = bouton;
+    const id = bouton.dataset.trophee!;
+    titre.textContent = bouton.dataset.nom || 'Trophée';
+    const img = bouton.closest('figure')?.querySelector('img');
+    description.textContent = img?.alt || '';
+    etat.hidden = false;
+    etat.textContent = 'Chargement du modèle 3D…';
+    dialogue.showModal();
+    try {
+      const { montrer } = await import('../scripts/visionneuse-trophee.js');
+      arreter = await montrer(id, scene);
+      etat.hidden = true;
+    } catch (err) {
+      console.error(err);
+      etat.textContent = 'La vue 3D n’est pas disponible sur cet appareil.';
+    }
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('[data-trophee]').forEach((b) => b.addEventListener('click', () => ouvrir(b)));
+  // un clic sur l'image ouvre aussi la vue 3D
+  document.querySelectorAll<HTMLElement>('[data-ouvrir] img').forEach((img) =>
+    img.addEventListener('click', () => img.parentElement?.querySelector<HTMLButtonElement>('[data-trophee]')?.click()),
+  );
+  dialogue.querySelector('[data-fermer]')!.addEventListener('click', () => dialogue.close());
+  dialogue.addEventListener('click', (ev) => {
+    if (ev.target === dialogue) dialogue.close();
+  });
+  dialogue.addEventListener('close', () => {
+    arreter?.();
+    declencheur?.focus();
+  });
+</script>
+
+<style>
+  .bloc { padding-block: var(--e-6) var(--e-7); border-top: 1px solid var(--filet); }
+  .bloc > h2 { font-size: var(--t-4); margin-bottom: var(--e-5); }
+
+  /* Frise */
+  .frise { list-style: none; padding: 0; position: relative; }
+  .frise::before {
+    content: '';
+    position: absolute;
+    left: 7.25rem;
+    top: 1rem;
+    bottom: 1rem;
+    width: 2px;
+    background: var(--filet);
+  }
+  .frise__etape {
+    position: relative;
+    display: grid;
+    grid-template-columns: 5.75rem 21rem minmax(0, 1fr);
+    gap: var(--e-6);
+    align-items: center;
+    padding-block: var(--e-4);
+  }
+  .frise__etape::before {
+    content: '';
+    position: absolute;
+    left: calc(7.25rem - 7px);
+    top: 50%;
+    width: 16px;
+    height: 16px;
+    margin-top: -8px;
+    border-radius: 50%;
+    background: var(--balle);
+    border: 4px solid var(--ciel);
+  }
+  .frise__etape--or::before { border-color: #d9a520; }
+  .frise__etape--inconnu::before,
+  .frise__etape--todo::before { border-color: var(--todo-bord); border-style: dashed; }
+  /* étape sans trophée : le texte occupe la place de la vitrine */
+  .frise__etape--simple .frise__texte { grid-column: 2 / -1; padding-left: var(--e-5); }
+  .frise__annee :global(.a-completer) { font-family: var(--f-texte); font-size: 0.75rem; white-space: normal; display: inline-block; text-align: left; }
+  .frise .frise__annee {
+    font-family: var(--f-display);
+    font-weight: 800;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--bleu);
+    text-align: right;
+  }
+
+  /* Vitrine : le trophée posé sur son étagère */
+  .vitrine {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: var(--e-3);
+    height: 15rem;
+    padding: var(--e-4) var(--e-4) 0;
+    background: radial-gradient(ellipse at 50% 35%, #ffffff 0%, var(--surface) 70%);
+    border-radius: var(--r-plateau);
+    border-bottom: 6px solid var(--marine);
+  }
+  .trophee { position: relative; margin: 0; height: 100%; display: flex; align-items: flex-end; }
+  .trophee img { height: 100%; width: auto; max-width: 19rem; object-fit: contain; object-position: bottom; cursor: zoom-in; }
+  .trophee--second { height: 62%; }
+  .trophee--second img { max-width: 8rem; }
+  .trophee__3d {
+    position: absolute;
+    top: 0;
+    right: -0.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0 0.6rem;
+    border: 2px solid var(--marine);
+    border-radius: 4px;
+    background: var(--balle);
+    color: var(--marine);
+    font-family: var(--f-display);
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+  }
+  .trophee__3d :global(svg) { width: 1.1rem; height: 1.1rem; }
+  .trophee__3d:hover { background: var(--ciel); }
+  .trophee--second .trophee__3d { right: -0.9rem; top: -0.4rem; }
+
+  .frise__texte h3 { font-family: var(--f-texte); font-weight: 700; font-size: var(--t-2); letter-spacing: 0; line-height: 1.3; }
+  .frise__texte > * + * { margin-top: var(--e-2); }
+  .frise__texte p { color: var(--doux); max-width: 60ch; }
+  .frise__rang { display: flex; align-items: center; gap: var(--e-3); flex-wrap: wrap; }
+  .frise__texte .frise__rang { color: var(--marine); }
+  .rang {
+    display: inline-grid;
+    place-items: center;
+    min-width: 3.2rem;
+    height: 2.2rem;
+    padding: 0 0.5rem;
+    border-radius: 4px;
+    font-family: var(--f-display);
+    font-weight: 800;
+    font-size: 1.35rem;
+    color: var(--marine);
+  }
+  .rang--or { background: #f3c65a; }
+  .rang--argent { background: #d6dde5; }
+  .rang--bronze { background: #dba878; }
+  .rang--place { background: var(--surface); box-shadow: inset 0 0 0 1px var(--filet); }
+  .rang--inconnu { background: var(--todo-fond); border: 1px dashed var(--todo-bord); color: var(--todo-texte); }
+  .frise__resultat { font-weight: 700; font-size: var(--t-0); text-transform: uppercase; letter-spacing: 0.05em; }
+  .frise__texte .frise__meta { font-size: var(--t-0); color: var(--bleu); font-weight: 600; }
+
+  .frise__texte :global(.a-completer) { white-space: normal; }
+  .equipe summary { cursor: pointer; color: var(--bleu); font-weight: 700; min-height: 44px; display: flex; align-items: center; }
+  .equipe ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: var(--e-2); margin-top: var(--e-2); }
+  .equipe li { background: var(--surface); border-radius: 4px; padding: 0.15rem 0.6rem; font-size: var(--t-0); color: var(--marine); }
+
+  /* Vue 3D */
+  .visionneuse {
+    margin: auto;
+    width: min(42rem, calc(100vw - 2rem));
+    max-height: calc(100dvh - 2rem);
+    padding: 0;
+    border: 0;
+    border-radius: var(--r-plateau);
+    background: var(--balle);
+    color: var(--marine);
+    box-shadow: 0 30px 80px rgb(11 29 58 / 0.45);
+    overflow: auto;
+  }
+  .visionneuse::backdrop { background: rgb(11 29 58 / 0.7); }
+  .visionneuse__entete {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--e-4);
+    padding: var(--e-3) var(--e-3) var(--e-3) var(--e-5);
+    background: var(--marine);
+    border-bottom: 4px solid var(--ciel);
+  }
+  .visionneuse__entete h2 { color: var(--balle); font-size: var(--t-2); line-height: 1.15; }
+  .visionneuse__fermer {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 2px solid var(--ciel-clair);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--balle);
+    cursor: pointer;
+  }
+  .visionneuse__fermer :global(svg) { width: 1.3rem; height: 1.3rem; }
+  .visionneuse__fermer:hover { background: var(--ciel); color: var(--marine); }
+  .visionneuse__scene {
+    position: relative;
+    height: min(62dvh, 34rem);
+    background: radial-gradient(ellipse at 50% 40%, #ffffff 0%, var(--surface) 75%);
+    touch-action: none;
+  }
+  .visionneuse__scene :global(canvas) { display: block; width: 100%; height: 100%; cursor: grab; }
+  .visionneuse__etat { position: absolute; inset: 0; display: grid; place-items: center; color: var(--doux); }
+  .visionneuse__aide, .visionneuse__description { padding: var(--e-3) var(--e-5) 0; font-size: var(--t-0); color: var(--doux); }
+  .visionneuse__description { padding-bottom: var(--e-5); }
+
+  @media (max-width: 64rem) {
+    .frise::before { left: 7px; }
+    .frise__etape { grid-template-columns: 15rem minmax(0, 1fr); gap: var(--e-2) var(--e-5); padding-left: var(--e-6); align-items: start; }
+    .frise__etape::before { left: 0; top: calc(var(--e-4) + 0.5rem); margin-top: 0; }
+    .frise .frise__annee { grid-column: 1 / -1; text-align: left; font-size: 1.7rem; }
+    .frise__etape--simple .frise__texte { grid-column: 1 / -1; padding-left: 0; }
+    .vitrine { height: 12.5rem; }
+    .trophee img { max-width: 14rem; }
+    .trophee--second img { max-width: 6rem; }
+  }
+  @media (max-width: 40rem) {
+    .frise__etape { grid-template-columns: minmax(0, 1fr); padding-left: var(--e-5); }
+    .vitrine { height: 13rem; }
+    .trophee--second .trophee__3d { right: -0.6rem; }
+  }
+</style>

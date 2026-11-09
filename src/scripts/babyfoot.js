@@ -5,7 +5,10 @@
  * barres chromées, 11 joueurs par équipe (1-2-5-3) qui pivotent,
  * balle avec ombre et roulement, boulier de score.
  *
- * Vous jouez les bleus, l'ordinateur les rouges.
+ * Table et figurines façon Tornado T-3000 : caisson noir, terrain vert à rampes de coin,
+ * barres traversantes, poignées en bois, figurines contrebalancées jaunes contre noires.
+ * Vous jouez les jaunes, l'ordinateur les noirs. Quand un de vos joueurs a la balle,
+ * vous pouvez tracer au doigt la trajectoire du tir.
  *  - Souris / doigt : saisir une barre, glisser le long de la barre pour la
  *    déplacer, glisser vers l'avant pour faire pivoter les joueurs et tirer.
  *    Un appui bref = frappe. Plusieurs doigts = plusieurs barres.
@@ -29,6 +32,9 @@
   var elScoreR = racine.querySelector('[data-bf-score-r]');
   var elAnnonce = racine.querySelector('[data-bf-annonce]');
   var elConsigne = racine.querySelector('[data-bf-consigne]');
+  var panneauFin = racine.querySelector('[data-bf-fin]');
+  var titreFin = racine.querySelector('[data-bf-fin-score]');
+  var boutonRejouer = racine.querySelector('[data-bf-rejouer]');
 
   // ---------- Monde (1 unité ≈ 1 mm) ----------
   var FW = 1200, FH = 680, MUR = 58, MARGE = 124;
@@ -41,8 +47,9 @@
   var GAIN_ROT = (Math.PI / 2) / 80;
   var V_IA = 330; // vitesse maximale de déplacement des barres rouges
   var COUL = {
-    b: { base: '#2aa9e0', fonce: '#0b5f8c', clair: '#b5e9fc', nom: 'bleus' },
-    r: { base: '#d0263a', fonce: '#7d0e1c', clair: '#ff9ea8', nom: 'rouges' }
+    // couleurs des figurines Tornado : jaunes contre noirs
+    b: { base: '#f7c623', fonce: '#a87a00', clair: '#fff1a0', biseau: '#d9a50e', reflet: 'rgba(255, 255, 255, 0.45)', trait: 'rgba(90, 60, 0, 0.6)', nom: 'jaunes' },
+    r: { base: '#25282e', fonce: '#08090b', clair: '#6c737e', biseau: '#16181c', reflet: 'rgba(255, 255, 255, 0.22)', trait: 'rgba(0, 0, 0, 0.7)', nom: 'noirs' }
   };
 
   var barres = [
@@ -66,8 +73,11 @@
 
   var balle = { x: FW / 2 + 36, y: CY, vx: 0, vy: 0, rot: 0, visible: true };
   var score = { b: 0, r: 0 };
-  var etat = { mode: 'repos', pause: 0, fin: false, immobile: 0 };
+  var etat = { mode: 'repos', pause: 0, fin: false, immobile: 0, fige: false };
   var flash = { t: 0, txt: '', coul: '#fff' };
+  // Tir tracé au doigt : quand un joueur jaune tient la balle, on propose de dessiner sa trajectoire
+  var trace = { dispo: false, tenue: 0, refus: false, actif: false, dessin: null, pts: [], suivi: null, fondu: 0 };
+  var V_TRACE = 880, L_TRACE = 1900;
   var pointeurs = {};
   var selection = 2; // barre des milieux par défaut
   var visible = true, raf = 0, dernier = 0;
@@ -144,54 +154,51 @@
 
     // Ombre portée de la table
     c.save();
-    c.shadowColor = 'rgba(3, 10, 24, 0.55)';
+    c.shadowColor = 'rgba(3, 10, 24, 0.6)';
     c.shadowBlur = 34 * dpr * echelle * 1.4;
     c.shadowOffsetX = 10 * dpr * echelle * 1.4;
     c.shadowOffsetY = 16 * dpr * echelle * 1.4;
-    rr(c, x0, y0, w, h, 30);
-    c.fillStyle = '#6b3f1d';
+    rr(c, x0, y0, w, h, 14);
+    c.fillStyle = '#0c0d10';
     c.fill();
     c.restore();
 
-    // Bois (hêtre verni) + veinage
+    // Caisson façon Tornado T-3000 : stratifié noir mat, arêtes vives légèrement adoucies
     c.save();
-    rr(c, x0, y0, w, h, 30);
+    rr(c, x0, y0, w, h, 14);
     c.clip();
     var g = c.createLinearGradient(0, y0, 0, y0 + h);
-    g.addColorStop(0, '#d8a169');
-    g.addColorStop(0.45, '#bd7f47');
-    g.addColorStop(1, '#c68a51');
+    g.addColorStop(0, '#2a2d33');
+    g.addColorStop(0.5, '#17191d');
+    g.addColorStop(1, '#202227');
     c.fillStyle = g;
     c.fillRect(x0, y0, w, h);
-    var rnd = alea(1993);
-    for (var i = 0; i < 120; i++) {
-      var yy = y0 + rnd() * h, a1 = 2 + rnd() * 7, f1 = 0.003 + rnd() * 0.009, p1 = rnd() * 6.28;
-      c.beginPath();
-      for (var xx = x0; xx <= x0 + w + 12; xx += 12) {
-        var y = yy + a1 * Math.sin(xx * f1 + p1) + 1.2 * Math.sin(xx * 0.045 + i);
-        if (xx === x0) c.moveTo(xx, y); else c.lineTo(xx, y);
-      }
-      c.strokeStyle = 'rgba(92, 46, 14, ' + (0.04 + rnd() * 0.12).toFixed(3) + ')';
-      c.lineWidth = 0.6 + rnd() * 2.4;
-      c.stroke();
+    // grain fin du stratifié
+    var rnd = alea(3000);
+    for (var i = 0; i < 900; i++) {
+      c.fillStyle = 'rgba(255,255,255,' + (0.015 + rnd() * 0.03).toFixed(3) + ')';
+      c.fillRect(x0 + rnd() * w, y0 + rnd() * h, 2, 2);
     }
-    var vernis = c.createLinearGradient(0, y0, 0, y0 + h);
-    vernis.addColorStop(0, 'rgba(255,255,255,0.22)');
-    vernis.addColorStop(0.07, 'rgba(255,255,255,0)');
-    vernis.addColorStop(0.93, 'rgba(0,0,0,0)');
-    vernis.addColorStop(1, 'rgba(0,0,0,0.22)');
-    c.fillStyle = vernis;
-    c.fillRect(x0, y0, w, h);
+    // reflet du plateau sur l'arête des rails
+    var reflet = c.createLinearGradient(0, y0, 0, y0 + 26);
+    reflet.addColorStop(0, 'rgba(255,255,255,0.18)');
+    reflet.addColorStop(1, 'rgba(255,255,255,0)');
+    c.fillStyle = reflet;
+    c.fillRect(x0, y0, w, 26);
     c.restore();
-    rr(c, x0 + 1, y0 + 1, w - 2, h - 2, 29);
-    c.lineWidth = 3;
-    c.strokeStyle = 'rgba(70, 34, 10, 0.65)';
+    rr(c, x0 + 1, y0 + 1, w - 2, h - 2, 13);
+    c.lineWidth = 2;
+    c.strokeStyle = 'rgba(255, 255, 255, 0.12)';
     c.stroke();
+    // bord intérieur chanfreiné du caisson autour du terrain
+    c.strokeStyle = '#3a3e46';
+    c.lineWidth = 6;
+    c.strokeRect(-3, -3, FW + 6, FH + 6);
 
     // Buts (ouvertures sombres dans les murs d'extrémité)
     [[-MUR + 10, 0], [FW, FW + MUR - 10]].forEach(function (b, k) {
       var gx = c.createLinearGradient(b[0], 0, b[1], 0);
-      var ext = 'rgba(40, 22, 8, 1)', inte = '#050505';
+      var ext = '#1a1c20', inte = '#020203';
       gx.addColorStop(0, k === 0 ? ext : inte);
       gx.addColorStop(1, k === 0 ? inte : ext);
       c.fillStyle = gx;
@@ -207,8 +214,8 @@
     c.rect(0, 0, FW, FH);
     c.clip();
     var gt = c.createRadialGradient(FW * 0.46, FH * 0.42, 40, FW / 2, FH / 2, FW * 0.72);
-    gt.addColorStop(0, '#2f9a5b');
-    gt.addColorStop(1, '#17603a');
+    gt.addColorStop(0, '#2f8f47');
+    gt.addColorStop(1, '#1d6a33');
     c.fillStyle = gt;
     c.fillRect(0, 0, FW, FH);
     c.fillStyle = motifGrain(c);
@@ -238,6 +245,26 @@
     c.strokeRect(FW - 180, CY - 205, 170, 410);
     c.beginPath(); c.arc(180, CY, 60, -Math.PI / 2.6, Math.PI / 2.6); c.stroke();
     c.beginPath(); c.arc(FW - 180, CY, 60, Math.PI - Math.PI / 2.6, Math.PI + Math.PI / 2.6); c.stroke();
+    // Rampes de coin (plateau Tornado) : la balle ne reste pas bloquée dans les coins
+    [[0, 0, 1, 1], [FW, 0, -1, 1], [0, FH, 1, -1], [FW, FH, -1, -1]].forEach(function (q) {
+      var L = 70;
+      var gr = c.createLinearGradient(q[0], q[1], q[0] + q[2] * L * 0.6, q[1] + q[3] * L * 0.6);
+      gr.addColorStop(0, 'rgba(255,255,255,0.22)');
+      gr.addColorStop(1, 'rgba(255,255,255,0)');
+      c.fillStyle = gr;
+      c.beginPath();
+      c.moveTo(q[0], q[1]);
+      c.lineTo(q[0] + q[2] * L, q[1]);
+      c.lineTo(q[0], q[1] + q[3] * L);
+      c.closePath();
+      c.fill();
+      c.strokeStyle = 'rgba(0,0,0,0.18)';
+      c.lineWidth = 2;
+      c.beginPath();
+      c.moveTo(q[0] + q[2] * L, q[1]);
+      c.lineTo(q[0], q[1] + q[3] * L);
+      c.stroke();
+    });
     // Lumière de la lampe + vignettage
     var lampe = c.createRadialGradient(FW * 0.45, FH * 0.38, 20, FW * 0.45, FH * 0.38, FW * 0.62);
     lampe.addColorStop(0, 'rgba(255, 255, 235, 0.16)');
@@ -257,24 +284,24 @@
       [-MUR / 2, FH + MUR / 2].forEach(function (y) {
         c.beginPath(); c.arc(b.x, y, 13, 0, Math.PI * 2);
         var gp = c.createRadialGradient(b.x - 4, y - 4, 1, b.x, y, 13);
-        gp.addColorStop(0, '#ffffff'); gp.addColorStop(0.6, '#b9c0c9'); gp.addColorStop(1, '#6d747d');
+        gp.addColorStop(0, '#5d626b'); gp.addColorStop(0.6, '#2a2d33'); gp.addColorStop(1, '#111215');
         c.fillStyle = gp; c.fill();
         c.beginPath(); c.arc(b.x, y, 8, 0, Math.PI * 2);
-        c.fillStyle = '#26211c'; c.fill();
+        c.fillStyle = '#050506'; c.fill();
       });
     });
 
     // Trou d'engagement (côté, au milieu)
     c.beginPath(); c.arc(FW / 2, -MUR / 2, 22, 0, Math.PI * 2);
     var gs = c.createRadialGradient(FW / 2 + 5, -MUR / 2 + 5, 2, FW / 2, -MUR / 2, 22);
-    gs.addColorStop(0, '#000'); gs.addColorStop(0.8, '#1d130b'); gs.addColorStop(1, '#8d6a48');
+    gs.addColorStop(0, '#000'); gs.addColorStop(0.8, '#0d0e10'); gs.addColorStop(1, '#4a4f58');
     c.fillStyle = gs; c.fill();
     c.lineWidth = 3; c.strokeStyle = '#cfd4db'; c.stroke();
 
     // Tiges des bouliers de score
     [-MUR / 2, FW + MUR / 2].forEach(function (x) {
       c.lineCap = 'round';
-      c.lineWidth = 5; c.strokeStyle = 'rgba(40, 20, 6, 0.5)';
+      c.lineWidth = 5; c.strokeStyle = 'rgba(0, 0, 0, 0.6)';
       c.beginPath(); c.moveTo(x + 2, 22); c.lineTo(x + 2, CY - BUT - 18); c.stroke();
       c.lineWidth = 4; c.strokeStyle = '#d9dee5';
       c.beginPath(); c.moveTo(x, 20); c.lineTo(x, CY - BUT - 20); c.stroke();
@@ -326,7 +353,8 @@
   }
 
   function extremites(b) {
-    // la barre coulisse : poignée côté propriétaire (bleus en bas, rouges en haut)
+    // barres traversantes : elles coulissent et dépassent des deux côtés du caisson ;
+    // poignée côté propriétaire (jaunes en bas, noirs en haut)
     var k = 0.22;
     if (b.eq === 'b') {
       return { haut: -MUR - 14 - (b.course - b.off) * k, bas: FH + MUR + 16 + (b.course + b.off) * k, poignee: 'bas' };
@@ -347,20 +375,29 @@
       ctx.fillStyle = '#1c1c1c';
       rr(ctx, x - 10, y - 4, 20, 8, 3); ctx.fill();
     });
-    // poignée
-    var lp = 88, py = e.poignee === 'bas' ? e.bas : e.haut - lp;
-    var gp = ctx.createLinearGradient(x - 16, 0, x + 16, 0);
-    gp.addColorStop(0, '#060606'); gp.addColorStop(0.4, '#3d3d3d'); gp.addColorStop(1, '#0a0a0a');
-    rr(ctx, x - 16, py, 32, lp, 12);
+    // poignée en bois verni (Tornado), forme tonneau, gorges de préhension
+    var lp = 92, py = e.poignee === 'bas' ? e.bas : e.haut - lp;
+    var gp = ctx.createLinearGradient(x - 17, 0, x + 17, 0);
+    gp.addColorStop(0, '#7a4b1f'); gp.addColorStop(0.35, '#e2b77a'); gp.addColorStop(0.55, '#c99556'); gp.addColorStop(1, '#6e421a');
+    ctx.beginPath();
+    var bout = e.poignee === 'bas' ? py + lp : py, col = e.poignee === 'bas' ? py : py + lp;
+    ctx.moveTo(x - 11, col);
+    ctx.quadraticCurveTo(x - 18, (py + py + lp) / 2, x - 15, bout - (e.poignee === 'bas' ? 10 : -10));
+    ctx.quadraticCurveTo(x, bout + (e.poignee === 'bas' ? 6 : -6), x + 15, bout - (e.poignee === 'bas' ? 10 : -10));
+    ctx.quadraticCurveTo(x + 18, (py + py + lp) / 2, x + 11, col);
+    ctx.closePath();
     ctx.fillStyle = gp; ctx.fill();
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.28)'; ctx.lineWidth = 2; ctx.stroke();
-    ctx.strokeStyle = 'rgba(255,255,255,0.08)'; ctx.lineWidth = 1.5;
-    for (var r = 1; r < 7; r++) {
-      var yr = py + (lp / 7) * r;
-      ctx.beginPath(); ctx.moveTo(x - 13, yr); ctx.lineTo(x + 13, yr); ctx.stroke();
+    ctx.strokeStyle = 'rgba(60, 30, 8, 0.6)'; ctx.lineWidth = 1.5; ctx.stroke();
+    ctx.strokeStyle = 'rgba(70, 38, 10, 0.55)'; ctx.lineWidth = 1.6;
+    for (var r = 1; r < 5; r++) {
+      var yr = (e.poignee === 'bas' ? py + 18 : py + lp - 18) + (e.poignee === 'bas' ? 1 : -1) * r * 11;
+      ctx.beginPath(); ctx.moveTo(x - 15, yr); ctx.lineTo(x + 15, yr); ctx.stroke();
     }
+    // virole métallique entre barre et poignée
+    ctx.fillStyle = '#c9ced6';
+    ctx.fillRect(x - 9, e.poignee === 'bas' ? py - 3 : py + lp - 3, 18, 6);
     if (etat.mode === 'jeu' && b.eq === 'b' && (b.saisie || bleues[selection] === b)) {
-      rr(ctx, x - 18, py - 2, 36, lp + 4, 13);
+      rr(ctx, x - 20, py - 3, 40, lp + 6, 14);
       ctx.lineWidth = 4; ctx.strokeStyle = b.saisie ? '#8fd6f5' : 'rgba(143, 214, 245, 0.7)';
       ctx.stroke();
     }
@@ -387,35 +424,73 @@
     ctx.restore();
   }
 
+  // Figurine Tornado T-3000 vue de dessus : plastique ABS moulé d'une pièce, arêtes vives et
+  // section large, contrebalancée (tête lestée à l'opposé du pied), pied au bout plat strié.
+  function plastique(c, co, x0, y0, x1, y1) {
+    var g = c.createLinearGradient(x0, y0, x1, y1);
+    g.addColorStop(0, co.clair); g.addColorStop(0.28, co.base); g.addColorStop(0.75, co.base); g.addColorStop(1, co.fonce);
+    return g;
+  }
   function dessinerJoueur(b, y) {
     var co = COUL[b.eq], s = Math.sin(b.th), x = b.x;
-    var as = Math.abs(s);
-    // jambes et pied (visibles quand le joueur pivote)
+    var as = Math.abs(s), sg = s < 0 ? -1 : 1;
+    var lo = omb.x * 4, la = omb.y * 4;
+    // jambes et pied (visibles quand la figurine pivote)
     if (as > 0.04) {
       var xp = x + PIED * s;
-      var gj = ctx.createLinearGradient(x, 0, xp, 0);
-      gj.addColorStop(0, co.base); gj.addColorStop(1, co.fonce);
-      ctx.fillStyle = gj;
+      ctx.fillStyle = plastique(ctx, co, x, y - 10 * FIG, xp, y + 10 * FIG);
+      // deux jambes jointes, légèrement évasées vers le pied
       ctx.beginPath();
-      ctx.moveTo(x, y - 12 * FIG); ctx.lineTo(xp, y - 10 * FIG); ctx.lineTo(xp, y + 10 * FIG); ctx.lineTo(x, y + 12 * FIG);
+      ctx.moveTo(x, y - 7 * FIG); ctx.lineTo(xp - sg * 5 * FIG, y - 8 * FIG);
+      ctx.lineTo(xp - sg * 5 * FIG, y + 8 * FIG); ctx.lineTo(x, y + 7 * FIG);
       ctx.closePath(); ctx.fill();
-      ctx.fillStyle = '#15171b';
-      rr(ctx, xp - 10 * FIG, y - 13 * FIG, 20 * FIG, 26 * FIG, 6);
+      ctx.strokeStyle = co.trait; ctx.lineWidth = 1; ctx.stroke();
+      // pied : bloc à arêtes vives, bout plat avec stries d'accroche
+      var lp = 12 * FIG, hp = 22 * FIG, xg = xp - lp / 2;
+      ctx.fillStyle = plastique(ctx, co, xg, y - hp / 2, xg + lp, y + hp / 2);
+      rr(ctx, xg, y - hp / 2, lp, hp, 2);
       ctx.fill();
+      ctx.strokeStyle = co.trait; ctx.lineWidth = 1.2; ctx.stroke();
+      // face de frappe biseautée
+      ctx.fillStyle = co.biseau;
+      var xb = sg > 0 ? xg + lp - 3 * FIG : xg;
+      ctx.fillRect(xb, y - hp / 2 + 1, 3 * FIG, hp - 2);
+      ctx.strokeStyle = co.trait; ctx.lineWidth = 0.9;
+      for (var k = -3; k <= 3; k++) {
+        ctx.beginPath();
+        ctx.moveTo(xb, y + k * hp * 0.12);
+        ctx.lineTo(xb + 3 * FIG, y + k * hp * 0.12);
+        ctx.stroke();
+      }
     }
-    // épaules (la barre les traverse)
-    var ex = (15 + 7 * as) * FIG, ey = 36 * FIG;
-    var ge = ctx.createLinearGradient(x - ex / 2 - omb.x * 3, y - ey / 2 - omb.y * 3, x + ex / 2 + omb.x * 3, y + ey / 2 + omb.y * 3);
-    ge.addColorStop(0, co.clair); ge.addColorStop(0.35, co.base); ge.addColorStop(1, co.fonce);
-    rr(ctx, x - ex / 2, y - ey / 2, ex, ey, 8);
-    ctx.fillStyle = ge; ctx.fill();
-    ctx.strokeStyle = 'rgba(0,0,0,0.35)'; ctx.lineWidth = 1.2; ctx.stroke();
-    // tête
-    var xt = x - TETE * s, lx = -omb.x * 4.5, ly = -omb.y * 4.5, rt = 10.5 * FIG;
-    var gt = ctx.createRadialGradient(xt + lx, y + ly, 1, xt, y, rt + 1);
-    gt.addColorStop(0, co.clair); gt.addColorStop(0.55, co.base); gt.addColorStop(1, co.fonce);
-    ctx.beginPath(); ctx.arc(xt, y, rt, 0, Math.PI * 2);
-    ctx.fillStyle = gt; ctx.fill();
+    // tête lestée : bloc carré à coins vifs, décalé à l'opposé du pied quand la figurine pivote
+    var xt = x - TETE * s, lt = (15 + 5 * as) * FIG, ht = 17 * FIG;
+    ctx.fillStyle = plastique(ctx, co, xt - lt / 2 - lo, y - ht / 2 - la, xt + lt / 2, y + ht / 2);
+    rr(ctx, xt - lt / 2, y - ht / 2, lt, ht, 3 * FIG);
+    ctx.fill();
+    ctx.strokeStyle = co.trait; ctx.lineWidth = 1.2; ctx.stroke();
+    // plat du dessus de la tête (reflet)
+    ctx.fillStyle = co.reflet;
+    rr(ctx, xt - lt / 2 + 2.5 * FIG, y - ht / 2 + 2.5 * FIG, lt - 5 * FIG, ht * 0.32, 2 * FIG);
+    ctx.fill();
+    // épaules larges à arêtes vives, traversées par la barre
+    var ex = (13 + 7 * as) * FIG, ey = 34 * FIG;
+    ctx.fillStyle = plastique(ctx, co, x - ex / 2 - lo, y - ey / 2 - la, x + ex / 2, y + ey / 2);
+    ctx.beginPath();
+    ctx.moveTo(x - ex / 2 + 2, y - ey / 2);
+    ctx.lineTo(x + ex / 2 - 2, y - ey / 2);
+    ctx.lineTo(x + ex / 2, y - ey / 2 + 4);
+    ctx.lineTo(x + ex / 2, y + ey / 2 - 4);
+    ctx.lineTo(x + ex / 2 - 2, y + ey / 2);
+    ctx.lineTo(x - ex / 2 + 2, y + ey / 2);
+    ctx.lineTo(x - ex / 2, y + ey / 2 - 4);
+    ctx.lineTo(x - ex / 2, y - ey / 2 + 4);
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = co.trait; ctx.lineWidth = 1.2; ctx.stroke();
+    // arête centrale du moulage (vue de dessus)
+    ctx.strokeStyle = co.reflet; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(x - ex * 0.15, y - ey / 2 + 3); ctx.lineTo(x - ex * 0.15, y + ey / 2 - 3); ctx.stroke();
   }
 
   function dessinerBalle() {
@@ -439,7 +514,7 @@
     }
     var lx = -omb.x * 0.3 * R / 1.2, ly = -omb.y * 0.3 * R / 1.2;
     var g = ctx.createRadialGradient(b.x + lx, b.y + ly, 1, b.x, b.y, R);
-    g.addColorStop(0, '#ffffff'); g.addColorStop(0.55, '#f0ede4'); g.addColorStop(1, '#a9a393');
+    g.addColorStop(0, '#ffffff'); g.addColorStop(0.55, '#efe9d2'); g.addColorStop(1, '#a39b80');
     ctx.beginPath(); ctx.arc(b.x, b.y, R, 0, Math.PI * 2);
     ctx.fillStyle = g; ctx.fill();
     // marques qui tournent : on voit la balle rouler
@@ -479,6 +554,21 @@
 
     barres.forEach(dessinerBarre);
     barres.forEach(function (b) { b.hommes.forEach(function (h) { dessinerJoueur(b, yHomme(b, h)); }); });
+    dessinerTrace();
+
+    if (trace.actif) {
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var tc = Math.round(Math.min(cssW, cssH) * 0.06);
+      ctx.font = '800 ' + tc + 'px "Big Shoulders Display", "Arial Narrow", sans-serif';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+      var msg = trace.pts.length ? 'RELÂCHEZ POUR TIRER' : 'TRACEZ LA TRAJECTOIRE DEPUIS LA BALLE';
+      var lw = ctx.measureText(msg).width + tc;
+      ctx.fillStyle = 'rgba(11, 29, 58, 0.85)';
+      rr(ctx, cssW / 2 - lw / 2, tc * 0.5, lw, tc * 1.5, 6); ctx.fill();
+      ctx.fillStyle = '#ffd84d';
+      ctx.fillText(msg, cssW / 2, tc * 0.75);
+      appliquerVue(ctx);
+    }
 
     if (flash.t > 0) {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -516,6 +606,8 @@
     if (b.eq === 'b') {
       b.off += (b.cible - b.off) * Math.min(1, h * 30);
       if (b.saisie) b.th += (b.cibleTh - b.th) * Math.min(1, h * 40);
+      else if (trace.suivi && trace.suivi.receveur === b) { b.th += (0 - b.th) * Math.min(1, h * 18); b.wLibre = 0; } // les attaquants restent baissés pour recevoir
+      else if (trace.suivi) { b.th += (-1.45 - b.th) * Math.min(1, h * 18); b.wLibre = 0; } // vos autres joueurs se relèvent
       else rotationLibre(b, h, 1);
     } else {
       // Rouges : ressort amorti vers la cible (aucun à-coup, aucune vibration)
@@ -819,6 +911,176 @@
     });
   }
 
+  // ---------- Tir tracé ----------
+  function joueurJauneTient() {
+    if (poss || !balle.visible || trace.suivi) return false;
+    if (Math.hypot(balle.vx, balle.vy) > 40) return false; // balle (quasi) immobile
+    for (var i = 0; i < bleues.length; i++) {
+      var b = bleues[i];
+      for (var j = 0; j < b.hommes.length; j++) {
+        var dx = balle.x - b.x, dy = balle.y - yHomme(b, b.hommes[j]);
+        if (Math.abs(dx) < PIED + R + 12 && Math.abs(dy) < PHY + R + 6) return true;
+      }
+    }
+    return false;
+  }
+  // Dès que la balle s'arrête à portée d'un joueur jaune, le jeu se fige et passe en mode tracé
+  function majProposition(dt) {
+    var tient = etat.pause <= 0 && !etat.fige && joueurJauneTient();
+    if (!tient) { trace.tenue = 0; trace.refus = false; return; }
+    trace.tenue += dt;
+    if (trace.tenue > 0.12 && !trace.actif && !trace.refus) commencerTrace();
+  }
+  function commencerTrace() {
+    trace.actif = true;
+    trace.dispo = true;
+    trace.pts = [];
+    racine.classList.add('bf--trace');
+    balle.vx = balle.vy = 0;
+    // une saisie de barre en cours est relâchée : le prochain geste dessine la trajectoire
+    Object.keys(pointeurs).forEach(function (id) { pointeurs[id].barre.saisie = 0; delete pointeurs[id]; });
+    racine.classList.remove('bf--saisie');
+    annoncer('Vous avez la balle : tracez la trajectoire du tir depuis la balle, puis relâchez. Échap pour jouer avec les barres.');
+    dessiner();
+  }
+  function annulerTrace(refus) {
+    trace.actif = false;
+    trace.dessin = null;
+    trace.pts = [];
+    racine.classList.remove('bf--trace');
+    trace.tenue = 0; trace.dispo = false;
+    trace.refus = Boolean(refus); // Échap : pas de nouveau tracé tant que la balle reste là
+  }
+  function pointTrace(p) {
+    var dansBouche = Math.abs(p.y - CY) < BUT - R;
+    return {
+      x: dansBouche ? clamp(p.x, -R - 14, FW + R + 14) : clamp(p.x, R, FW - R),
+      y: clamp(p.y, R, FH - R)
+    };
+  }
+  function longueurTrace(pts) {
+    var L = 0;
+    for (var i = 1; i < pts.length; i++) L += Math.hypot(pts[i].x - pts[i - 1].x, pts[i].y - pts[i - 1].y);
+    return L;
+  }
+  function lancerTrace() {
+    var pts = trace.pts;
+    racine.classList.remove('bf--trace');
+    trace.actif = false;
+    trace.dessin = null;
+    if (pts.length < 3 || longueurTrace(pts) < 60) {
+      // geste trop court : on reste en mode tracé
+      trace.actif = true; trace.pts = []; racine.classList.add('bf--trace'); return;
+    }
+    // passe tracée depuis les demis : les attaquants jaunes la contrôlent automatiquement
+    var depart = bleues.slice().sort(function (a, b) { return Math.abs(a.x - pts[0].x) - Math.abs(b.x - pts[0].x); })[0];
+    var receveur = depart === barres[3] ? barres[5] : null;
+    trace.suivi = { pts: pts, i: 0, receveur: receveur };
+    trace.fondu = 1;
+    trace.dispo = false;
+    etat.immobile = 0;
+  }
+  // Barre jaune qui reçoit : elle se cale sur la hauteur où la balle va la croiser
+  function placerReceveur(b, sv) {
+    var pts = sv.pts, yCible = balle.y;
+    for (var i = Math.max(sv.i, 0); i < pts.length - 1; i++) {
+      var a = pts[i], c = pts[i + 1];
+      if ((a.x - b.x) * (c.x - b.x) <= 0 && a.x !== c.x) { yCible = a.y + (c.y - a.y) * (b.x - a.x) / (c.x - a.x); break; }
+    }
+    var meilleur = b.cible, ecart = Infinity;
+    b.hommes.forEach(function (hm) {
+      var o = clamp(yCible - CY - hm, -b.course, b.course), e = Math.abs(CY + hm + o - yCible);
+      if (e < ecart - 0.5) { ecart = e; meilleur = o; }
+    });
+    b.cible = meilleur;
+  }
+  // contrôle automatique : la balle arrive sur un attaquant, il l'amortit et la garde
+  function receptionAuto(b) {
+    var xFace = b.x - (PHX + R + 2);
+    if (balle.x < xFace - 4 || balle.x > b.x + PHX + R) return false;
+    for (var j = 0; j < b.hommes.length; j++) {
+      var fy = yHomme(b, b.hommes[j]);
+      if (Math.abs(balle.y - fy) < PHY + R) {
+        trace.suivi = null;
+        balle.x = xFace;
+        balle.y = fy;
+        balle.vx = balle.vy = 0;
+        trace.tenue = 0; trace.refus = false;
+        annoncer('Vos attaquants contrôlent la balle : tracez votre tir.');
+        return true;
+      }
+    }
+    return false;
+  }
+  // la balle suit le tracé ; un pied noir sur le chemin l'intercepte
+  function suivreTrace(h) {
+    var sv = trace.suivi, pts = sv.pts, reste = V_TRACE * h;
+    if (sv.receveur) placerReceveur(sv.receveur, sv);
+    var dx = 0, dy = 0;
+    while (reste > 0 && sv.i < pts.length - 1) {
+      var a = pts[sv.i + 1];
+      dx = a.x - balle.x; dy = a.y - balle.y;
+      var d = Math.hypot(dx, dy);
+      if (d <= reste) { balle.x = a.x; balle.y = a.y; reste -= d; sv.i++; }
+      else { balle.x += dx / d * reste; balle.y += dy / d * reste; reste = 0; }
+    }
+    var n = Math.hypot(dx, dy) || 1;
+    balle.vx = dx / n * V_TRACE; balle.vy = dy / n * V_TRACE;
+    balle.rot += V_TRACE * h / R;
+    if (sv.receveur && balle.vx > 0 && receptionAuto(sv.receveur)) return;
+    if (Math.abs(balle.y - CY) < BUT) {
+      if (balle.x > FW + R + 6) { trace.suivi = null; return but('b'); }
+      if (balle.x < -R - 6) { trace.suivi = null; return but('r'); }
+    }
+    for (var k = 0; k < barres.length; k++) {
+      var b = barres[k];
+      if (b.eq !== 'r' || Math.cos(b.th) < 0.4) continue;
+      var fx = b.x + PIED * Math.sin(b.th);
+      for (var j = 0; j < b.hommes.length; j++) {
+        var fy = yHomme(b, b.hommes[j]);
+        if (Math.abs(balle.x - fx) < PHX + R && Math.abs(balle.y - fy) < PHY + R) {
+          trace.suivi = null;
+          balle.x -= balle.vx / V_TRACE * 6;
+          balle.vx = -balle.vx * 0.35; balle.vy = balle.vy * 0.35 + (balle.y - fy) * 4;
+          annoncer('Tir intercepté par les noirs.');
+          return;
+        }
+      }
+    }
+    if (sv.i >= pts.length - 1) {
+      // fin du tracé : la balle continue sur sa lancée
+      trace.suivi = null;
+      balle.vx *= 0.75; balle.vy *= 0.75;
+    }
+  }
+  function dessinerTrace() {
+    var pts = trace.actif ? trace.pts : trace.suivi ? trace.suivi.pts.slice(trace.suivi.i) : null;
+    if (trace.actif || trace.suivi) {
+      // anneau autour de la balle
+      ctx.beginPath(); ctx.arc(balle.x, balle.y, R + 9, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(255, 216, 77, 0.95)'; ctx.lineWidth = 3; ctx.setLineDash([7, 6]); ctx.stroke(); ctx.setLineDash([]);
+    }
+    if (!pts || pts.length < 2) return;
+    var tracer = function (largeur, couleur, tirets) {
+      ctx.beginPath();
+      ctx.moveTo(trace.suivi ? balle.x : pts[0].x, trace.suivi ? balle.y : pts[0].y);
+      for (var i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y);
+      ctx.lineWidth = largeur; ctx.strokeStyle = couleur; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      ctx.setLineDash(tirets || []); ctx.stroke(); ctx.setLineDash([]);
+    };
+    tracer(10, 'rgba(11, 29, 58, 0.35)');
+    tracer(4, 'rgba(255, 216, 77, 0.95)', [16, 10]);
+    // flèche au bout
+    var a = pts[pts.length - 1], b0 = pts[Math.max(0, pts.length - 4)];
+    var ang = Math.atan2(a.y - b0.y, a.x - b0.x);
+    ctx.beginPath();
+    ctx.moveTo(a.x + Math.cos(ang) * 16, a.y + Math.sin(ang) * 16);
+    ctx.lineTo(a.x + Math.cos(ang + 2.5) * 16, a.y + Math.sin(ang + 2.5) * 16);
+    ctx.lineTo(a.x + Math.cos(ang - 2.5) * 16, a.y + Math.sin(ang - 2.5) * 16);
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(255, 216, 77, 0.95)'; ctx.fill();
+  }
+
   function maj(dt) {
     ia(dt);
     if (flash.t > 0) flash.t -= dt;
@@ -838,10 +1100,12 @@
         if (p.phase !== 'controle' && p.phase !== 'laterale') { balle.x = b.x - TENUE; balle.y = yHomme(b, b.hommes[p.homme]); }
         continue;
       }
+      if (trace.suivi) { suivreTrace(h); if (!balle.visible) break; continue; }
       pasBalle(h);
       if (!balle.visible) break;
     }
-    if (balle.visible && !poss) {
+    majProposition(dt);
+    if (balle.visible && !poss && !trace.dispo) {
       if (Math.hypot(balle.vx, balle.vy) < 14) etat.immobile += dt; else etat.immobile = 0;
       if (etat.immobile > 3) {
         annoncer('Balle bloquée : remise en jeu.');
@@ -852,24 +1116,47 @@
 
   function but(eq) {
     if (poss) { poss.barre.possede = false; poss.barre.poss = null; poss = null; }
+    trace.suivi = null; annulerTrace();
     score[eq]++;
     balle.visible = false;
     balle.vx = balle.vy = 0;
     majScore();
     var fin = score[eq] >= 10;
+    if (fin && eq === 'r') return defaite();
     flash.t = fin ? 3 : 1.3;
-    flash.coul = eq === 'b' ? '#8fd6f5' : '#ff9ea8';
+    flash.coul = eq === 'b' ? '#ffd84d' : '#c9ced6';
     flash.txt = fin ? (eq === 'b' ? 'VICTOIRE !' : 'PERDU !') : 'BUT !';
     etat.pause = fin ? 3.2 : 1.3;
     etat.fin = fin;
     var s = score.b + ' à ' + score.r;
     annoncer(fin
-      ? (eq === 'b' ? 'Victoire, ' : 'Les rouges gagnent, ') + s + '. Nouvelle partie.'
-      : (eq === 'b' ? 'But pour vous ! ' : 'But des rouges. ') + s + '.');
+      ? (eq === 'b' ? 'Victoire, ' : 'Les noirs gagnent, ') + s + '. Nouvelle partie.'
+      : (eq === 'b' ? 'But pour vous ! ' : 'But des noirs. ') + s + '.');
+  }
+
+  // 10 buts encaissés : la partie s'arrête sur une invitation à venir au club
+  function defaite() {
+    etat.fige = true;
+    etat.pause = 0;
+    etat.fin = true;
+    if (titreFin) titreFin.textContent = score.b + ' – ' + score.r;
+    if (panneauFin) panneauFin.hidden = false;
+    annoncer('Les noirs gagnent ' + score.r + ' à ' + score.b + '. Marre de te faire battre par quelqu’un qui joue plus carré que toi ? Viens t’entraîner au club !');
+    var lien = panneauFin && panneauFin.querySelector('a');
+    if (lien) { try { lien.focus({ preventScroll: true }); } catch (e) { lien.focus(); } }
+    dessiner();
+  }
+  function rejouer() {
+    if (panneauFin) panneauFin.hidden = true;
+    etat.fige = false;
+    engager();
+    try { scene.focus({ preventScroll: true }); } catch (e) { scene.focus(); }
+    annoncer('Nouvelle partie. Vous jouez les jaunes.');
   }
 
   function engager() {
     if (etat.fin) { score.b = score.r = 0; majScore(); etat.fin = false; }
+    trace.suivi = null; annulerTrace();
     if (poss) { poss.barre.possede = false; poss.barre.poss = null; poss = null; }
     balle.x = FW / 2 + (Math.random() - 0.5) * 40;
     balle.y = R + 4;
@@ -892,8 +1179,8 @@
   function majConsigne() {
     if (!elConsigne) return;
     elConsigne.textContent = portrait
-      ? 'Glissez une barre bleue vers la gauche ou la droite pour la déplacer, vers le haut pour tirer. Touchez brièvement pour frapper. Vous défendez le but du bas.'
-      : 'Glissez une barre bleue vers le haut ou le bas pour la déplacer, vers la droite pour tirer. Un clic bref frappe la balle. Clavier : flèches pour choisir et déplacer une barre, Espace pour tirer.';
+      ? 'Glissez une barre jaune vers la gauche ou la droite pour la déplacer, vers le bas pour tirer. Touchez brièvement pour frapper. Quand la balle s’arrête devant un de vos joueurs, tracez sa trajectoire au doigt. Vous défendez le but du bas.'
+      : 'Glissez une barre jaune vers le haut ou le bas pour la déplacer, vers la gauche pour tirer. Un clic bref frappe la balle. Quand la balle s’arrête devant un de vos joueurs, tracez sa trajectoire. Clavier : flèches pour choisir et déplacer une barre, Espace pour tirer, Échap pour quitter le tracé.';
   }
 
   // ---------- Boucle ----------
@@ -903,7 +1190,7 @@
     var now = performance.now();
     var dt = Math.min(0.033, Math.max(0.001, (now - dernier) / 1000));
     dernier = now;
-    maj(dt);
+    if (!trace.actif && !etat.fige) maj(dt); // le jeu est figé pendant que vous tracez
     dessiner();
     raf = requestAnimationFrame(boucle);
   }
@@ -920,7 +1207,7 @@
     try { scene.focus({ preventScroll: true }); } catch (e) { scene.focus(); }
     if (portrait && scene.scrollIntoView) scene.scrollIntoView({ block: 'center', behavior: 'smooth' });
     engager();
-    annoncer('Partie lancée. Vous jouez les bleus.');
+    annoncer('Partie lancée. Vous jouez les jaunes.');
     lancerBoucle();
   }
   function arreter() {
@@ -929,6 +1216,9 @@
     scene.tabIndex = -1;
     Object.keys(pointeurs).forEach(function (id) { delete pointeurs[id]; });
     barres.forEach(function (b) { b.saisie = 0; });
+    trace.suivi = null; annulerTrace();
+    if (panneauFin) panneauFin.hidden = true;
+    if (etat.fige) { etat.fige = false; score.b = score.r = 0; majScore(); etat.fin = false; }
     if (raf) cancelAnimationFrame(raf);
     raf = 0;
     dessiner();
@@ -946,6 +1236,15 @@
     if (etat.mode !== 'jeu') return;
     e.preventDefault();
     var p = versMonde(e.clientX, e.clientY);
+    if (trace.actif) {
+      // le tracé part toujours de la balle
+      try { canvas.setPointerCapture(e.pointerId); } catch (err) { /* ignoré */ }
+      trace.dessin = e.pointerId;
+      trace.pts = [{ x: balle.x, y: balle.y }];
+      var q = pointTrace(p);
+      if (Math.hypot(q.x - balle.x, q.y - balle.y) > 8) trace.pts.push(q);
+      return;
+    }
     var b = barrePlusProche(p.x);
     try { canvas.setPointerCapture(e.pointerId); } catch (err) { /* ignoré */ }
     b.saisie++;
@@ -955,17 +1254,26 @@
     racine.classList.add('bf--saisie');
   });
   canvas.addEventListener('pointermove', function (e) {
+    if (trace.actif && trace.dessin === e.pointerId) {
+      e.preventDefault();
+      var q = pointTrace(versMonde(e.clientX, e.clientY)), der = trace.pts[trace.pts.length - 1];
+      var d = Math.hypot(q.x - der.x, q.y - der.y);
+      if (d > 10 && longueurTrace(trace.pts) + d < L_TRACE) { trace.pts.push(q); dessiner(); }
+      return;
+    }
     var g = pointeurs[e.pointerId];
     if (!g) return;
     e.preventDefault();
     var p = versMonde(e.clientX, e.clientY), b = g.barre;
     b.cible = clamp(g.off0 + (p.y - g.y0), -b.course, b.course);
-    b.cibleTh = clamp(b.cibleTh + (p.x - g.dernierX) * GAIN_ROT, -1.9, 1.9);
+    // tir en sens inversé (demande du club) : on tire la barre vers l'arrière pour frapper
+    b.cibleTh = clamp(b.cibleTh - (p.x - g.dernierX) * GAIN_ROT, -1.9, 1.9);
     g.dernierX = p.x;
     g.dist += Math.hypot(p.x - g.px, p.y - g.py);
     g.px = p.x; g.py = p.y;
   });
   function relacher(e) {
+    if (trace.actif && trace.dessin === e.pointerId) { lancerTrace(); return; }
     var g = pointeurs[e.pointerId];
     if (!g) return;
     var b = g.barre;
@@ -989,12 +1297,13 @@
     else if (k === choixPlus) selection = Math.min(bleues.length - 1, selection + 1);
     else if (k === choixMoins) selection = Math.max(0, selection - 1);
     else if (k === ' ' || k === 'Enter') b.frappe = 0.09;
-    else if (k === 'Escape') arreter();
+    else if (k === 'Escape') { if (trace.actif) annulerTrace(true); else arreter(); }
     else ok = false;
     if (ok) e.preventDefault();
   });
 
   if (boutonJouer) boutonJouer.addEventListener('click', demarrer);
+  if (boutonRejouer) boutonRejouer.addEventListener('click', rejouer);
   if (boutonQuitter) boutonQuitter.addEventListener('click', arreter);
 
   // Pause hors écran ou onglet masqué
@@ -1021,5 +1330,5 @@
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { dessinerFond(); dessiner(); });
 
   // Accès pour les tests automatisés
-  racine.__babyfoot = { etat: etat, balle: balle, score: score, barres: barres, versMonde: versMonde, possession: function () { return poss ? { barre: barres.indexOf(poss.barre), homme: poss.homme, phase: poss.phase } : null; }, libererBalle: function () { if (poss) { poss.barre.possede = false; poss.barre.poss = null; poss = null; } barres.forEach(function (x) { if (x.eq === 'r') x.recharge = 3; }); } };
+  racine.__babyfoot = { trace: trace, etat: etat, balle: balle, score: score, barres: barres, versMonde: versMonde, possession: function () { return poss ? { barre: barres.indexOf(poss.barre), homme: poss.homme, phase: poss.phase } : null; }, libererBalle: function () { if (poss) { poss.barre.possede = false; poss.barre.poss = null; poss = null; } barres.forEach(function (x) { if (x.eq === 'r') x.recharge = 3; }); } };
 })();

@@ -4,7 +4,7 @@ import club from '../data/club.json';
 import ffbfCalendrier from '../data/ffbf-calendrier.json';
 import drapeaux from '../data/drapeaux.json';
 import tables from '../data/tables.json';
-import { aujourdhui, isoDate, FORMATS } from './format';
+import { aujourdhui, isoDate, FORMATS, lienSur } from './format';
 
 /** Classe de couleur d'une catégorie de tournoi (ITSF ou FFBF). */
 export function classeCategorie(nom: string) {
@@ -97,9 +97,9 @@ export async function evenementsClub(): Promise<EvenementClub[]> {
         classe,
         etiquette: classe === 'championnat' ? 'championnat' : 'open',
         lieu: /foch/i.test(t.adresse) ? `Au club, ${club.adresse.rue}` : [t.adresse, t.ville].filter(Boolean).join(', '),
-        lien: t.lien,
+        lien: lienSur(t.lien),
         externe: true,
-        info: t.info || undefined,
+        info: lienSur(t.info) || undefined,
         table: t.table || 'Other',
         source: 'ffbf',
         termine: t.statut === 'finished' || t.fin < auj,

@@ -1,0 +1,179 @@
+{
+  "2001-coupe": {
+    "nom": "Coupe du championnat de France par équipes 2001",
+    "alt": "Coupe argentée à deux anses, médaillon doré au motif de baby-foot, sur un socle en marbre noir portant la plaque « Championnat de France par équipe de baby-foot, Franconville 2001, vainqueur ».",
+    "type": "coupe",
+    "metal": "argent",
+    "socle": [{ "y0": 1640, "y1": 1880, "hw": 215, "hd": 195, "mat": "marbre" }],
+    "plaque": { "y": 1762, "h": 78, "w": 405, "fond": "blanc", "police": "sans", "lignes": ["Championnat de France par Equipe de Baby-Foot", "Franconville 2001", "VAINQUEUR"] },
+    "corps": {
+      "lisse": true,
+      "profil": [[1640, 200], [1612, 200], [1600, 190], [1572, 186], [1566, 176], [1540, 172], [1500, 165], [1460, 160], [1430, 150], [1405, 128], [1380, 104], [1355, 95], [1330, 100], [1312, 98], [1290, 88], [1240, 72], [1195, 66], [1170, 72], [1152, 82], [1138, 78], [1128, 72], [1118, 62], [1100, 62], [1070, 74], [1030, 92], [990, 120], [950, 165], [900, 220], [850, 262], [780, 295], [700, 315], [600, 327], [500, 332], [400, 334], [300, 334], [282, 333]],
+      "zones": [{ "de": 1566, "a": 1640, "mat": "or" }, { "de": 1116, "a": 1136, "mat": "or" }],
+      "cannelures": [{ "de": 1430, "a": 1560, "n": 28, "amp": 0.025 }, { "de": 1170, "a": 1310, "n": 20, "amp": 0.06 }],
+      "epaisseur": 6,
+      "fond": 900
+    },
+    "anses": [
+      { "rayon": 11, "points": [[318, 860], [345, 895], [362, 860], [378, 740], [398, 600], [412, 480], [398, 410], [366, 372], [338, 360]] },
+      { "rayon": 9, "points": [[370, 384], [380, 340], [402, 318], [424, 330], [422, 352], [406, 356]] }
+    ],
+    "medaillon": { "y": 530, "r": 82, "motif": "babyfoot", "mat": "or", "couronne": { "r": 135, "mat": "argent" } }
+  },
+
+  "2001-plaque-mairie": {
+    "nom": "Plaque offerte par la mairie des 4e et 5e arrondissements",
+    "alt": "Plaque dorée en forme de parchemin, médaillon de baby-foot entouré de laurier, dans un coffret bleu ouvert : « Offert par Bruno Gilles, maire des 4e et 5e arrondissements, équipe championne de France de baby-foot 2001 ».",
+    "type": "coffret",
+    "coffret": {
+      "couleur": "#1f55a8",
+      "plaque": { "type": "parchemin", "lignes": ["Offert par Bruno GILLES", "Maire des 4/5ème Ardts", "Équipe Championne de France", "de Baby-Foot", "2001"] }
+    }
+  },
+
+  "2003-ecusson-d1": {
+    "nom": "Écusson de champion de France des clubs, Division 1, 2002-2003",
+    "alt": "Écusson en bois verni avec un disque doré « Champion de France des clubs, FFFT, Division 1, Nantes 2002/2003 », les millésimes 2002 et 2003 et une plaque portant les noms des dix joueurs.",
+    "type": "ecusson",
+    "equipe": ["François CHEURET", "Patrick NATIVEL", "Vahan BERBERIAN", "Gaël LAGRANGE", "Florent MAYOUTE", "Marc ANGLARET", "Jules RAMON", "Pierre IOUALALEN", "A. NOEL", "Ph. GADAN"]
+  },
+
+  "2003-meilleur-club": {
+    "nom": "Prix du meilleur club, saison 2002-2003",
+    "alt": "Plaque bleu nuit dans un coffret bleu ouvert : « La Fédération française de football de table a l’honneur de remettre le prix du meilleur club, saison 2002/2003, à l’ASBM Marseille ».",
+    "type": "coffret",
+    "coffret": {
+      "couleur": "#1d4fa0",
+      "plaque": { "type": "imprimee", "sigle": "FFFT", "lignes": ["La Fédération Française de Football de Table", "a l’honneur de remettre le :", "", "PRIX DU MEILLEUR CLUB", "Saison 2002/2003", "", "à : ASBM MARSEILLE"] }
+    }
+  },
+
+  "2005-coupe-d1": {
+    "nom": "Coupe des championnats de France des clubs 2004-2005",
+    "alt": "Haute coupe argentée en forme de vase au bord festonné, sur un socle laqué rouge portant la plaque « Championnats de France des clubs 2004/2005, 1re division, 4e ».",
+    "type": "coupe",
+    "metal": "argent",
+    "socle": [
+      { "y0": 1722, "y1": 1792, "hw": 278, "hd": 258, "mat": "bois-rouge" },
+      { "y0": 1440, "y1": 1722, "hw": 232, "hd": 214, "mat": "bois-rouge" }
+    ],
+    "plaque": { "y": 1640, "h": 100, "w": 400, "fond": "argent", "police": "serif", "lignes": ["Championnats de France des Clubs", "2004 / 2005", "1ère Division", "4ème"] },
+    "corps": {
+      "lisse": true,
+      "profil": [[1440, 158], [1425, 150], [1400, 130], [1370, 110], [1330, 90], [1290, 72], [1260, 62], [1240, 60], [1225, 66], [1212, 74], [1198, 64], [1180, 62], [1150, 80], [1100, 108], [1050, 130], [1000, 150], [900, 180], [800, 205], [710, 220], [690, 230], [600, 234], [500, 246], [400, 262], [300, 282], [200, 305], [130, 320], [112, 318]],
+      "cannelures": [{ "de": 1300, "a": 1432, "n": 30, "amp": 0.03 }, { "de": 700, "a": 1150, "n": 7, "amp": 0.05 }, { "de": 140, "a": 690, "n": 6, "amp": 0.06 }],
+      "coupe": { "type": "festons", "n": 3, "amp": 70, "debut": 360, "phase": 0.5 },
+      "epaisseur": 7,
+      "fond": 650
+    }
+  },
+
+  "2008-coupe-d1": {
+    "nom": "Coupe des championnats de France des clubs 2008",
+    "alt": "Coupe dorée à anses argentées en forme de feuilles, écusson argenté au médaillon de baby-foot sur le pied, socle en marbre noir portant la plaque « Championnats de France des clubs, troisième D1, Franconville 2008 ».",
+    "type": "coupe",
+    "metal": "or",
+    "socle": [
+      { "y0": 1900, "y1": 1960, "hw": 252, "hd": 232, "mat": "marbre" },
+      { "y0": 1522, "y1": 1900, "hw": 225, "hd": 205, "mat": "marbre" }
+    ],
+    "plaque": { "y": 1838, "h": 110, "w": 375, "fond": "laiton", "police": "serif", "lignes": ["Championnats de France des Clubs", "TROISIEME D1", "FRANCONVILLE 2008"] },
+    "corps": {
+      "lisse": false,
+      "profil": [[1522, 205], [1510, 212], [1490, 210], [1470, 196], [1460, 160], [1452, 70], [1444, 28], [1430, 22], [1060, 22], [1050, 30], [1020, 45], [990, 58], [960, 72], [930, 88], [900, 100], [870, 112], [840, 122], [800, 130], [782, 140], [775, 150], [725, 150], [712, 160], [702, 190], [685, 215], [655, 240], [610, 272], [560, 298], [490, 322], [410, 340], [320, 351], [240, 356], [215, 356], [205, 352]],
+      "zones": [{ "de": 1040, "a": 1522, "mat": "argent" }],
+      "cannelures": [{ "de": 790, "a": 1000, "n": 18, "amp": 0.07 }, { "de": 380, "a": 700, "n": 10, "amp": 0.05 }],
+      "epaisseur": 6,
+      "fond": 560
+    },
+    "anses": [
+      { "rayon": 13, "mat": "argent", "points": [[248, 690], [292, 694], [326, 650], [346, 570], [366, 480], [396, 410], [430, 370]], "feuille": { "de": [425, 400], "a": [470, 110], "largeur": 150 } }
+    ],
+    "bouclier": { "y": 1240, "w": 360, "h": 380, "mat": "argent", "bord": "or", "medaillon": 115 }
+  },
+
+  "2017-coupe-ligue1": {
+    "nom": "Coupe du championnat de France 2017, Ligue 1",
+    "alt": "Haute coupe dorée en forme de corolle striée d’hélices argentées, sur un socle en acajou verni portant la plaque « Championnat de France, Évry 2017, Ligue 1, 2e place ».",
+    "type": "coupe",
+    "metal": "or",
+    "socle": [
+      { "y0": 1808, "y1": 1850, "hw": 308, "hd": 288, "mat": "acajou" },
+      { "y0": 1700, "y1": 1808, "hw": 298, "hd": 278, "mat": "acajou" },
+      { "forme": "tronc", "y0": 1495, "y1": 1700, "hw": 248, "hwBas": 276, "hd": 228, "hdBas": 256, "mat": "acajou" }
+    ],
+    "plaque": { "y": 1600, "h": 108, "w": 330, "fond": "or", "police": "serif", "lignes": ["CHAMPIONNAT DE FRANCE", "EVRY 2017", "LIGUE 1", "2ème PLACE"] },
+    "corps": {
+      "lisse": true,
+      "profil": [[1495, 192], [1482, 196], [1458, 190], [1436, 172], [1426, 90], [1418, 72], [1400, 68], [1362, 66], [1346, 70], [1330, 72], [1200, 76], [1000, 82], [800, 92], [700, 102], [600, 118], [500, 140], [400, 170], [300, 205], [200, 240], [140, 258], [100, 268], [88, 268]],
+      "zones": [{ "de": 1346, "a": 1424, "mat": "satine" }],
+      "bandes": [
+        { "type": "spirale", "de": 180, "a": 420, "n": 6, "largeur": 0.012, "pente": 0.18 },
+        { "type": "spirale", "de": 1060, "a": 1420, "n": 7, "largeur": 0.008, "pente": 0.28 }
+      ],
+      "coupe": { "type": "biais", "amp": 30, "debut": 300, "phase": 3.14 },
+      "epaisseur": 5,
+      "fond": 650
+    }
+  },
+
+  "2017-coupe-de-france": {
+    "nom": "Coupe de France des clubs 2017",
+    "alt": "Coupe argentée évasée au bord coupé en biais, ajourée de fentes, sur un socle laqué rouge portant la plaque « Coupe de France des clubs, Saint-Herblain, 2-3 décembre 2017, groupe A, 2e ».",
+    "type": "coupe",
+    "metal": "argent",
+    "socle": [{ "forme": "tronc", "y0": 1500, "y1": 1880, "hw": 166, "hwBas": 176, "hd": 158, "hdBas": 168, "mat": "bois-rouge" }],
+    "plaque": { "y": 1730, "h": 128, "w": 232, "fond": "argent", "police": "sans", "lignes": ["COUPE DE FRANCE DES CLUBS", "Saint-Herblain", "2 - 3 Décembre 2017", "Groupe A", "2ème"] },
+    "corps": {
+      "lisse": true,
+      "profil": [[1500, 150], [1490, 155], [1470, 155], [1440, 148], [1420, 138], [1395, 118], [1370, 100], [1345, 88], [1320, 85], [1300, 95], [1285, 100], [1265, 90], [1240, 74], [1215, 68], [1195, 72], [1175, 62], [1160, 58], [1145, 68], [1135, 64], [1125, 56], [1100, 62], [1000, 85], [900, 112], [800, 140], [700, 165], [600, 190], [500, 210], [400, 230], [300, 248], [200, 262], [110, 272]],
+      "cannelures": [{ "de": 1395, "a": 1490, "n": 26, "amp": 0.04 }, { "de": 160, "a": 1100, "n": 3, "amp": 0.05 }],
+      "bandes": [{ "type": "fentes", "de": 140, "a": 1080, "n": 70 }],
+      "coupe": { "type": "biais", "amp": 230, "debut": 640, "phase": 0.35 },
+      "epaisseur": 4,
+      "fond": 800
+    }
+  },
+
+  "2019-plateau-coupe-de-france": {
+    "nom": "Plateau de la Coupe de France des clubs 2019",
+    "alt": "Plateau ovale en métal chromé sur un chevalet noir, gravé « FFFT, Coupe de France des clubs, 3e du groupe C, Saint-Aignan-de-Grand-Lieu 2019 ».",
+    "type": "plateau",
+    "plateau": { "lignes": ["FFFT", "Coupe de France des Clubs", "3ème du groupe C", "St Aignan de Grand Lieu 2019"] }
+  },
+
+  "2024-coupe-paca": {
+    "nom": "Coupe du championnat régional des clubs PACA 2024",
+    "alt": "Coupe dorée en cornet traversée d’une bande noire ondulée, grand médaillon bronze au motif de baby-foot, socle en marbre noir portant la plaque « Championnat régional des clubs PACA 2024, football de table, vainqueur ».",
+    "type": "coupe",
+    "metal": "or",
+    "socle": [{ "y0": 1700, "y1": 1880, "hw": 155, "hd": 148, "mat": "marbre" }],
+    "plaque": { "y": 1792, "h": 96, "w": 252, "fond": "laiton", "police": "sans", "lignes": ["Championnat régional", "des clubs PACA 2024", "Football de table", "Vainqueur"] },
+    "corps": {
+      "lisse": true,
+      "profil": [[1700, 140], [1680, 150], [1620, 152], [1560, 138], [1500, 122], [1460, 112], [1420, 96], [1390, 80], [1365, 72], [1345, 78], [1325, 90], [1300, 96], [1280, 90], [1262, 80], [1245, 76], [1200, 85], [1000, 120], [800, 155], [600, 190], [400, 225], [250, 245], [140, 257], [128, 258]],
+      "cannelures": [{ "de": 1560, "a": 1690, "n": 14, "amp": 0.06 }],
+      "bandes": [{ "type": "vague", "de": 132, "a": 1240, "haut": 0.2, "pastilles": [[-0.09, 230, 0.02], [0.07, 330, 0.014], [-0.03, 880, 0.016], [0.02, 1080, 0.012]] }],
+      "epaisseur": 5,
+      "fond": 650
+    },
+    "medaillon": { "y": 445, "r": 128, "motif": "babyfoot", "mat": "bronze" }
+  },
+
+  "2025-coupe-paca": {
+    "nom": "Coupe du championnat régional des clubs PACA 2025",
+    "alt": "Coupe argentée à étages, traversée d’une bande bleue avec un médaillon blanc au motif de baby-foot, socle en marbre noir portant la plaque « Championnat régional des clubs PACA 2025, baby-foot, vainqueur ».",
+    "type": "coupe",
+    "metal": "argent",
+    "socle": [{ "y0": 1722, "y1": 1880, "hw": 137, "hd": 130, "mat": "marbre" }],
+    "plaque": { "y": 1812, "h": 92, "w": 236, "fond": "argent", "police": "sans", "gras": true, "lignes": ["Championnat régional", "des clubs PACA 2025", "Baby-foot", "Vainqueur"] },
+    "corps": {
+      "lisse": false,
+      "profil": [[1722, 150], [1700, 155], [1650, 148], [1600, 138], [1550, 128], [1500, 120], [1440, 110], [1400, 100], [1370, 88], [1340, 70], [1310, 55], [1285, 47], [1262, 45], [1240, 50], [1212, 62], [1185, 72], [1160, 70], [1140, 62], [1128, 66], [1082, 80], [1076, 100], [1000, 104], [994, 84], [900, 90], [894, 122], [792, 132], [786, 100], [746, 104], [740, 150], [632, 160], [626, 118], [546, 122], [540, 176], [432, 188], [426, 138], [336, 145], [330, 206], [205, 222], [196, 221]],
+      "bandes": [{ "type": "v", "de": 196, "a": 1150, "haut": 0.15, "bas": 0.02 }, { "type": "stries", "de": 1380, "a": 1700, "n": 0 }],
+      "epaisseur": 5,
+      "fond": 640
+    },
+    "medaillon": { "y": 290, "r": 58, "motif": "babyfoot-blanc", "mat": "argent" }
+  }
+}

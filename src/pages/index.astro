@@ -23,8 +23,6 @@ const dp = dateEvt ? jourMois(dateEvt) : null;
 
 const ouverts = club.horaires.filter((h) => h.ouverture);
 const plage = `${heureFr(ouverts[0].ouverture!)} – ${heureFr(ouverts[0].fermeture!)}`;
-const bonzini = club.tables.find((t) => t.marque === 'Bonzini');
-const leonhart = club.tables.find((t) => t.marque === 'Leonhart');
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -142,18 +140,6 @@ const jsonLd = {
         <p><a href="/actualites">Toutes les actualités</a></p>
       </div>
     )}
-  </section>
-
-  <section class="chiffres" aria-labelledby="titre-chiffres">
-    <div class="conteneur">
-      <h2 id="titre-chiffres" class="sr-only">Le club en chiffres</h2>
-      <ul class="chiffres__liste">
-        <li><strong class="nums">{bonzini?.nombre}</strong><span>tables Bonzini de compétition, neuves</span></li>
-        <li><strong class="nums">{leonhart?.nombre}</strong><span>table allemande Leonhart homologuée ITSF</span></li>
-        <li><strong class="nums">{ouverts.length}</strong><span>soirs d’entraînement par semaine</span></li>
-        <li><strong class="nums">1993</strong><span>année de création du club</span></li>
-      </ul>
-    </div>
   </section>
 
   <section class="section conteneur" aria-labelledby="titre-photos">
@@ -313,29 +299,6 @@ const jsonLd = {
   }
   .prochain__autres { margin-top: var(--e-7); }
   .prochain__autres > p { margin-top: var(--e-4); font-weight: 700; }
-
-  /* ---------- Chiffres ---------- */
-  .chiffres {
-    background: var(--ciel);
-    color: var(--marine);
-    padding-block: calc(var(--e-7) + var(--biseau) * 0.6);
-    clip-path: polygon(0 calc(var(--biseau) * 0.6), 100% 0, 100% calc(100% - var(--biseau) * 0.6), 0 100%);
-  }
-  .chiffres__liste {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
-    gap: var(--e-6);
-  }
-  .chiffres__liste li { display: grid; gap: var(--e-2); align-content: start; }
-  .chiffres__liste strong {
-    font-family: var(--f-display);
-    font-weight: 800;
-    font-size: clamp(3.5rem, 2.5rem + 3vw, 5.5rem);
-    line-height: 0.85;
-  }
-  .chiffres__liste span { font-weight: 700; font-size: var(--t-2); line-height: 1.3; max-width: 18ch; }
 
   .photos { margin-top: var(--e-5); }
 

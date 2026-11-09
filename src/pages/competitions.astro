@@ -9,7 +9,7 @@ import itsfRes from '../data/itsf-resultats.json';
 import ffbfCal from '../data/ffbf-calendrier.json';
 import ffbfRes from '../data/ffbf-resultats.json';
 import clubRes from '../data/club-resultats.json';
-import { nomPays, plageDates, moisAnnee, dateLongue, jourCourt, jourMoisIso, isoDate, aujourdhui, insecable } from '../lib/format';
+import { nomPays, plageDates, moisAnnee, dateLongue, jourCourt, jourMoisIso, isoDate, aujourdhui, insecable, lienSur } from '../lib/format';
 import { classeCategorie, libelleCategorie, place, evenementsClub, libelleTable, slugTable, marquesPresentes } from '../lib/competitions';
 
 const auj = isoDate(aujourdhui());
@@ -76,6 +76,10 @@ const classements = clubRes.tournois.flatMap((t) => t.epreuves.flatMap((e) => e.
 const nbPodiums = classements.filter((c) => c.rang <= 3).length;
 const nbVictoires = classements.filter((c) => c.rang === 1).length;
 const nbJoueurs = clubRes.joueurs.length;
+// joueurs du club (licenciés compétition) ayant disputé au moins un tournoi sur les 12 derniers mois
+const nbActifs = new Set(
+  clubRes.tournois.flatMap((t) => t.epreuves.flatMap((e) => e.classements.flatMap((c) => c.joueurs.map((j) => j[3]).filter((code) => codesClub.has(code))))),
+).size;
 
 const majLe = dateLongue(new Date(ffbfCal.maj || itsfCal.maj));
 const annee = (iso: string) => iso.slice(0, 4);
@@ -225,14 +229,14 @@ const annee = (iso: string) => iso.slice(0, 4);
                   <VignetteTable nom={t.table} class="tournoi__vignette" />
                   <div class="tournoi__corps">
                     <p class="tournoi__nom">
-                      {t.lien ? <a href={t.lien} rel="noopener">{t.nom}</a> : t.nom}
+                      {lienSur(t.lien) ? <a href={lienSur(t.lien)} rel="noopener">{t.nom}</a> : t.nom}
                       {duClub && <span class="badge-club" title="Organisé par le club">{sigle}</span>}
                     </p>
                     <p class="tournoi__meta">
                       <span>{[t.ville, t.region].filter(Boolean).join(', ')}</span>
                       <span>Table {libelleTable(t.table)}</span>
                       {t.organisateur.nom && !duClub && <span>{t.organisateur.nom}</span>}
-                      {t.info && <a href={t.info} rel="noopener">Infos<span class="sr-only"> sur {t.nom}</span> (PDF)</a>}
+                      {lienSur(t.info) && <a href={lienSur(t.info)} rel="noopener">Infos<span class="sr-only"> sur {t.nom}</span> (PDF)</a>}
                     </p>
                   </div>
                   <span class={`cat cat--${classeCategorie(t.categorie)}`}>{libelleCategorie(t.categorie)}</span>
@@ -278,7 +282,7 @@ const annee = (iso: string) => iso.slice(0, 4);
                 <p class="tournoi__date nums">{plageDates(t.debut, t.fin)}</p>
                 <VignetteTable nom={t.table} class="tournoi__vignette" />
                 <div class="tournoi__corps">
-                  <p class="tournoi__nom">{t.lien ? <a href={t.lien} rel="noopener">{t.nom}</a> : t.nom}</p>
+                  <p class="tournoi__nom">{lienSur(t.lien) ? <a href={lienSur(t.lien)} rel="noopener">{t.nom}</a> : t.nom}</p>
                   <p class="tournoi__meta">
                     <span class="tournoi__lieu"><Drapeau code={t.pays} /> {[t.ville, nomPays(t.pays)].filter(Boolean).join(', ')}</span>
                     <span>Table {libelleTable(t.table)}</span>
@@ -354,7 +358,7 @@ const annee = (iso: string) => iso.slice(0, 4);
                 </section>
               ))}
             </div>
-            {t.lien && <p class="resultat__lien"><a href={t.lien} rel="noopener">Tous les résultats du tournoi <Icone nom="externe" titre="(site externe)" /></a></p>}
+            {lienSur(t.lien) && <p class="resultat__lien"><a href={lienSur(t.lien)} rel="noopener">Tous les résultats du tournoi <Icone nom="externe" titre="(site externe)" /></a></p>}
           </article>
         ))}
       </div>
@@ -363,7 +367,8 @@ const annee = (iso: string) => iso.slice(0, 4);
         <div class="bilan-club sur-marine">
           <h3>Les joueurs de l’{club.nomCourt} en compétition</h3>
           <p>
-            Classements des {nbJoueurs} joueurs licenciés au club, sur leurs tournois des douze derniers mois
+            Résultats {nbActifs > 1 ? `des ${nbActifs} joueurs` : 'du joueur'} du club licencié{nbActifs > 1 ? 's' : ''} compétition
+            ayant participé à au moins un tournoi au cours des 12 derniers mois
             (classements FFBF et ITSF).
           </p>
           <ul class="bilan-club__chiffres">
@@ -411,7 +416,7 @@ const annee = (iso: string) => iso.slice(0, 4);
                 </section>
               ))}
             </div>
-            <p class="resultat__lien"><a href={t.lien} rel="noopener">Tous les résultats du tournoi <Icone nom="externe" titre="(site externe)" /></a></p>
+            {lienSur(t.lien) && <p class="resultat__lien"><a href={lienSur(t.lien)} rel="noopener">Tous les résultats du tournoi <Icone nom="externe" titre="(site externe)" /></a></p>}
           </article>
         ))}
       </div>

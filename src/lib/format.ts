@@ -49,6 +49,16 @@ export function aujourdhui() {
   return new Date(`${iso}T00:00:00Z`);
 }
 
+/** Lien externe venu des données : seulement http(s), sinon chaîne vide (bloque « javascript: »…). */
+export function lienSur(u: unknown): string {
+  try {
+    const url = new URL(String(u ?? '').trim());
+    return url.protocol === 'https:' || url.protocol === 'http:' ? url.href : '';
+  } catch {
+    return '';
+  }
+}
+
 /**
  * Empêche la coupure de « baby-foot » en fin de ligne.
  * Renvoie du HTML échappé (à utiliser avec set:html) : les polices n'ont pas de trait d'union insécable.

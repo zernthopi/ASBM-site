@@ -6,6 +6,8 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   site: undefined,
   trailingSlash: 'never',
+  // three.js (vue 3D des trophées) n'est chargé qu'au clic : le gros fichier est voulu
+  vite: { build: { chunkSizeWarningLimit: 700 } },
   build: {
     format: 'file',
     inlineStylesheets: 'never',

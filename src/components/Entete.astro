@@ -15,10 +15,11 @@ const estActif = (href: string) => actuel === href || actuel.startsWith(`${href}
 ---
 <header class="entete sur-marine">
   <div class="conteneur entete__rangee">
-    <a class="marque" href="/" aria-label="ASBM, Babyfoot Marseille : accueil">
+    <a class="marque" href="/">
       <img class="marque__logo" src="/logo-asbm.webp" width="52" height="52" alt="" />
-      <span class="marque__sigle" aria-hidden="true">ASBM</span>
-      <span class="marque__nom" aria-hidden="true">Baby-foot<br />Marseille</span>
+      <span class="marque__sigle">ASBM</span>
+      <span class="marque__nom">Baby-foot<br />Marseille</span>
+      <span class="sr-only">, accueil</span>
     </a>
 
     <nav class="nav nav--large" aria-label="Navigation principale">

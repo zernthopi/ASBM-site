@@ -1,10 +1,146 @@
 [
   {
-    "annee": "À compléter",
-    "competition": "Nom de la compétition (ex. championnat de France, open, coupe régionale)",
-    "categorie": "Double, simple, mixte, équipe…",
-    "resultat": "Place obtenue",
-    "joueurs": "Joueuses et joueurs",
-    "aCompleter": true
+    "id": "2001-france-equipes",
+    "annee": "2001",
+    "titre": "Champion de France par équipes",
+    "competition": "Championnat de France par équipes de baby-foot",
+    "lieu": "Franconville",
+    "epreuve": null,
+    "rang": 1,
+    "resultat": "Vainqueur",
+    "texte": "Premier titre national du club. La mairie des 4e et 5e arrondissements de Marseille offre une plaque à l’équipe championne de France.",
+    "trophees": [
+      "2001-coupe",
+      "2001-plaque-mairie"
+    ]
+  },
+  {
+    "id": "2003-france-clubs-d1",
+    "annee": "2002-2003",
+    "titre": "Champion de France des clubs, Division 1",
+    "competition": "Championnats de France des clubs (FFFT)",
+    "lieu": "Nantes",
+    "epreuve": "Division 1",
+    "rang": 1,
+    "resultat": "Champion",
+    "texte": "La même saison, la Fédération française de football de table décerne à l’ASBM le prix du meilleur club.",
+    "equipe": [
+      "François Cheuret",
+      "Patrick Nativel",
+      "Vahan Berberian",
+      "Gaël Lagrange",
+      "Florent Mayoute",
+      "Marc Anglaret",
+      "Jules Ramon",
+      "Pierre Ioualalen",
+      "Anaïs Noël",
+      "Philippe Gadan"
+    ],
+    "trophees": [
+      "2003-ecusson-d1",
+      "2003-meilleur-club"
+    ]
+  },
+  {
+    "id": "2005-france-clubs-d1",
+    "annee": "2004-2005",
+    "titre": "4e des championnats de France des clubs, 1re division",
+    "competition": "Championnats de France des clubs",
+    "lieu": "Nantes",
+    "epreuve": "1re division",
+    "rang": 4,
+    "resultat": "4e",
+    "trophees": [
+      "2005-coupe-d1"
+    ]
+  },
+  {
+    "id": "2008-france-clubs-d1",
+    "annee": "2008",
+    "titre": "3e des championnats de France des clubs, D1",
+    "competition": "Championnats de France des clubs",
+    "lieu": "Franconville",
+    "epreuve": "Division 1",
+    "rang": 3,
+    "resultat": "3e",
+    "trophees": [
+      "2008-coupe-d1"
+    ]
+  },
+  {
+    "id": "2017-france-ligue1",
+    "annee": "2017",
+    "titre": "Vice-champion de France, Ligue 1",
+    "competition": "Championnat de France",
+    "lieu": "Évry",
+    "epreuve": "Ligue 1",
+    "rang": 2,
+    "resultat": "2e",
+    "trophees": [
+      "2017-coupe-ligue1"
+    ]
+  },
+  {
+    "id": "2017-coupe-de-france",
+    "annee": "2017",
+    "titre": "2e de la Coupe de France des clubs, groupe A",
+    "competition": "Coupe de France des clubs",
+    "lieu": "Saint-Herblain, 2 et 3 décembre",
+    "epreuve": "Groupe A",
+    "rang": 2,
+    "resultat": "2e",
+    "trophees": [
+      "2017-coupe-de-france"
+    ]
+  },
+  {
+    "id": "2019-coupe-de-france",
+    "annee": "2019",
+    "titre": "3e de la Coupe de France des clubs, groupe C",
+    "competition": "Coupe de France des clubs (FFFT)",
+    "lieu": "Saint-Aignan-de-Grand-Lieu",
+    "epreuve": "Groupe C",
+    "rang": 3,
+    "resultat": "3e",
+    "trophees": [
+      "2019-plateau-coupe-de-france"
+    ]
+  },
+  {
+    "id": "2024-paca-clubs",
+    "annee": "2024",
+    "titre": "Champion régional des clubs PACA",
+    "competition": "Championnat régional des clubs Provence-Alpes-Côte d’Azur",
+    "lieu": null,
+    "epreuve": null,
+    "rang": 1,
+    "resultat": "Vainqueur",
+    "trophees": [
+      "2024-coupe-paca"
+    ]
+  },
+  {
+    "id": "2025-paca-clubs",
+    "annee": "2025",
+    "titre": "Champion régional des clubs PACA",
+    "competition": "Championnat régional des clubs Provence-Alpes-Côte d’Azur",
+    "lieu": null,
+    "epreuve": null,
+    "rang": 1,
+    "resultat": "Vainqueur, deuxième titre d’affilée",
+    "trophees": [
+      "2025-coupe-paca"
+    ]
+  },
+  {
+    "id": "2026-paca-clubs",
+    "annee": "2026",
+    "titre": "2e du championnat régional des clubs PACA",
+    "competition": "Championnat régional des clubs Provence-Alpes-Côte d’Azur",
+    "lieu": null,
+    "epreuve": null,
+    "rang": 2,
+    "resultat": "2e",
+    "trophees": []
   }
 ]

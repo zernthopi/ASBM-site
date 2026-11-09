@@ -1,26 +1,32 @@
 [
   {
     "annee": "1993",
+    "tri": 1993,
     "titre": "Naissance de l’association",
     "texte": "L’Association Sportive de Baby-foot de Marseille est déclarée en décembre 1993.",
     "aCompleter": false
   },
   {
     "annee": "À compléter",
-    "titre": "Premiers tournois et premiers titres",
-    "texte": "Les débuts du club, ses fondateurs, ses premiers lieux de jeu.",
+    "tri": 1994,
+    "titre": "Les débuts du club",
+    "texte": "Les fondateurs, les premiers tournois et les premiers lieux de jeu.",
     "aCompleter": true
   },
   {
-    "annee": "À compléter",
+    "annee": "201x",
+    "anneeIncertaine": true,
+    "tri": 2010,
+    "titre": "Installation à La Rose",
+    "texte": "Le club s’installe dans le quartier de La Rose, dans le 13e arrondissement.",
+    "aCompleter": false
+  },
+  {
+    "annee": "201x",
+    "anneeIncertaine": true,
+    "tri": 2018,
     "titre": "Installation avenue du Maréchal-Foch",
-    "texte": "Date d’arrivée au 21 avenue du Maréchal-Foch et histoire du local.",
-    "aCompleter": true
-  },
-  {
-    "annee": "2026",
-    "titre": "Neuf tables de compétition",
-    "texte": "Le club s’entraîne sur 8 tables Bonzini de compétition neuves et une table Leonhart homologuée ITSF, trois soirs par semaine.",
+    "texte": "Le club s’installe au 21 avenue du Maréchal-Foch (4e), au sous-sol de l’école Michelet.",
     "aCompleter": false
   }
 ]

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Rendu des trophées</title>
+<link rel="stylesheet" href="/node_modules/@fontsource-variable/atkinson-hyperlegible-next/index.css">
+<link rel="stylesheet" href="/node_modules/@fontsource/big-shoulders-display/800.css">
+<style>html,body{margin:0;background:transparent}canvas{display:block}</style>
+<script type="importmap">
+{ "imports": {
+  "three": "/node_modules/three/build/three.module.js",
+  "three/examples/jsm/": "/node_modules/three/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<script type="module">
+// Outil de production (pas publié) : rend un trophée en image transparente.
+// Paramètres : ?id=...&l=...&h=...&fond=1 (fond clair pour contrôle visuel)
+import { THREE, construireTrophee, creerEnvironnement, cadrer, ombreContact, configurerRendu } from '/src/scripts/trophees3d.js';
+const q = new URLSearchParams(location.search);
+const l = +(q.get('l') || 600), h = +(q.get('h') || 800);
+const specs = await (await fetch('/src/data/trophees.json')).json();
+const spec = specs[q.get('id')];
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(1);
+renderer.setSize(l, h);
+configurerRendu(renderer);
+document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+if (q.get('fond')) scene.background = new THREE.Color('#ffffff');
+scene.environment = creerEnvironnement(renderer);
+const objet = await construireTrophee(spec);
+scene.add(objet);
+const b = new THREE.Box3().setFromObject(objet);
+scene.add(ombreContact((b.max.x - b.min.x) * 1.5, Math.max((b.max.z - b.min.z) * 1.9, (b.max.x - b.min.x) * 0.4)));
+const camera = new THREE.PerspectiveCamera(24, l / h, 0.01, 100);
+const az = q.has('az') ? +q.get('az') : (spec.type === 'coupe' ? -0.2 : -0.12);
+cadrer(camera, objet, { azimut: az, elevation: +(q.get('el') || 0.1), marge: 1.04 });
+renderer.render(scene, camera);
+window.__fini = renderer.domElement.toDataURL('image/png');
+</script>
+</body>
+</html>

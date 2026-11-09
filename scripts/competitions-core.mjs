@@ -24,6 +24,16 @@ export function groupeFfbf(categorie) {
 
 const propre = (s) => String(s ?? '').replace(/\s+/g, ' ').trim();
 
+/** Lien venu de l'API : seulement http(s), sinon vide (bloque « javascript: », « data: »…). */
+export const lienSur = (u) => {
+  try {
+    const url = new URL(String(u ?? '').trim());
+    return url.protocol === 'https:' || url.protocol === 'http:' ? url.href : '';
+  } catch {
+    return '';
+  }
+};
+
 /** "DOS SANTOS LOTE Miguel" → { prenom: "Miguel", nom: "Dos Santos Lote" } */
 export function decouperNom(complet) {
   const mots = propre(complet).split(' ');
@@ -64,7 +74,7 @@ const tournoiItsf = (t) => ({
   pays: t.country || '',
   categorie: t.category?.name || '',
   table: t.playground?.name || '',
-  lien: t.site || '',
+  lien: lienSur(t.site),
   statut: t.status,
 });
 
@@ -134,8 +144,8 @@ async function ffbf(api, aujourdhui) {
       categorie,
       groupe: groupeFfbf(categorie),
       table: t.playground?.name || '',
-      lien: t.site || '',
-      info: t.info || '',
+      lien: lienSur(t.site),
+      info: lienSur(t.info),
       organisateur: { sigle, nom: propre(t.organization?.name) },
       statut: t.status,
     };
@@ -233,7 +243,7 @@ async function resultatsDuClub(api, liste, aujourdhui) {
       pays: t.address?.country || '',
       categorie: categoriePrincipale(t.categories),
       table: t.playground?.name || '',
-      lien: d.public_url || `https://app.tablesoccer.org/p/${t.code}`,
+      lien: lienSur(d.public_url) || `https://app.tablesoccer.org/p/${encodeURIComponent(t.code)}`,
       epreuves: listeEpreuves,
     };
   });
